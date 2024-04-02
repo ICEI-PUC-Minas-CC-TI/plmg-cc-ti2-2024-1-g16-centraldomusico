@@ -17,4 +17,8 @@ O projeto visa resolver a dificuldade encontrada por músicos em encontrar parce
 
 ## Instruções de utilização
 
-[Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.]
+Em nosso projeto pode ser inicializado pelo html de tela inicial, podendo seguir para exploração direta ou a criação de um cadastro com login e senha, mais descrição e instrumetos que o musico possui afinidade, após, será redirecionado para pagina de login onde utilizando das mesmas informações colocadas no cadastro, será feito o login e redirecionado para a pagina de explorar.
+
+A partir da pagina de explorar pode ser feita a navegação pelo WebSite, explorando os perfis ja pré-cadastrados vendo suas descrições e nomes. Seguindo pela barra lateral de navegação pode-se também visualizar o prórpio perfil criado com sua descrição, checar e alterar sua agenda para os horários desejados, iniciar o chat de conversação com as pessoas ja cadastradas, criar anuncios e bandas também e visualizar os proprios na parte "Procure Bandas".
+
+Caso de duvidas: 1354340@sga.pucminas.br
