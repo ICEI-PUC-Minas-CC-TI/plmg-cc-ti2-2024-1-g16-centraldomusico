@@ -1,0 +1,216 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+    font-family: fantasy;
+    background-image: linear-gradient(#0d101b,#281a2d);
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.navbar {
+    padding: 15px 10px;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #af2747;
+    margin: 40px 0;
+}
+
+.h6sair {
+    float: right;
+    font-weight: 500;
+    font-size: 20px;
+    text-decoration: underline;
+    padding: 10px;
+}
+
+.anunciotext {
+    
+    text-decoration: none;
+    font-size: larger;
+    
+}
+.anunciotextb {
+    text-decoration: none;
+    font-size: larger;
+    margin-bottom: 02vh;
+}
+
+.anunciotext a {
+    background-color: #0d101b;
+    display: block;
+    width: 100%;
+    height: 7.4vh;
+    text-align: center;
+    padding-top: 22px;
+}
+
+.anunciotextb a {
+    background-color: #0d101b;
+    display: block;
+    width: 100%;
+    height: 7.4vh;
+    text-align: center;
+    padding-top: 22px;
+}
+
+.anunciotext a:hover {
+    display: block;
+    color: #442e37;
+    background: #ebede6;
+}
+
+.anunciotextb a:hover {
+    display: block;
+    color: #442e37;
+    background: #ebede6;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #281a2d;
+    color: #af2747;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background-image: #281a2d;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #281a2d;
+}
+
+#sidebar ul p {
+    color: #af2747;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar ul li a:hover {
+    color: #0d101b;
+    background: #ebede6;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #d4a78d;
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    color: #af2747;
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+
+#perfilCard {
+    display: flexbox;
+    color:#af2747;
+    float: left;
+    max-width: 100%;
+    margin-top: 10px;
+}
+
+#perfilCard img {
+    border-radius: 50%;
+    max-width: 35%;
+    float: right;
+}
+
+.nome {
+    font-size: 500%;
+}
+
+.contatos {
+    font-size: 300%;
+}
+
+h2 {
+    color: #ee243d;
+}

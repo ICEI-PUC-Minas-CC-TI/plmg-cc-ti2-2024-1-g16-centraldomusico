@@ -1,0 +1,264 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+body {
+    font-family: fantasy;
+    background-image: linear-gradient(#0d101b,#281a2d);
+    color: #af2747;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #bc6f56;
+    color: #ebede6;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #442e37;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #442e37;
+}
+
+.anunciotext {
+    
+    text-decoration: none;
+    font-size: larger;
+    
+}
+.anunciotextb {
+    text-decoration: none;
+    font-size: larger;
+    margin-bottom: 02vh;
+}
+
+.anunciotext a {
+    background-color: #f85b2660;
+    display: block;
+    width: 100%;
+    height: 7.4vh;
+    text-align: center;
+    padding-top: 22px;
+}
+
+.anunciotextb a {
+    background-color: #f85b2660;
+    display: block;
+    width: 100%;
+    height: 7.4vh;
+    text-align: center;
+    padding-top: 22px;
+}
+
+.anunciotext a:hover {
+    display: block;
+    color: #442e37;
+    background: #ebede6;
+}
+
+.anunciotextb a:hover {
+    display: block;
+    color: #442e37;
+    background: #ebede6;
+}
+
+#sidebar ul p {
+    color: #ebede6;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar ul li a:hover {
+    color: #442e37;
+    background: #ebede6;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #d4a78d;
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.h6sair {
+    float: right;
+    font-weight: 500;
+    font-size: 20px;
+    text-decoration: underline;
+    padding: 10px;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+.caixa-cadastro {
+    display: block;
+    text-align: center;
+    background-color: #0d101b;
+    margin: 0 auto;
+    width: 75%;
+    border-radius: 5%;
+}
+
+
+.caixa-cadastro h5 {
+    font-weight: 500;
+    text-align: start;
+    padding-left: 20px;
+    padding-top: 25px;
+}
+
+#caixaTexto {
+   padding: 4px;
+   margin-left: 1vw;
+   margin-right: 1vw;
+   margin-top: 25px;
+   width: 95%;
+   border-radius: 5px;
+   font-size: 19px;
+}
+
+#caixaTextoge {
+    padding: 4px;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-top: 15px;
+    width: 95%;
+    border-radius: 5px;
+    font-size: 19px;
+ }
+
+#descricao {
+    width: 95%;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    border-radius: 15px;
+    height: 250px;
+    padding: 5px;
+    
+}
+
+.fundo-data {
+    background-color: #f85a2673;
+    padding: 20px;
+    width: 40%;
+    margin-top: 3vh; 
+    border-radius: 6px;
+    display: inline-block;
+
+}
+
+.data {
+    text-align: start;
+    display: inline-block;
+    width: 20vw;
+    font-size: 18px;
+    border-radius: 5px;
+
+}
+
+.botaoenviar {
+    background-color: #281a2d;
+    color: #ee243d;
+    border-color: #af2747;
+    border-radius: 10px;
+    border-width: 2px;
+    padding: 1%;
+    width: 25%;
+    margin: 2%;
+}
+
+
+.selecaoinstrumento {
+    margin-top: 5px;
+    padding: 20px;
+    background-color: #281a2d;
+    font-weight: 500;
+}
+
+.selecaoinstrumento select {
+    margin-left: 10px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.label-float {
+    font-weight: 500;
+    text-align: start;
+    margin-left: 2vw;
+    margin-top: 10px;
+}
+
+.label-float input {
+    border-radius: 5px;
+    
+}
+
+.telefonee {
+    margin-left: 2vw;
+    font-weight: 500;
+    margin-top: 5px;
+    padding: 10px;
+    text-align: start;
+    width: 50%;
+}
+
+.telefonee input {
+    margin-left: 5px;
+    border-radius: 5px;
+}
+

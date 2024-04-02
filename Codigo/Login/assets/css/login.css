@@ -1,0 +1,119 @@
+body {
+    background-image: linear-gradient(#0d101b,#281a2d);
+    font-family: fantasy;
+    overflow: hidden;
+    color: #af2747;
+}
+
+.area-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0d101b;
+    width: 355px;
+    height: 420px;
+    padding: 35px;
+    border-radius: 10px;
+}
+
+.css {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.login input {
+    color: rgb(224, 218, 218);
+    margin-top: 10px;
+    padding-left: 10px;
+    background-color: rgb(51, 51, 51);
+    border: none;
+    height: 45px;
+    outline: none;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.login img {
+    width: 155px;
+    height: auto;
+}
+
+input::placeholder {
+    color: rgb(224, 218, 218);
+    font-size: 14px;
+
+}
+
+.css [type="submit"] {
+    display: block;
+    background-color: #ee243d;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+p {
+    color: whitesmoke;
+}
+
+a {
+    color: whitesmoke;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.label-float input {
+    width: 100%;
+    padding: 5px;
+    border: 0;
+
+    transition: all .3s ease-out;
+}
+
+.label-float {
+    position: relative;
+    padding-top: 13px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.label-float input:focus {
+    border-bottom: 2px;
+}
+
+.label-float label {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 42px;
+    margin-left: 10px;
+    transition: all .3s ease-out;
+}
+
+.label-float input:focus+label,
+.label-float input:valid+label {
+    font-size: 13px;
+    margin-top: 0;
+
+}
+
+#msgError {
+    text-align: center;
+    color: #ff0000;
+    background-color: #ffbbbb;
+    padding: 10px;
+    border-radius: 4px;
+    display: none;
+}

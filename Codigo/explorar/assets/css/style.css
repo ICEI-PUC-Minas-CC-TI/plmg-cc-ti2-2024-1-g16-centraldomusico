@@ -1,0 +1,394 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+    background-image: linear-gradient(#0d101b,#281a2d);
+    color: #af2747;
+    text-align: left;
+    font-family: fantasy;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.navbar {
+    padding: 15px 10px;
+    background: #ebede6;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #281a2d;
+    color: #af2747;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background-image: #281a2d;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #281a2d;
+}
+
+#sidebar ul p {
+    color: #af2747;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar ul li a:hover {
+    color: #0d101b;
+    background: #ebede6;
+}
+
+.anunciotext {
+    
+    text-decoration: none;
+    font-size: larger;
+    
+}
+.anunciotextb {
+    text-decoration: none;
+    font-size: larger;
+    margin-bottom: 02vh;
+}
+
+.anunciotext a {
+    background-color: #0d101b;
+    display: block;
+    width: 100%;
+    height: 7.4vh;
+    text-align: center;
+    padding-top: 22px;
+}
+
+.anunciotextb a {
+    background-color: #0d101b;
+    display: block;
+    width: 100%;
+    height: 7.4vh;
+    text-align: center;
+    padding-top: 22px;
+}
+
+.anunciotext a:hover {
+    display: block;
+    color: #442e37;
+    background: #ebede6;
+}
+
+.anunciotextb a:hover {
+    display: block;
+    color: #442e37;
+    background: #ebede6;
+}
+
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #d4a78d;
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+
+
+/* ---------------------------------------------------
+    Conteúdo da página
+----------------------------------------------------- */
+
+#divBusca {
+    margin: 0 auto;
+    width: 20vw;
+    margin-top: 20px;
+}
+
+#txtBusca {
+    border-radius: 5px;
+    width:100%;
+    text-align: center;
+}
+
+
+.caixa-explorar {
+    margin-top: 27px;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    height: 750px;
+}
+
+.h6sair {
+    float: right;
+    font-weight: 500;
+    font-size: 20px;
+    text-decoration: underline;
+    padding: 10px;
+}
+
+#filtros {
+    text-align: center;
+    width: 100%;
+    font-size: 18px;
+}
+
+.form-select {
+    margin-top: 20px;
+    width: 14vw;
+    padding: 2px;
+    border-radius: 5px;
+    margin-left: 2px;
+}
+
+.caixa-perfil {
+    margin-top: 20px;
+    background-color: #0d101b;
+    height: 100%;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    overflow-y: scroll;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#resultadoPesquisa {
+    width: 100%;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#resultadoFiltrado {
+    width: 100%;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+.card {
+    margin: 20px auto;
+   width: 25%;
+   gap: 10px;
+}
+
+.card img {
+    height: 50%;
+    object-fit: cover;
+}
+
+/*///////////////////////////////////////////////////////  
+                   POP UP!!
+///////////////////////////////////////////////////////*/
+
+#popup-wrapper {
+    background: rgba(0, 0, 0, .5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+ }
+
+ .popup {
+     box-sizing: border-box;
+     font-family: fantasy;
+     width: 30%;
+     margin: 10vw auto;  
+     color: #ee243d;
+     background-color: #281a2d;
+ }
+ 
+ .popup-close {
+     text-align: center;
+     float: right;  
+     font-size: 35px;
+     padding: 2px;
+     width: 10%;
+     cursor: pointer;
+ }
+ 
+ .popup-close:hover {
+      background-color: rgba(0, 0, 0, .5);
+ }
+ 
+ 
+ .popup-content {
+    width: 100%;
+     display: inline;
+ }
+
+ .popup-content h3 {
+    padding: 5px;
+    width: 100%;
+    margin-bottom: 0px;
+    
+}
+
+ .popup-content img {
+    margin: 10px 20%;
+    width: 60%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    background-color: #442e37;
+    padding: 10px;
+    text-align: center;
+}
+
+.popup-content h5 {
+    width: 50%;
+    padding: 10px;
+    text-decoration: underline;
+    background-color: #6b2341;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.popup-content p {
+    padding: 10px;
+}
+
+.minidescricao {
+    width: 100%;
+    padding: 5px;
+    color: #000;
+    background-color: #6b2341;
+}
+
+.minidescricao {
+    width: 100%;
+    padding: 5px;
+}
+
+.minidescricao p {
+    color: #000;
+}
+
+.minidescricao h6 {
+    font-weight: 600;
+    padding-left: 10px;
+}
+
+.botao-perfil {
+    font-size: 25px;
+    text-align: center;
+}
+
+.botao-perfil a {
+   padding: 20px;
+   color: #ee243d;
+}
+
+.botao-perfil a:hover {
+    color: #000;
+ }
+
+
+.botaoex {
+    border-radius: 5px;
+    font-size: larger;
+    text-align: center;
+    
+}
+

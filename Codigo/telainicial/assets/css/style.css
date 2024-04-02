@@ -1,0 +1,67 @@
+/* 
+#0d101b
+#281a2d
+#6b2341
+#af2747
+#ee243d
+*/
+
+body {
+    background-image: linear-gradient(#0d101b,#281a2d);
+    color: #af2747;
+    text-align: left;
+    font-family: fantasy;
+    height: 800px;
+}
+
+h1 {
+    padding: 5%;
+    color: #ee243d;
+}
+
+h3 {
+    padding-left: 5%;
+    padding-top: 5%;
+    color: #ee243d;
+}
+
+p {
+    padding: 2%;
+    max-width: 50%;
+    float: left;
+}
+
+.btn-redirect {
+    background-color: #0d101b;
+    color: #ee243d;
+    border-color: #af2747;
+    border-radius: 10px;
+    border-width: 2px;
+    padding: 1%;
+}
+
+button:hover {
+    color: #0d101b;
+    background: #ebede6;
+}
+
+button::after {
+    background:#0d101b;
+}
+
+.btn-cadastro {
+    display: block;
+    float: left;
+    margin-left: 5%;
+    margin-right: 1%;
+}
+
+.btn-forum {
+    float: right;
+    align-self: center;
+    margin-right: 25%;
+}
+
+#login {
+   cursor: pointer;
+}

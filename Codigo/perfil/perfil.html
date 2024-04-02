@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="/perfil/assets/js/perfil.js"></script>
+    <link rel="stylesheet" href="/perfil/assets/css/perfil.css">
+    <title>Perfil</title>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>CENTRAL DO MUSICO</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p></p>
+                <li class="active">
+                    <a href="/explorar/explorar.html">Explorar</a>
+                </li>
+                <li>
+                    <a href="/encontrebandas/encontrebandas.html">Encontre Bandas</a>
+                </li>
+
+                <li>
+                    <a href="/agenda/angenda.html">Agenda</a>
+                </li>
+                <li>
+                    <a href="/chat/chat.html">Chats</a>
+                </li>
+                <li>
+                    <a href="/perfil/perfil.html?id=1">Perfil</a>
+                </li>
+                <li>
+                    <a href="/informaçãoanuncio/anuncio.html">Anúncio</a>
+                </li>
+                <div class="line"></div>
+            </ul>
+            <div class="anunciotextb">
+                <a href="/cadastrodebanda/cad.html">CRIE SUA BANDA</a>
+            </div>
+            <div class="anunciotext">
+                <a href="/cadastroanuncio/cadastroanuncio.html">CRIE SEU ANÚNCIO</a>
+             </div>
+        </nav>
+
+        <!-- Conteúdo da Página  -->
+        <div id="content">
+
+            <nav class="navbar-expand-lg navbar-light bg-light" style="padding: 7px; border-radius: 5px;">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>Navegação</span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+
+                    </button>
+                    <a href="/telainicial/index.html" onclick=""><h6 class="h6sair">Sair</h6></a> 
+                </div>
+            </nav>
+
+            <div id="perfilCard">
+             <!--PERFIL AQUI-->
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+</body>
+</html>

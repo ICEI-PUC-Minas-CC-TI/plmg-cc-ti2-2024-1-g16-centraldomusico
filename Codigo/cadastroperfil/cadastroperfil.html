@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar perfil</title>
+    
+    <!-- CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/cadastroperfil/assets/css/style.css">
+    
+
+    <!-- JS -->
+    
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+
+    <script src="/cadastroperfil/assets/js/script.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+
+
+        <!-- Conteúdo da Página  -->
+        <div id="content">
+
+            
+            <div id="cadastro" class="caixa-cadastro">
+                <h4>Crie seu perfil</h4>
+                <input type="text" id="caixaTexto" name="caixaTexto" placeholder="Nome do perfil:">
+                <input type="text" id="caixaTextoge" name="caixaTexto" placeholder="Nome de usúario:">
+
+                <div class="label-float">
+
+                    <input type="password" id="senha" placeholder='' required>
+                    <label id="labelSenha" for="senha">Senha</label>
+                </div>
+    
+                <div class="label-float">
+                    <input type="password" id="confirmSenha" placeholder='' required>
+                    <label id="labelconfirmSenha" for="confirmSenha">Confirmar Senha</label>
+                </div>
+
+                <h5>Descrição para o seu perfil:</h5>
+                <textarea type="text" id="descricao" name="descricao" placeholder="Lembre-se de que essa descrição estara visivel para todos"></textarea>
+
+            <div class="selecaoinstrumento">
+                <label for="instrumento">Selecione os seus instrumentos:</label>
+                <select name="intrumento" id="intrumento1" form="intrumentoform">
+                <option value="Violão">Violão</option>
+                <option value="Bateria">Bateria</option>
+                <option value="Guitarra">Guitarra</option>
+                <option value="Ukulele">Ukulele</option>
+                <option value="Piano">Piano</option>
+                <option value="Saxofone">Saxofone</option>
+                <option value="Flauta">Flauta</option>
+                <option value="Teclado">Teclado</option>
+                <option value="Violino">Violino</option>
+                <option value="Pandeiro">Pandeiro</option>
+            </select>
+                <select name="intrumento" id="intrumento2" form="intrumentoform">
+                    <option value="Violão">Violão</option>
+                    <option value="Bateria">Bateria</option>
+                    <option value="Guitarra">Guitarra</option>
+                    <option value="Ukulele">Ukulele</option>
+                    <option value="Piano">Piano</option>
+                    <option value="Saxofone">Saxofone</option>
+                    <option value="Flauta">Flauta</option>
+                    <option value="Teclado">Teclado</option>
+                    <option value="Violino">Violino</option>
+                    <option value="Pandeiro">Pandeiro</option>
+                </select>
+
+                    <select name="intrumento" id="intrumento3" form="intrumentoform">
+                        <option value="Violão">Violão</option>
+                        <option value="Bateria">Bateria</option>
+                        <option value="Guitarra">Guitarra</option>
+                        <option value="Ukulele">Ukulele</option>
+                        <option value="Piano">Piano</option>
+                        <option value="Saxofone">Saxofone</option>
+                        <option value="Flauta">Flauta</option>
+                        <option value="Teclado">Teclado</option>
+                        <option value="Violino">Violino</option>
+                        <option value="Pandeiro">Pandeiro</option>
+                    </select>
+                </div>
+                
+                <div class="telefonee">
+                    <label for="telefone">Telefone:</label>
+                    <input type="tel" id="telefone" name="telefone" pattern="[0-9]{10}" placeholder="Digite o número de telefone" required>
+                </div>
+                
+                <div class="telefonee">
+                    <label for="instagram">Perfil do Instagram:</label>
+                    <input type="text" id="instagram" name="instagram" placeholder="@seu_perfil">
+                </div>
+
+                <button class="botaoenviar" onclick="enviarDados()">Enviar</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- JS do Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

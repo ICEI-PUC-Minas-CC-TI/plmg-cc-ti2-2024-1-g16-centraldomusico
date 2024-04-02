@@ -1,6 +1,6 @@
 cff-version: 1.0.1
 message: Please cite this software using these metadata.
-title: 
+title: Central Do Musico
 authors:
   - family-names: 
     given-names: 
@@ -23,8 +23,12 @@ authors:
     family-names: 
     given-names: 
 keywords:
-  - 
-  - 
+  - Musica
+  - Encontro de musicos
+  - Site para encontrar bandas
+  - Bandas
+  - Sepultura sempre será lembrado como a melhor banda brasileira
+  - Encontrar bandas
 repository-code: 
 license: CC-BY-4.0
 version: 1.0.0

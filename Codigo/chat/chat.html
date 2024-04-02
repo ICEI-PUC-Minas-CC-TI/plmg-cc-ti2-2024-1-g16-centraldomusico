@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/chat/assets/css/chat.css" class="css">
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <div class="voltar"><button onclick="goBack()">Voltar</button></div>
+    <div class="selection">
+        <div class="header">
+            <div class="custom-checkbox">
+                <input type="checkbox" id="pessoas" name="opcao1" value="1" onclick="selecionar()">
+                <label for="pessoas">
+                    <img src="/chat/assets/img/Pessoa.png" style="width: 40px; height: 40px; margin-left: 15px;">
+                    Pessoas
+                </label>
+                <input type="checkbox" id="bandas" value="2" name="opcao2" onclick="selecionar()">
+                <label for="bandas">
+                    <img src="/chat/assets/img/band.png" style="width: 40px; height: 40px; margin-left: 15px; border: 50px;">
+                    Bandas
+                </label>
+            </div>
+
+        </div>
+
+        <div class="Historico_de_Pessoas" id="procurar">
+            
+            <div class="pessoa1" style="margin-top: -200px;" onclick="selecionar()" >
+                <img src="/chat/assets/img/Pessoa.png" style="width: 40px; height: 40px; float: left;">
+                <p style="float: left; margin-left: 10px;">Pessoa1</p>
+            </div>
+            <div class="pessoa1" style="margin-top: 70px;" onclick="selecionar()">
+                <img src="/chat/assets/img/Pessoa.png" style="width: 40px; height: 40px; float: left;" >
+                <p style="float: left; margin-left: 10px;">Pessoa2</p>
+            </div>
+            <div class="pessoa1" style="margin-top: 140px;" onclick="selecionar()">
+                <img src="/chat/assets/img/Pessoa.png" style="width: 40px; height: 40px; float: left;">
+                <p style="float: left; margin-left: 10px;">Pessoa3</p>
+            </div>
+            <div class="pessoa1" style="margin-top: 210px;" onclick="selecionar()">
+                <img src="/chat/assets/img/Pessoa.png" style="width: 40px; height: 40px; float: left;">
+                <p style="float: left; margin-left: 10px;">Pessoa4</p>
+            </div>
+            <div class="pessoa1" style="margin-top: 290px;" onclick="selecionar()">
+                <img src="/chat/assets/img/Pessoa.png" style="width: 40px; height: 40px; float: left;">
+                <p style="float: left; margin-left: 10px;">Pessoa5</p>
+            </div>
+        </div>
+
+        <div class="footer">
+
+        </div>
+
+    </div>
+
+    <div class="box-question">
+        <div class="header" id="header1">
+            <h3 id="amigo1">Chat</h3>
+        </div>
+        <p id="status"></p>
+        <div id="historic">
+
+        </div>
+        <div class="footer">
+            <input type="text" placeholder="Digite uma mensagem..." id="message-input">
+            <button id="button" onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+</body>
+<script src="/chat/assets/js/chat.js"></script>
+
+</html>
