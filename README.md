@@ -21,4 +21,3 @@ Em nosso projeto pode ser inicializado pelo html de tela inicial, podendo seguir
 
 A partir da pagina de explorar pode ser feita a navegação pelo WebSite, explorando os perfis ja pré-cadastrados vendo suas descrições e nomes. Seguindo pela barra lateral de navegação pode-se também visualizar o prórpio perfil criado com sua descrição, checar e alterar sua agenda para os horários desejados, iniciar o chat de conversação com as pessoas ja cadastradas, criar anuncios e bandas também e visualizar os proprios na parte "Procure Bandas".
 
-Caso de duvidas: 1354340@sga.pucminas.br
