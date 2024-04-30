@@ -2,7 +2,7 @@
 
 body {
     background-image: linear-gradient(#0d101b,#281a2d);
-    color: #af2747;
+    color: #fdfdfd;
     text-align: left;
     font-family: fantasy;
 }
@@ -59,7 +59,7 @@ a:focus {
     min-width: 250px;
     max-width: 250px;
     background: #281a2d;
-    color: #af2747;
+    color: #ffffff;
     transition: all 0.3s;
 }
 
@@ -125,13 +125,13 @@ a:focus {
 
 .anunciotext a:hover {
     display: block;
-    color: #442e37;
+    color: #000000;
     background: #ebede6;
 }
 
 .anunciotextb a:hover {
     display: block;
-    color: #442e37;
+    color: #000000;
     background: #ebede6;
 }
 
