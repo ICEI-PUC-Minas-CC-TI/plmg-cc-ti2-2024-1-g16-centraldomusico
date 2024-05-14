@@ -1,10 +1,93 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: arilal;
+    scroll-behavior: smooth;
+
+}
+
+
+
 
 body {
     font-family: fantasy;
     background-image: linear-gradient(#0d101b,#281a2d);
     color: #af2747;
 }
+
+.area-cadastro{
+    animation: fade-slide-up 1.5s ease-out;
+}
+
+.container {
+    width: 100%;
+    height: 20vh;
+    position: relative;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1; /* Define a ordem de empilhamento */
+}
+
+
+
+
+
+nav {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between; /* Alterado para espaçamento entre os elementos */
+    align-items: center;
+}
+
+nav ul li
+{
+    list-style: none;
+    display: inline-block;
+    margin-left: 40px;
+}
+
+nav ul li a
+{
+    text-decoration: none;
+    color: #ffff;
+    font-size: 25px;
+}
+nav ul li a:hover,
+nav ul li a:visited:hover {
+    text-decoration: none !important; /* Remover sublinhado ao passar o mouse */
+    color: #ffff;
+}
+
+.logo {
+    margin-right: 6px;
+}
+
+.welcome {
+    margin-right: 500px; /* Adiciona um espaçamento entre a logo e a saudação */
+    text-decoration: none;
+    display: inline-block;
+    color: #ffff;
+    font-size: 25px;
+}
+.logo img {
+    width:  50px; /* Defina o tamanho desejado em pixels */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+
+
+
+
+
 
 /* ---------------------------------------------------
     SIDEBAR STYLE
@@ -262,3 +345,13 @@ ul.CTAs a {
     border-radius: 5px;
 }
 
+@keyframes fade-slide-up {
+    from {
+        transform: translateY(50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

@@ -1,5 +1,5 @@
 body {
-    background-image: linear-gradient(#0d101b,#281a2d);
+    background-image: linear-gradient(#000000,#281a2d);
     font-family: fantasy;
     overflow: hidden;
     color: #af2747;
@@ -12,6 +12,9 @@ body {
     height: 100vh;
     justify-content: center;
     align-items: center;
+    
+        animation: fade-slide-up 1.5s ease-out;
+    
 }
 
 .login {
@@ -116,4 +119,14 @@ a {
     padding: 10px;
     border-radius: 4px;
     display: none;
+}
+@keyframes fade-slide-up {
+    from {
+        transform: translateY(50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

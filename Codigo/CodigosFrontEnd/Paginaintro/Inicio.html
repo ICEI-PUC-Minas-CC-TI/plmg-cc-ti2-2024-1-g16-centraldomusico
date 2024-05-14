@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sua Página</title>
+</head>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    #logo {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+    }
+</style>
+</head>
+<body>
+    <img id="logo" src="assents/css/Logo-1-[remix].gif" alt="Minha Logo">
+
+    <script>
+        // Função para redirecionar para outra página após o tempo especificado
+        function redirecionarParaOutraPagina() {
+            setTimeout(function() {
+                window.location.href = "/CodigosFrontEnd/telainicial/Updateinicial.html"; // Altere o URL conforme necessário
+            }, 1500); // 5000 milissegundos = 5 segundos. Altere conforme necessário.
+        }
+
+        // Chamar a função de redirecionamento assim que a página for carregada
+        window.onload = redirecionarParaOutraPagina;
+    </script>
+</body>
+</html>

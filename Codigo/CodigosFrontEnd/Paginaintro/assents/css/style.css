@@ -1,0 +1,9 @@
+body {
+    background-image: url('assents/css/back.jpg');
+    /* Caso queira repetir a imagem em todas as direções: */
+    background-repeat: repeat; 
+    /* Ou caso queira que a imagem preencha todo o espaço disponível: */
+    background-size: cover; 
+    /* Definir a cor de fundo caso a imagem não carregue ou seja pequena demais: */
+    background-color: #f0f0f0; 
+}
