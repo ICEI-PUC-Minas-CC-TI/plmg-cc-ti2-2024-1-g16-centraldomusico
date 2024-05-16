@@ -65,4 +65,3 @@ VALUES
 SELECT * FROM banda;
 SELECT * FROM casadeshows;
 SELECT * FROM banda;
-k
