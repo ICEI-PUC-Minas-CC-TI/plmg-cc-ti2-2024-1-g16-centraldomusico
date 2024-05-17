@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criação de anúncio</title>
+    <link rel="stylesheet" href="/CodigosFrontEnd/cadastroanuncio/assets/css/anstyle.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo_content"> 
+            <div class="logo"> 
+                <img src="/CodigosFrontEnd/telainicial/assets/css/Logo.png" alt="Sua Logo">
+                <div class="logo_name"> Central</div>
+            </div>
+            <i class='bx bx-menu' id='btn'></i>
+        </div>    
+        <div class="src">
+            <i class='bx bx-search'></i>
+            <input type="text" placeholder="Search..." >
+        </div>
+        <ul class="nav">
+            <li>
+                <a href="/CodigosFrontEnd/encontrebandas/encontrebandas.html">
+                    <i class='bx bxs-music'></i>
+                    <span class="link_name">Encontre Bandas</span>
+                </a>
+                <span class="tooltip"> Encontre Bandas</span>
+            </li>
+            <li>
+                <a href="/CodigosFrontEnd/cadastrodebanda/htmlteste.html">
+                    <i class='bx bxs-guitar-amp' ></i>
+                    <span class="link_name">Cadastre sua Banda</span>
+                </a>
+                <span class="tooltip"> Sua Banda</span>
+            </li>
+            <li>
+                <a href="/CodigosFrontEnd/cadastroanuncio/cadAnunicioupdate.html">
+                    <i class='bx bx-slideshow' ></i>
+                    <span class="link_name">Cadastre seu Anúncio</span>
+                </a>
+                <span class="tooltip"> Seu Anúncio</span>
+            </li>
+            
+            <li>
+                <a href="/CodigosFrontEnd/informaçãoanuncio/anuncio.html">
+                    <i class='bx bxs-party'></i>
+                    <span class="link_name"> Anúncios</span>
+                </a>
+                <span class="tooltip"> Anúncios</span>
+            </li>
+            <li>
+                <a href="/CodigosFrontEnd/agenda/novaagenda.html">
+                    <i class='bx bx-calendar'></i>
+                    <span class="link_name"> Agenda</span>
+                </a>
+                <span class="tooltip"> Agenda</span>
+            </li>
+            <li>
+                <a href="/CodigosFrontEnd/chat/chat2.html">
+                    <i class='bx bxs-conversation'></i>
+                    <span class="link_name">Chat</span>
+                </a>
+                <span class="tooltip"> Chat</span>
+            </li>
+            <li>
+                <a href="/CodigosFrontEnd/perfil/perfil.html">
+                    <i class='bx bxs-user'></i>
+                    <span class="link_name">Perfil</span>
+                </a>
+                <span class="tooltip"> Perfil</span>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        
+        <nav>
+            <div class="logo">
+                <img src="/CodigosFrontEnd/telainicial/assets/css/Logo.png" alt="Sua Logo">
+            </div>
+            <div class="welcome">
+                Central do Músico
+            </div>  
+            <ul>
+                <li><a href="/CodigosFrontEnd/telainicial/Updateinicial.html">Menu</a></li>
+                <li><a href="/CodigosFrontEnd/Login/novologin.html">Login</a></li>
+
+            </ul>
+        </nav>
+
+
+            <!-- Conteúdo da Página  -->
+            <div id="content">
+    
+                
+                
+                <div id="cadastro" class="caixa-cadastro">
+                    <h4>Criação de anúncio</h4>
+                    <input type="text" id="caixaTexto" name="caixaTexto" placeholder="Nome da casa de evento:"style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                    <h5>Descrição:</h5>
+                    <textarea type="text" id="descricao" name="descricao" placeholder="Lembre-se de colocar seu contato!" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"></textarea>
+                    <p>Data:</p>
+                    <div class="fundo-data">
+                       <input id="data" type="date" name="data" class="data"/>
+                    </div>
+                
+                    <button class="botaoenviar" onclick="enviarDados()">Enviar</button>
+                </div>
+                
+            </div>
+    
+            
+    
+        <!-- jQuery CDN -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <!-- Popper.JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <!-- JS do Bootstrap -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    
+
+
+    <script>
+        let btn = document.querySelector('#btn');
+        let sidebar = document.querySelector('.sidebar');
+        let srcBtn = document.querySelector('.bx-search');
+
+        btn.onclick = function(){
+            sidebar.classList.toggle('active');
+        }
+        srcBtn.onclick = function(){
+            sidebar.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
