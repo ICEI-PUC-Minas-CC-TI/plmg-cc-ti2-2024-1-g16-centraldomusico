@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anúncios</title>
-    <link rel="stylesheet" href="/CodigosFrontEnd/informaçãoanuncio/assets/css/style.css">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/CodigosFrontEnd/chat/assets/css/chato.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
@@ -90,6 +90,70 @@
 
             </ul>
         </nav>
+
+        <div class="voltar"><button onclick="goBack()">Voltar</button></div>
+        <div class="selection">
+            <div class="header">
+                <div class="custom-checkbox">
+                    <input type="checkbox" id="pessoas" name="opcao1" value="1" onclick="selecionar()">
+                    <label for="pessoas">
+                        <img src="assets/img/Pessoa.png" style="width: 40px; height: 40px; margin-left: 10px;">
+                        <p style="float: left; margin-left: 10px;">Pessoas</p>
+                    </label>
+                    <input type="checkbox" id="bandas" value="2" name="opcao2" onclick="selecionar()">
+                    <label for="bandas">
+                        <img src="assets/img/band.png" style="width: 40px; height: 40px; margin-left: 10px; margin-bottom: 10px; border: 50px;">
+                        <p style="float: left; margin-left: 10px;">Bandas</p>
+                    </label>
+                </div>
+    
+            </div>
+    
+            <div class="Historico_de_Pessoas" id="procurar">
+                
+                <div class="pessoa1" style="margin-left: 40px" onclick="selecionar()" >
+                    <img src="assets/img/Pessoa.png" style="width: 40px; height: 40px; float: left;">
+                    <p style="float: left; margin-top: 10px; margin-left: 10px;">Pessoa1</p>
+                </div>
+                <div class="pessoa1" style="margin-top: 70px; margin-left: 40px" onclick="selecionar()">
+                    <img src="assets/img/Pessoa.png" style="width: 40px; height: 40px; float: left;" >
+                    <p style="float: left; margin-top: 10px; margin-left: 10px;">Pessoa2</p>
+                </div>
+                <div class="pessoa1" style="margin-top: 140px; margin-left: 40px" onclick="selecionar()">
+                    <img src="assets/img/Pessoa.png" style="width: 40px; height: 40px; float: left;">
+                    <p style="float: left; margin-top: 10px; margin-left: 10px;">Pessoa3</p>
+                </div>
+                <div class="pessoa1" style="margin-top: 210px;margin-left: 40px" onclick="selecionar()">
+                    <img src="assets/img/Pessoa.png" style="width: 40px; height: 40px; float: left;">
+                    <p style="float: left; margin-top: 10px; margin-left: 10px;">Pessoa4</p>
+                </div>
+                <div class="pessoa1" style="margin-top: 290px; margin-left: 40px" onclick="selecionar()">
+                    <img src="assets/img/Pessoa.png" style="width: 40px; height: 40px; float: left;">
+                    <p style="float: left; margin-top: 10px; margin-left: 10px;">Pessoa5</p>
+                </div>
+            </div>
+    
+            <div class="footer">
+    
+            </div>
+    
+        </div>
+    
+        <div class="box-question">
+            <div class="header" id="header1">
+                <h3 id="amigo1">Chat</h3>
+            </div>
+            <p id="status"></p>
+            <div id="historic">
+    
+            </div>
+            <div class="footer">
+                <input type="text" placeholder="Digite uma mensagem..." id="message-input">
+                <button id="button" onclick="sendMessage()">Enviar</button>
+            </div>
+        </div>
+
+
             
     
         <!-- jQuery CDN -->
@@ -114,4 +178,5 @@
         }
     </script>
 </body>
+<script src="assets/js/chat.js"></script>
 </html>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anúncios</title>
-    <link rel="stylesheet" href="/CodigosFrontEnd/informaçãoanuncio/assets/css/style.css">
+    <title>Cadaste sua Banda</title>
+    <link rel="stylesheet" href="/CodigosFrontEnd/cadastrodebanda/assets/css/teste.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
@@ -38,7 +38,7 @@
                 <span class="tooltip"> Sua Banda</span>
             </li>
             <li>
-                <a href="/CodigosFrontEnd/cadastroanuncio/cadAnunicioupdate.html">    
+                <a href="/CodigosFrontEnd/cadastroanuncio/cadAnunicioupdate.html">
                     <i class='bx bx-slideshow' ></i>
                     <span class="link_name">Cadastre seu Anúncio</span>
                 </a>
@@ -90,7 +90,25 @@
 
             </ul>
         </nav>
+            <!-- Conteúdo da Página  -->
+            <div id="content">
+
+       
             
+                <div id="cadastro" class="caixa-cadastro">
+                    <h4>Criação de Banda</h4>
+                    <input type="text" id="caixaTexto" name="caixaTexto" placeholder="Nome da banda:" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                    <input type="text" id="caixaTextoge" name="caixaTexto" placeholder="Gênero Musical:" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                    <h5>Descrição:</h5>
+                    <textarea type="text" id="descricao" name="descricao" placeholder="Lembre-se de colocar seu contato!" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"></textarea>
+                    
+                    
+                
+                    <button class="botaoenviar" onclick="enviarDados()">Enviar</button>
+                </div>
+                
+            </div>
+        </div>
     
         <!-- jQuery CDN -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

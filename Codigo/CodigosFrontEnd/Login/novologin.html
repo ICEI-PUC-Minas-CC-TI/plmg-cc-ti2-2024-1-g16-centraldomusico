@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anúncios</title>
-    <link rel="stylesheet" href="/CodigosFrontEnd/informaçãoanuncio/assets/css/style.css">
+    <title>Login</title>
+    <link rel="stylesheet" href="/CodigosFrontEnd/Login/assets/css/login2.css" class="css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
@@ -38,7 +38,7 @@
                 <span class="tooltip"> Sua Banda</span>
             </li>
             <li>
-                <a href="/CodigosFrontEnd/cadastroanuncio/cadAnunicioupdate.html">    
+                <a href="/CodigosFrontEnd/cadastroanuncio/cadAnunicioupdate.html">
                     <i class='bx bx-slideshow' ></i>
                     <span class="link_name">Cadastre seu Anúncio</span>
                 </a>
@@ -90,7 +90,47 @@
 
             </ul>
         </nav>
-            
+                    <div class="area-login">
+            <div class="login">
+                <div>
+                    <a href="/CodigosFrontEnd/telainicial/Updateinicial.html"><img href="steero.html" src="assets/images/Logo.png" style="border-radius: 10px; height: 110px;"></a>
+                </div>
+    
+                <div id="msgError"></div>    
+                <div class="css">
+                    <div class="label-float">
+                    <input type="text" id="login" placeholder='Usuário' required>
+                    <label id="userLabel" for="usuario">Usuario</label>
+    
+                </div>
+    
+    
+                <div class="label-float">
+                    <input type="password" id="senha" placeholder='Senha'   required>
+                    <label id="senhaLabel" for="senha">Senha</label>
+                </div>
+    
+    
+    
+                <div class="justify-center"> 
+                    <input type="submit" value="Entrar" onclick="entrar()">
+                </div>
+    
+                <div class="justify-center">
+                    <hr>
+                </div>
+    
+                </div>
+    
+                <p>Ainda não tem uma conta?<a href="/CodigosFrontEnd/cadastroperfil/cddePerfil.html">Criar Conta</a></p>
+    
+    
+            </div>
+        </div>
+
+
+
+       
     
         <!-- jQuery CDN -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

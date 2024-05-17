@@ -46,7 +46,7 @@ body{
 }
 
 .sidebar.active .logo_content .logo
-{  transition: all .5s ease;
+{   transition: all .5s ease;
     opacity: 1;
 }
 
@@ -283,4 +283,128 @@ body{
 
 }
 
-/*----content style----*/
+
+.area-login {
+    width: 100%;
+    padding: 490px;
+    height: 0%;
+    position: relative;
+    font-family: fantasy;
+    animation: fade-slide-up 1s ease-out;
+    z-index: -1;
+}
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0d101b;
+    width: 355px;
+    height: 420px;
+    padding: 35px;
+    border-radius: 10px;
+}
+
+.css {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.login input {
+    color: rgb(224, 218, 218);
+    margin-top: 10px;
+    padding-left: 10px;
+    background-color: rgb(51, 51, 51);
+    border: none;
+    height: 45px;
+    outline: none;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.login img {
+    
+    height: auto;
+}
+
+input::placeholder {
+    color: rgb(224, 218, 218);
+    font-size: 14px;
+
+}
+
+
+.css [type="submit"] {
+    display: block;
+    background-color: #ee243d;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+p {
+    color: whitesmoke;
+}
+
+a {
+    color: whitesmoke;
+    text-decoration: none;
+    margin-left: 0px;
+}
+.label-float input {
+    width: 100%;
+    padding: 5px;
+    border: 0;
+    border-bottom: 1px solid #ccc; /* Adicionando estilo à borda inferior */
+    transition: all .3s ease-out;
+}
+
+.label-float input:focus {
+    border-bottom: 2px solid red; /* Adicionando estilo à borda inferior quando focado */
+}
+
+.label-float label {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 42px;
+    margin-left: 10px;
+    transition: all .3s ease-out;
+    color: white; /* Adicionando cor branca aos rótulos */
+}
+
+.label-float input:focus::placeholder {
+   color:transparent;
+}
+
+/* Movendo o label para cima quando o input está focado ou preenchido */
+.label-float input:focus + label,
+.label-float input:valid + label {
+    font-size: 13px;
+    margin-top: 0;
+}
+
+#msgError {
+    text-align: center;
+    color: #ff0000;
+    background-color: #ffbbbb;
+    padding: 10px;
+    border-radius: 4px;
+    display: none;
+}
+
+
+
+
+@keyframes fade-slide-up {
+    from {
+        transform: translateY(50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

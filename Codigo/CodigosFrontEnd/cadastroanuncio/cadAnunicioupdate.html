@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anúncios</title>
-    <link rel="stylesheet" href="/CodigosFrontEnd/informaçãoanuncio/assets/css/style.css">
+    <title>Criação de anúncio</title>
+    <link rel="stylesheet" href="/CodigosFrontEnd/cadastroanuncio/assets/css/anstyle.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
@@ -38,7 +38,7 @@
                 <span class="tooltip"> Sua Banda</span>
             </li>
             <li>
-                <a href="/CodigosFrontEnd/cadastroanuncio/cadAnunicioupdate.html">    
+                <a href="/CodigosFrontEnd/cadastroanuncio/cadAnunicioupdate.html">
                     <i class='bx bx-slideshow' ></i>
                     <span class="link_name">Cadastre seu Anúncio</span>
                 </a>
@@ -90,6 +90,28 @@
 
             </ul>
         </nav>
+
+
+            <!-- Conteúdo da Página  -->
+            <div id="content">
+    
+                
+                
+                <div id="cadastro" class="caixa-cadastro">
+                    <h4>Criação de anúncio</h4>
+                    <input type="text" id="caixaTexto" name="caixaTexto" placeholder="Nome da casa de evento:"style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                    <h5>Descrição:</h5>
+                    <textarea type="text" id="descricao" name="descricao" placeholder="Lembre-se de colocar seu contato!" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"></textarea>
+                    <p>Data:</p>
+                    <div class="fundo-data">
+                       <input id="data" type="date" name="data" class="data"/>
+                    </div>
+                
+                    <button class="botaoenviar" onclick="enviarDados()">Enviar</button>
+                </div>
+                
+            </div>
+    
             
     
         <!-- jQuery CDN -->
