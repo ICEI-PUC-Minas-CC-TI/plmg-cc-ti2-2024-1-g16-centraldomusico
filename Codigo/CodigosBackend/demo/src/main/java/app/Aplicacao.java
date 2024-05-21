@@ -18,7 +18,6 @@ public class Aplicacao {
     public static void main(String[] args) {
         port(6789);
         staticFiles.location("/public");
-
         // Apply CORS filter before defining routes
         before((request, response) -> {
             response.header("Access-Control-Allow-Origin", "*");
