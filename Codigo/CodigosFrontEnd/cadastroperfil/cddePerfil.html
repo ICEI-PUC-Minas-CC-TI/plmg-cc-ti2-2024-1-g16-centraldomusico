@@ -6,7 +6,7 @@
     <title>Cadastro</title>
     <link rel="stylesheet" href="/Codigo/CodigosFrontEnd/cadastroperfil/assets/css/style2.css" class="css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -104,8 +104,9 @@
               
               <div id="cadastro" class="caixa-cadastro">
                   <h4>Crie seu perfil</h4>
-                  <input type="text" id="caixaTexto" name="caixaTexto" placeholder="Nome do perfil:"style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
                   <input type="text" id="caixaTextoge" name="caixaTexto" placeholder="Nome de usúario:"style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                  <h5>Descrição para o seu perfil:</h5>
+                  <textarea type="text" id="descricao" name="descricao" placeholder="Lembre-se de que essa descrição estara visivel para todos"style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"></textarea>
   
                   <div class="label-float">
   
@@ -117,13 +118,15 @@
                       <input type="password" id="confirmSenha" placeholder='' required>
                       <label id="labelconfirmSenha" for="confirmSenha">Confirmar Senha</label>
                   </div>
-  
-                  <h5>Descrição para o seu perfil:</h5>
-                  <textarea type="text" id="descricao" name="descricao" placeholder="Lembre-se de que essa descrição estara visivel para todos"style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"></textarea>
-  
+                    
+                <div class="telefonee">
+                    <label for="cache">Cache:</label>
+                    <input type="text" id="cache" name="cache" placeholder="Digite o valor">
+                </div>
+
               <div class="selecaoinstrumento">
                   <label for="instrumento">Selecione os seus instrumentos:</label>
-                  <select name="intrumento" id="intrumento1" form="intrumentoform">
+                  <select name="intrumento" id="instrumento1" form="intrumentoform">
                   <option value="Violão">Violão</option>
                   <option value="Bateria">Bateria</option>
                   <option value="Guitarra">Guitarra</option>
@@ -135,7 +138,7 @@
                   <option value="Violino">Violino</option>
                   <option value="Pandeiro">Pandeiro</option>
               </select>
-                  <select name="intrumento" id="intrumento2" form="intrumentoform">
+                  <select name="intrumento" id="instrumento2" form="intrumentoform">
                       <option value="Violão">Violão</option>
                       <option value="Bateria">Bateria</option>
                       <option value="Guitarra">Guitarra</option>
@@ -148,7 +151,7 @@
                       <option value="Pandeiro">Pandeiro</option>
                   </select>
   
-                      <select name="intrumento" id="intrumento3" form="intrumentoform">
+                      <select name="intrumento" id="instrumento3" form="intrumentoform">
                           <option value="Violão">Violão</option>
                           <option value="Bateria">Bateria</option>
                           <option value="Guitarra">Guitarra</option>
@@ -163,13 +166,13 @@
                   </div>
                   
                   <div class="telefonee">
-                      <label for="telefone">Telefone:</label>
-                      <input type="tel" id="telefone" name="telefone" pattern="[0-9]{10}" placeholder="Digite o número de telefone" required>
+                      <label for="objetivo">Objetivo:</label>
+                      <input type="tel" id="objetivo" name="objetivo" pattern="[0-9]{10}" placeholder="Digite o seu objetivo" required>
                   </div>
                   
                   <div class="telefonee">
-                      <label for="instagram">Perfil do Instagram:</label>
-                      <input type="text" id="instagram" name="instagram" placeholder="@seu_perfil">
+                      <label for="estilo">Estilo:</label>
+                      <input type="text" id="estilo" name="estilo" placeholder="Seu estilo musical">
                   </div>
   
                   <button class="botaoenviar" onclick="enviarDados()">Enviar</button>
@@ -183,7 +186,7 @@
   
 
             
-    
+        <script src = "assets/js/script.js"></script>
         <!-- jQuery CDN -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <!-- Popper.JS -->
