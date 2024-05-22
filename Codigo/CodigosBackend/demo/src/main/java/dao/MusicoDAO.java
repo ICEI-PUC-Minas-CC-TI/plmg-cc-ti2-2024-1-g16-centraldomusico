@@ -37,6 +37,7 @@ public class MusicoDAO extends DAO {
             st.executeUpdate();
             st.close();
             status = true;
+            System.out.println("DEU BOM");
         } catch (SQLException u) {  
             throw new RuntimeException(u);
         }
