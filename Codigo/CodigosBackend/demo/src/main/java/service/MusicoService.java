@@ -7,7 +7,8 @@ import spark.Response;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.util.List;
-
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 public class MusicoService {
     private MusicoDAO musicoDAO;
 
@@ -47,10 +48,14 @@ public class MusicoService {
 
             if (musicoDAO.insert(musico)) {
                 res.status(201); // HTTP 201 Created
-                return "Músico inserido com sucesso!";
+                JsonObject responseJson = new JsonObject();
+                responseJson.addProperty("message", "Músico inserido com sucesso!");
+                return responseJson;
             } else {
                 res.status(500); // HTTP 500 Internal Server Error
-                return "Erro ao inserir músico.";
+                JsonObject responseJson = new JsonObject();
+                responseJson.addProperty("message", "Erro ao inserir músico.");
+                return responseJson;
             }
         } catch (Exception e) {
             e.printStackTrace();
