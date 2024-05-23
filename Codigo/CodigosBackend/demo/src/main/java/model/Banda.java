@@ -96,6 +96,6 @@ public class Banda {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return (this.getID() == ((Musico) obj).getID());
+		return (this.getID() == ((Banda) obj).getID());
 	}	
 }
