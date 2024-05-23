@@ -64,24 +64,89 @@ public class MusicoService {
         }
     }
 
-    public Object get(Request req, Response res) {
+    public Object getById(Request req, Response res) {
         String idParam = req.queryParams("id");
+        System.out.println("ID: " + idParam);
         if (idParam != null) {
-            int id = Integer.parseInt(idParam);
-            Musico musico = musicoDAO.get(id);
-            if (musico != null) {
-                res.status(200); // HTTP 200 OK
-                return musico;
-            } else {
-                res.status(404); // HTTP 404 Not Found
-                return "Músico não encontrado.";
+            try {
+                int id = Integer.parseInt(idParam);
+                Musico musico = musicoDAO.get(id);
+                if (musico != null) {
+                    System.out.println("Músico encontrado: " + musico.getNome());
+                    JsonObject responseJson = new JsonObject();
+                    responseJson.addProperty("message", "Músico encontrado: " + musico.getNome());
+                    res.status(200); // HTTP 200 OK
+                    //adicionar o id do usuario no JSON
+                    responseJson.addProperty("id", musico.getId());
+                    //adicionar tudo do usuario ao JSON
+                    responseJson.addProperty("nome", musico.getNome());
+                    responseJson.addProperty("descricao", musico.getDescricao());
+                    responseJson.addProperty("cache", musico.getCache());
+                    responseJson.addProperty("instrumento1", musico.getInstrumento1());
+                    responseJson.addProperty("instrumento2", musico.getInstrumento2());
+                    responseJson.addProperty("instrumento3", musico.getInstrumento3());
+                    responseJson.addProperty("objetivo", musico.getObjetivo());
+                    responseJson.addProperty("estilo", musico.getEstilo());
+
+                    return responseJson;
+                } else {
+                    System.out.println("Músico não encontrado.");
+                    res.status(404); // HTTP 404 Not Found
+                    return "Músico não encontrado.";
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("ID inválido.");
+                res.status(400); // HTTP 400 Bad Request
+                return "ID inválido.";
             }
         } else {
-            List<Musico> musicos = musicoDAO.get();
-            res.status(200); // HTTP 200 OK
-            return musicos;
+            System.out.println("Parâmetro de ID ausente.");
+            res.status(400); // HTTP 400 Bad Request
+            return "Parâmetro de ID ausente.";
         }
     }
+    
+
+    public Object get(Request req, Response res) {
+        String usuarioParam = req.queryParams("usuario");
+        String senhaParam = req.queryParams("senha");
+        System.out.println("Usuário: " + usuarioParam + ", Senha: " + senhaParam);
+        if (usuarioParam != null && senhaParam != null) {
+            Musico musico = musicoDAO.getByUsuarioSenha(usuarioParam, senhaParam);
+            if (musico != null) {
+                JsonObject responseJson = new JsonObject();
+                responseJson.addProperty("message", "Usuário encontrado: " + musico.getNome());
+                System.out.println("Usuário encontrado: " + musico.getNome());
+                //adicionar o id do usuario no JSON
+                responseJson.addProperty("id", musico.getId());
+                //adicionar tudo do usuario ao JSON
+                responseJson.addProperty("nome", musico.getNome());
+                responseJson.addProperty("descricao", musico.getDescricao());
+                responseJson.addProperty("cache", musico.getCache());
+                responseJson.addProperty("instrumento1", musico.getInstrumento1());
+                responseJson.addProperty("instrumento2", musico.getInstrumento2());
+                responseJson.addProperty("instrumento3", musico.getInstrumento3());
+                responseJson.addProperty("objetivo", musico.getObjetivo());
+                responseJson.addProperty("estilo", musico.getEstilo());
+                res.status(200); // HTTP 200 OK
+                return responseJson;
+            } else {
+                JsonObject responseJson = new JsonObject();
+                responseJson.addProperty("message", "Usuário ou senha incorretos.");
+                System.out.println("Usuário ou senha incorretos.");
+                res.status(404); // HTTP 404 Not Found
+                return responseJson;
+            }
+        } else {
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("message", "Parâmetros de usuário e senha ausentes.");
+            System.out.println("Parâmetros de usuário e senha ausentes.");
+            res.status(400); // HTTP 400 Bad Request
+            return responseJson;
+        }
+    }
+    
+    
 
     public Object update(Request req, Response res) {
         int id = Integer.parseInt(req.queryParams("id"));
