@@ -6,7 +6,12 @@ import spark.Request;
 import spark.Response;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import app.Aplicacao;
+
 import java.util.List;
+import java.util.UUID;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 public class MusicoService {
@@ -114,6 +119,9 @@ public class MusicoService {
         if (usuarioParam != null && senhaParam != null) {
             Musico musico = musicoDAO.getByUsuarioSenha(usuarioParam, senhaParam);
             if (musico != null) {
+                String token = generateSessionToken();
+                Aplicacao.sessionDAO.saveSession(token, musico.getId());
+
                 JsonObject responseJson = new JsonObject();
                 responseJson.addProperty("message", "Usuário encontrado: " + musico.getNome());
                 System.out.println("Usuário encontrado: " + musico.getNome());
@@ -128,6 +136,8 @@ public class MusicoService {
                 responseJson.addProperty("instrumento3", musico.getInstrumento3());
                 responseJson.addProperty("objetivo", musico.getObjetivo());
                 responseJson.addProperty("estilo", musico.getEstilo());
+                responseJson.addProperty("token", token);
+
                 res.status(200); // HTTP 200 OK
                 return responseJson;
             } else {
@@ -146,7 +156,10 @@ public class MusicoService {
         }
     }
     
-    
+    private String generateSessionToken() {
+    // Implementar a geração de token de sessão
+    return UUID.randomUUID().toString();
+    }   
 
     public Object update(Request req, Response res) {
         int id = Integer.parseInt(req.queryParams("id"));
