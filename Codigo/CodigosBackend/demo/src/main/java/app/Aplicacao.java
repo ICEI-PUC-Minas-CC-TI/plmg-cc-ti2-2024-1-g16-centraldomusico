@@ -2,6 +2,7 @@ package app;
 
 import static spark.Spark.*;
 
+import dao.SessionDAO;
 import spark.Filter;
 import spark.Request;
 import spark.Response;
@@ -14,6 +15,7 @@ public class Aplicacao {
     public static MusicoService musicoService = new MusicoService();
     public static BandaService bandaService = new BandaService();
     public static CasaDeShowsService casaService = new CasaDeShowsService();
+    public static SessionDAO sessionDAO = new SessionDAO();
 
     public static void main(String[] args) {
         port(6789);
@@ -41,6 +43,8 @@ public class Aplicacao {
             return "OK";
         });
 
+
+        
         // Rotas para Musico
         post("/usuario/insert", (request, response) -> musicoService.insert(request, response));
         get("/usuario/get/perfil", (request, response) -> musicoService.getById(request, response));
