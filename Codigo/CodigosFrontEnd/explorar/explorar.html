@@ -4,92 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explorar</title>
-    <link rel="stylesheet" href="/Codigo/CodigosFrontEnd/perfil/assets/css/perfil.css">
+    <link rel="stylesheet" href="/Codigo/CodigosFrontEnd/explorar/assets/css/styleteste.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
 
 <body>
-    <div class="sidebar">
-        <div class="logo_content"> 
-            <div class="logo"> 
-                <img src="/Codigo/CodigosFrontEnd/telainicial/assets/css/Logo.png" alt="Sua Logo">
-                <div class="logo_name"> Central</div>
-            </div>
-            <i class='bx bx-menu' id='btn'></i>
-        </div>    
-        <div class="src">
-            <i class='bx bx-search'></i>
-            <input type="text" placeholder="Search..." >
-        </div>
-        <ul class="nav">
-            <li>
-                <a href="/Codigo/CodigosFrontEnd/encontrebandas/encontrebandas.html">
-                    <i class='bx bxs-music'></i>
-                    <span class="link_name">Encontre Bandas</span>
-                </a>
-                <span class="tooltip"> Encontre Bandas</span>
-            </li>
-            <li>
-                <a href="/Codigo/CodigosFrontEnd/cadastrodebanda/htmlteste.html">
-                    <i class='bx bxs-guitar-amp' ></i>
-                    <span class="link_name">Cadastre sua Banda</span>
-                </a>
-                <span class="tooltip"> Sua Banda</span>
-            </li>
-            <li>
-                <a href="/Codigo/CodigosFrontEnd/cadastroanuncio/cadAnunicioupdate.html">    
-                    <i class='bx bx-slideshow' ></i>
-                    <span class="link_name">Cadastre seu Anúncio</span>
-                </a>
-                <span class="tooltip"> Seu Anúncio</span>
-            </li>
-            
-            <li>
-                <a href="/Codigo/CodigosFrontEnd/informaçãoanuncio/anuncio.html">
-                    <i class='bx bxs-party'></i>
-                    <span class="link_name"> Anúncios</span>
-                </a>
-                <span class="tooltip"> Anúncios</span>
-            </li>
-            <li>
-                <a href="/Codigo/CodigosFrontEnd/agenda/novaagenda.html">
-                    <i class='bx bx-calendar'></i>
-                    <span class="link_name"> Agenda</span>
-                </a>
-                <span class="tooltip"> Agenda</span>
-            </li>
-            <li>
-                <a href="/Codigo/CodigosFrontEnd/chat/chat2.html">
-                    <i class='bx bxs-conversation'></i>
-                    <span class="link_name">Chat</span>
-                </a>
-                <span class="tooltip"> Chat</span>
-            </li>
-            <li>
-                <a href="/Codigo/CodigosFrontEnd/perfil/perfil.html">
-                    <i class='bx bxs-user'></i>
-                    <span class="link_name">Perfil</span>
-                </a>
-                <span class="tooltip"> Perfil</span>
-            </li>
-        </ul>
-    </div>
     <div class="container">
-        
+       
         <nav>
             <div class="logo">
                 <img src="/Codigo/CodigosFrontEnd/telainicial/assets/css/Logo.png" alt="Sua Logo">
             </div>
             <div class="welcome">
-                Central do Músico
+                Bem-vindo
             </div>  
             <ul>
                 <li><a href="/Codigo/CodigosFrontEnd/telainicial/Updateinicial.html">Menu</a></li>
                 <li><a href="/Codigo/CodigosFrontEnd/Login/novologin.html">Login</a></li>
-
+            
             </ul>
         </nav>
+      
+        <!-- Seção Sobre -->
+       
+    </div> 
+
+
+
+
+    <div class="contido">
+        <div class="slide"> 
+               
+            <div class="item" style=" background-image: url(/Codigo/CodigosFrontEnd/explorar/assets/css/chat.jpg);">
+                <div class="content">
+                                <div class="name">Chat</div>
+                                <div class="des"> Deseja conversar com amigos, 
+                                    <br> integrantes de banda ou tem dúvidas </br> 
+                                    por onde começar. 
+                                    <br> Nosso chat o ajudará com isso.</br> </div>
+                                <button onclick="location.href='/Codigo/CodigosFrontEnd/chat/chat2.html'">See more</button>
+                </div>
+            </div>
+                <div class="item" style="background-image: url(/Codigo/CodigosFrontEnd/explorar/assets/css/bateria.jpg);">
+                        <div class="content">
+                                        <div class="name">Perfil</div>
+                                        <div class="des"> Descubra perfis, faça amigos com o 
+                                            <br>seu mesmo gosto musical. </br>
+                                        </div>
+                                        <button onclick="location.href='/Codigo/CodigosFrontEnd/perfil/perfil.html'">See more</button>
+                        </div>
+                </div>
+                <div class="item" style="background-image: url(/Codigo/CodigosFrontEnd/explorar/assets/css/bandas.jpg);">
+                        <div class="content">
+                            <div class="name">Bandas</div>
+                            <div class="des"> Descubra e encontre bandas para 
+                                <br>participar e se divertir tocando suas </br>
+                                músicas. 
+                            </div>
+                            <button onclick="location.href='/Codigo/CodigosFrontEnd/encontrebandas/encontrebandas.html'">See more</button>
+                        </div>
+                     </div>
+                     <div class="item" style=" background-image: url(/Codigo/CodigosFrontEnd/explorar/assets/css/eventos.jpg);">
+                        <div class="content">
+                                        <div class="name">Agenda</div>
+                                        <div class="des"> Encontre eventos e shows, para seu 
+                                            <br> entreterimento pessoal.</br>
+                                        </div>
+                                        <button onclick="location.href='/Codigo/CodigosFrontEnd/agenda/novaagenda.html'">See more</button>
+                        </div>
+                            
+                             </div>    
+                        <div class="item" style=" background-image: url(/Codigo/CodigosFrontEnd/explorar/assets/css/anuncio.jpg);">
+                                <div class="content">
+                                                <div class="name">Anúncios</div>
+                                                <div class="des"> Veja as quem está procurando  
+                                                    <br>integrantes com os anúnicos mais </br>
+                                                    recentes.
+                                                </div>
+                                                <button onclick="location.href='/Codigo/CodigosFrontEnd/informaçãoanuncio/anuncio.html'">See more</button>
+                                </div>
+                            
+                        </div>    
+                </div> <!-- Add closing tag for div.slide -->
+        </div> <!-- Add closing tag for div.container -->
+    <div class="button">   
+        <button class="prev"><i class="fa-solid fa-arrow-left"></i></button>
+        <button class="next"><i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+</div>    
             
     
         <!-- jQuery CDN -->
@@ -101,17 +104,20 @@
     
 
 
-    <script>
-        let btn = document.querySelector('#btn');
-        let sidebar = document.querySelector('.sidebar');
-        let srcBtn = document.querySelector('.bx-search');
 
-        btn.onclick = function(){
-            sidebar.classList.toggle('active');
-        }
-        srcBtn.onclick = function(){
-            sidebar.classList.toggle('active');
-        }
-    </script>
+<script>
+    const $next = document.querySelector('.next');
+    const $prev = document.querySelector('.prev');
+
+    $next.addEventListener('click', () => {
+            const items = document.querySelectorAll('.item');
+            document.querySelector('.slide').appendChild(items[0]);
+    });
+
+    $prev.addEventListener('click', () => {
+const items = document.querySelectorAll('.item');
+document.querySelector('.slide').prepend(items[items.length - 1]);
+    });
+</script>
 </body>
 </html>
