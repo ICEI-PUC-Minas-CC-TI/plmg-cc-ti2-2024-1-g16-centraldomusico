@@ -76,22 +76,31 @@
         </ul>
     </div>
     <div class="container">
-        
         <nav>
             <div class="logo">
                 <img src="/Codigo/CodigosFrontEnd/telainicial/assets/css/Logo.png" alt="Sua Logo">
             </div>
-            <div class="welcome">
-                Central do Músico
-            </div>  
+            <div class="welcome">Central do Músico</div>
             <ul>
                 <li><a href="/Codigo/CodigosFrontEnd/telainicial/Updateinicial.html">Menu</a></li>
                 <li><a href="/Codigo/CodigosFrontEnd/Login/novologin.html">Login</a></li>
-
             </ul>
         </nav>
+        <div class="perfil" id="perfilCard">
+            <h2>Perfil do Músico</h2>
+            <div id="msgError" style="color: red;"></div>
+            <p><strong>Nome:</strong> <span id="nome"></span></p>
+            <p><strong>Descrição:</strong> <span id="descricao"></span></p>
+            <p><strong>Cache:</strong> <span id="cache"></span></p>
+            <p><strong>Instrumento 1:</strong> <span id="instrumento1"></span></p>
+            <p><strong>Instrumento 2:</strong> <span id="instrumento2"></span></p>
+            <p><strong>Instrumento 3:</strong> <span id="instrumento3"></span></p>
+            <p><strong>Objetivo:</strong> <span id="objetivo"></span></p>
+            <p><strong>Estilo:</strong> <span id="estilo"></span></p>
+        </div>
+    </div>
             
-    
+        <script src = "assets/js/perfil.js"></script>
         <!-- jQuery CDN -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <!-- Popper.JS -->
