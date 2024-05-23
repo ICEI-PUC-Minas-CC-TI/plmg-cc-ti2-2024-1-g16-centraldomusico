@@ -6,9 +6,7 @@
     <title>Cadaste sua Banda</title>
     <link rel="stylesheet" href="/Codigo/CodigosFrontEnd/cadastrodebanda/assets/css/teste.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
 </head>
-
 <body>
     <div class="sidebar">
         <div class="logo_content"> 
@@ -44,7 +42,6 @@
                 </a>
                 <span class="tooltip"> Seu Anúncio</span>
             </li>
-            
             <li>
                 <a href="/Codigo/CodigosFrontEnd/informaçãoanuncio/anuncio.html">
                     <i class='bx bxs-party'></i>
@@ -76,7 +73,6 @@
         </ul>
     </div>
     <div class="container">
-        
         <nav>
             <div class="logo">
                 <img src="/Codigo/CodigosFrontEnd/telainicial/assets/css/Logo.png" alt="Sua Logo">
@@ -87,38 +83,46 @@
             <ul>
                 <li><a href="/Codigo/CodigosFrontEnd/telainicial/Updateinicial.html">Menu</a></li>
                 <li><a href="/Codigo/CodigosFrontEnd/Login/novologin.html">Login</a></li>
-
             </ul>
         </nav>
-            <!-- Conteúdo da Página  -->
-            <div id="content">
-
-       
-            
-                <div id="cadastro" class="caixa-cadastro">
-                    <h4>Criação de Banda</h4>
-                    <input type="text" id="caixaTexto" name="caixaTexto" placeholder="Nome da banda:" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
-                    <input type="text" id="caixaTextoge" name="caixaTexto" placeholder="Gênero Musical:" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
-                    <h5>Descrição:</h5>
-                    <textarea type="text" id="descricao" name="descricao" placeholder="Lembre-se de colocar seu contato!" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"></textarea>
-                    
-                    
-                
+        <!-- Conteúdo da Página  -->
+        <div id="content">
+            <div id="cadastro" class="caixa-cadastro">
+                <h4>Criação de Banda</h4>
+                <div>
+                    <input type="text" id="nomeBanda" name="nomeBanda" placeholder="Nome da Banda">
+                </div>
+                <div>
+                    <input type="text" id="estilo" name="estilo" placeholder="Estilo Musical">
+                </div>
+                <div>
+                    <input type="text" id="cache" name="cache" placeholder="Cache">
+                </div>
+                <div>
+                    <input type="password" id="senha" name="senha" placeholder="Senha">
+                </div>
+                <div>
+                    <input type="text" id="objetivo" name="objetivo" placeholder="Objetivo">
+                </div>
+                <h5>Descrição:</h5>
+                <div>
+                    <textarea id="descricao" name="descricao" placeholder="Lembre-se de colocar seu contato!"></textarea>
+                </div>
+                <div>
                     <button class="botaoenviar" onclick="enviarDados()">Enviar</button>
                 </div>
-                
             </div>
+            
         </div>
+    </div>
     
-        <!-- jQuery CDN -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <!-- Popper.JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-        <!-- JS do Bootstrap -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- JS do Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     
-
-
     <script>
         let btn = document.querySelector('#btn');
         let sidebar = document.querySelector('.sidebar');

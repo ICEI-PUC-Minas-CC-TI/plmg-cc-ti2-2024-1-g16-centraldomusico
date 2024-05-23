@@ -1,3 +1,4 @@
+window.location.href = '/Codigo/CodigosFrontEnd/Login/novologin.html';
 document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const id = localStorage.getItem('id');
