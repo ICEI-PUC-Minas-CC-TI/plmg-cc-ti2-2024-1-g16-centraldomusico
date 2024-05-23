@@ -51,6 +51,8 @@ function enviarDados() {
         return response.json();
     })
     .then(data => {
+        alert('Perfil criado com sucesso!');
+        window.location.href = '/Codigo/CodigosFrontEnd/Login/novologin.html';
         console.log('Resposta do servidor:', data);
     })
     .catch(error => {
