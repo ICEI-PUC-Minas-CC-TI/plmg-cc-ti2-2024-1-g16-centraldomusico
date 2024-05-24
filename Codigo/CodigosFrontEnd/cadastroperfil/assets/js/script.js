@@ -7,7 +7,8 @@ function enviarDados() {
     var instrumento1 = document.getElementById('instrumento1').value;
     var instrumento2 = document.getElementById('instrumento2').value;
     var instrumento3 = document.getElementById('instrumento3').value;
-    var cache = document.getElementById('cache').value;
+        //pegar valor de cache sem formatacao ( o valor está em reais)
+    var cache = document.getElementById('cache').value.replace('R$', '').replace('.', '').replace(',', '.');
     var objetivo = document.getElementById('objetivo').value;
     var estilo = document.getElementById('estilo').value;
 
