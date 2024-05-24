@@ -1,4 +1,3 @@
-window.location.href = '/Codigo/CodigosFrontEnd/Login/novologin.html';
 document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
     const id = localStorage.getItem('id');
@@ -44,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     } else {
         document.getElementById('msgError').textContent = 'Token de autenticação ausente. Faça login novamente.';
+        window.location.href = '/Codigo/CodigosFrontEnd/Login/novologin.html';
     }
 });
 
