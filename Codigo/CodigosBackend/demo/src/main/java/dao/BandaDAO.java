@@ -25,10 +25,16 @@ public class BandaDAO extends DAO {
 	public boolean insert(Banda banda) {
 		boolean status = false;
 		try {
-			String sql = "INSERT INTO banda (nome, descricao, senha, cache, dataCriacao,objetivo,estilo) "
-		               + "VALUES ('" + banda.getNome() + "', "
-		               + banda.getDescricao() + ", " + banda.getCache()+ ", " + banda.getDataCriacao() + ", " + banda.getEstilo()+", m, ?);";
+            String sql = "INSERT INTO banda (nome, descricao, senha, cache, datacriacao , objetivo, estilo) "
+                       + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement st = conexao.prepareStatement(sql);
+			st.setString(1, banda.getNome());
+			st.setString(2, banda.getDescricao());
+			st.setString(3, banda.getSenha());
+			st.setFloat(4, banda.getCache());
+			st.setTimestamp(5, Timestamp.valueOf(banda.getDataCriacaoTimestamp()));
+			st.setString(6, banda.getObjetivo());
+			st.setString(7, banda.getEstilo());
 			st.executeUpdate();
 			st.close();
 			status = true;
@@ -47,7 +53,7 @@ public class BandaDAO extends DAO {
 			String sql = "SELECT * FROM banda WHERE id="+id;
 			ResultSet rs = st.executeQuery(sql);	
 	        if(rs.next()){            
-	        	banda = new Banda(rs.getInt("id"), rs.getString("nome") , rs.getString("descricao"), rs.getFloat("cache"),rs.getString("estilo"), rs.getTimestamp("datacriacao").toLocalDateTime());
+	        	banda = new Banda(rs.getInt("id"), rs.getString("nome") , rs.getString("descricao"), rs.getString("senha") ,rs.getFloat("cache"),rs.getString("estilo"),rs.getString("objetivo"));
 	        }
 	        st.close();
 		} catch (Exception e) {
@@ -85,8 +91,7 @@ public class BandaDAO extends DAO {
 			String sql = "SELECT * FROM banda" + ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
 			ResultSet rs = st.executeQuery(sql);	           
 	        while(rs.next()) {	            	
-	        	Banda p = new Banda(rs.getInt("id"), rs.getString("nome"),rs.getString("descricao"),rs.getFloat("cache"), rs.getString("estilo")
-	        							, rs.getTimestamp("dataCriacao").toLocalDateTime());
+	        	Banda p = new Banda(rs.getInt("id"), rs.getString("nome") , rs.getString("descricao"), rs.getString("senha") ,rs.getFloat("cache"),rs.getString("estilo"),rs.getString("objetivo"));
 	        	bandas.add(p);
 	        }
 	        st.close();
@@ -106,7 +111,7 @@ public class BandaDAO extends DAO {
 					   + "estilo = " + banda.getEstilo() + ","
 					   + "datafabricacao = ? WHERE id = " + banda.getID();
 			PreparedStatement st = conexao.prepareStatement(sql);
-		    st.setTimestamp(1, Timestamp.valueOf(banda.getDataCriacao()));
+		    st.setTimestamp(1, Timestamp.valueOf(banda.getDataCriacaoTimestamp()));
 			st.executeUpdate();
 			st.close();
 			status = true;
