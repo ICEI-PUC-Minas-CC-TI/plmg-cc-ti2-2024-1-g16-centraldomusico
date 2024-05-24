@@ -3,6 +3,10 @@ package model;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.sql.Date;
+import java.time.LocalDateTime;
+//importar data
+import java.time.format.DateTimeFormatter;
 
 public class Banda {
 	private int id;
@@ -10,34 +14,65 @@ public class Banda {
 	private String nomeBanda;
 	private float cache;
 	private String estilo;
-	private LocalDateTime dataCriacao;	
+	private Date dataCriacao;	
+	private String senha;
+	private String objetivo;
+	
 	
 	public Banda() {
 		id = -1;
 		descricao = "";
+		senha="";
 		cache = 0.00F;
 		nomeBanda = "";
 		estilo = "";
-		dataCriacao = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+		LocalDateTime dataTimestamp = LocalDateTime.now();
+		Date data = Date.valueOf(dataTimestamp.toLocalDate());
+		dataCriacao = data;
 	}
 
-	public Banda(int id, String nome,String descricao, float cache,String estilo,LocalDateTime criacao) {
+	public Banda(int id, String nome,String descricao, String senha ,float cache,String estilo,String objetivo) {
 		setId(id);
 		setNome(nome);
 		setDescricao(descricao);
+		setSenha(senha);
 		setCache(cache);
 		setEstilo(estilo);
-		setDataCriacao(criacao);
+		LocalDateTime dataTimestamp = LocalDateTime.now();
+		Date data = Date.valueOf(dataTimestamp.toLocalDate());
+		setDataCriacao(data);
+		setObjetivo(objetivo);
 	}		
 	
-	public void setDataCriacao (LocalDateTime dataCriacao) {
-		LocalDateTime agora = LocalDateTime.now();
+	public void setObjetivo(String objetivo) {
+		this.objetivo = objetivo;
+	}
+
+	public String getObjetivo() {
+		return objetivo;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setDataCriacao (Date dataCriacao) {
+		LocalDateTime agoraTimestamp = LocalDateTime.now();
+		Date agora = Date.valueOf(agoraTimestamp.toLocalDate());
 		if (agora.compareTo(dataCriacao) >= 0)
 			this.dataCriacao = dataCriacao;
 	}	
 	
-	public LocalDateTime getDataCriacao() {
+	public Date getDataCriacao() {
 		return dataCriacao;
+	}
+
+	public LocalDateTime getDataCriacaoTimestamp() {
+		return dataCriacao.toLocalDate().atStartOfDay();
 	}
 
 	public int getID() {
