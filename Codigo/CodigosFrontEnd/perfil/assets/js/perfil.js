@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
@@ -11,36 +11,36 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('token checado');
         console.log('ID:', id);
         fetch(`http://localhost:6789/usuario/get/perfil?id=${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro na requisição: ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Resposta do servidor:', data);
-            if (data) {
-                document.getElementById('nome').textContent = data.nome;
-                document.getElementById('descricao').textContent = data.descricao;
-                document.getElementById('cache').textContent = data.cache;
-                document.getElementById('instrumento1').textContent = data.instrumento1;
-                document.getElementById('instrumento2').textContent = data.instrumento2;
-                document.getElementById('instrumento3').textContent = data.instrumento3;
-                document.getElementById('objetivo').textContent = data.objetivo;
-                document.getElementById('estilo').textContent = data.estilo;
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Resposta do servidor:', data);
+                if (data) {
+                    document.getElementById('nome').textContent = data.nome;
+                    document.getElementById('descricao').textContent = data.descricao;
+                    document.getElementById('cache').textContent = data.cache;
+                    document.getElementById('instrumento1').textContent = data.instrumento1;
+                    document.getElementById('instrumento2').textContent = data.instrumento2;
+                    document.getElementById('instrumento3').textContent = data.instrumento3;
+                    document.getElementById('objetivo').textContent = data.objetivo;
+                    document.getElementById('estilo').textContent = data.estilo;
 
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao buscar dados do usuário:', error);
-            document.getElementById('msgError').textContent = 'Erro ao carregar os dados do usuário. Tente novamente.';
-        });
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar dados do usuário:', error);
+                document.getElementById('msgError').textContent = 'Erro ao carregar os dados do usuário. Tente novamente.';
+            });
     } else {
         document.getElementById('msgError').textContent = 'Token de autenticação ausente. Faça login novamente.';
         window.location.href = '/Codigo/CodigosFrontEnd/Login/novologin.html';
@@ -53,3 +53,14 @@ function logout() {
     localStorage.removeItem('id');
     window.location.href = '/Codigo/CodigosFrontEnd/Login/novologin.html';
 }
+
+function formatCurrency(value) {
+    value = value.replace(/\D/g, ''); // Remove tudo que não é dígito
+    value = (value / 100).toFixed(2); // Divide por 100 para ter duas casas decimais
+    value = value.replace('.', ','); // Substitui ponto por vírgula
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Insere pontos a cada 3 dígitos
+    return 'R$' + value;
+}
+
+const cacheDisplay = document.getElementById('cache');
+cacheDisplay.textContent = formatCurrency(document.getElementById('cache'));

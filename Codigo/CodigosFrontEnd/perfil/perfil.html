@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,16 +12,16 @@
 
 <body>
     <div class="sidebar">
-        <div class="logo_content"> 
-            <div class="logo"> 
+        <div class="logo_content">
+            <div class="logo">
                 <img src="/Codigo/CodigosFrontEnd/telainicial/assets/css/Logo.png" alt="Sua Logo">
                 <div class="logo_name"> Central</div>
             </div>
             <i class='bx bx-menu' id='btn'></i>
-        </div>    
+        </div>
         <div class="src">
             <i class='bx bx-search'></i>
-            <input type="text" placeholder="Search..." >
+            <input type="text" placeholder="Search...">
         </div>
         <ul class="nav">
             <li>
@@ -32,19 +33,19 @@
             </li>
             <li>
                 <a href="/Codigo/CodigosFrontEnd/cadastrodebanda/htmlteste.html">
-                    <i class='bx bxs-guitar-amp' ></i>
+                    <i class='bx bxs-guitar-amp'></i>
                     <span class="link_name">Cadastre sua Banda</span>
                 </a>
                 <span class="tooltip"> Sua Banda</span>
             </li>
             <li>
-                <a href="/Codigo/CodigosFrontEnd/cadastroanuncio/cadAnunicioupdate.html">    
-                    <i class='bx bx-slideshow' ></i>
+                <a href="/Codigo/CodigosFrontEnd/cadastroanuncio/cadAnunicioupdate.html">
+                    <i class='bx bx-slideshow'></i>
                     <span class="link_name">Cadastre seu Anúncio</span>
                 </a>
                 <span class="tooltip"> Seu Anúncio</span>
             </li>
-            
+
             <li>
                 <a href="/Codigo/CodigosFrontEnd/informaçãoanuncio/anuncio.html">
                     <i class='bx bxs-party'></i>
@@ -86,30 +87,45 @@
                 <li><a href="/Codigo/CodigosFrontEnd/Login/novologin.html">Login</a></li>
             </ul>
         </nav>
+    </div>
+
+    <div></div>
+
+    <div class="perfil-container">
         <div class="perfil" id="perfilCard">
-            <h2>Perfil do Músico</h2>
             <div id="msgError" style="color: red;"></div>
-            <p><strong>Nome:</strong> <span id="nome"></span></p>
-            <p><strong>Descrição:</strong> <span id="descricao"></span></p>
-            <p><strong>Cache:</strong> <span id="cache"></span></p>
-            <p><strong>Instrumento 1:</strong> <span id="instrumento1"></span></p>
-            <p><strong>Instrumento 2:</strong> <span id="instrumento2"></span></p>
-            <p><strong>Instrumento 3:</strong> <span id="instrumento3"></span></p>
-            <p><strong>Objetivo:</strong> <span id="objetivo"></span></p>
-            <p><strong>Estilo:</strong> <span id="estilo"></span></p>
-            <!--botao de logout com id para linkar no js-->
-            <button id="logout" onclick = "logout()">Logout</button>
+            <div class="foto-perfil-container">
+                <h2>Perfil do Músico</h2>
+                <img src="/Codigo/CodigosFrontEnd/perfil/assets/css/TemplateFotoPerfil.png" alt="" class="foto-perfil">
+            </div>
+            <p class="nome-container"><strong><span id="nome"></span></p></strong>
+                <p class="descricao-container"><strong class="descricao-container-aux">Descrição:</strong> <span id="descricao" class="descricao"></span></p>
+                <div class="cache-instrumentos-container">
+                    <p class="cache-container"><strong>Cache:</strong> <span id="cache" class="cache"></span></p>
+                    <p class="instrumento-container"><strong>Instrumento 1:</strong> <span id="instrumento1"></span></p>
+                    <p class="instrumento-container"><strong>Instrumento 2:</strong> <span id="instrumento2"></span></p>
+                    <p class="instrumento-container"><strong>Instrumento 3:</strong> <span id="instrumento3"></span></p>
+                </div>
+
+                <p class="objetivo-container"><strong>Objetivo:</strong> <span id="objetivo"></span></p>
+                <p class="estilo-container"><strong>Estilo:</strong> <span id="estilo"></span></p>
         </div>
     </div>
-            
-        <script src = "assets/js/perfil.js"></script>
-        <!-- jQuery CDN -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <!-- Popper.JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-        <!-- JS do Bootstrap -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    
+
+    <div class="logout-container">
+        <!--botao de logout com id para linkar no js-->
+        <button id="logout" onclick="logout()" class="logout-button">Logout</button>
+    </div>
+
+
+    <script src="assets/js/perfil.js"></script>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- JS do Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
 
 
     <script>
@@ -117,12 +133,13 @@
         let sidebar = document.querySelector('.sidebar');
         let srcBtn = document.querySelector('.bx-search');
 
-        btn.onclick = function(){
+        btn.onclick = function() {
             sidebar.classList.toggle('active');
         }
-        srcBtn.onclick = function(){
+        srcBtn.onclick = function() {
             sidebar.classList.toggle('active');
         }
     </script>
 </body>
+
 </html>

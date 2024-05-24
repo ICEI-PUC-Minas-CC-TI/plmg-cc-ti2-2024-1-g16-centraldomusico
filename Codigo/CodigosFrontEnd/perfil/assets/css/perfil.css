@@ -1,19 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400;1,500&display=swap');
-*{
-    
+* {
     margin: 0;
     padding: 0;
-
 }
 
-body{
+body {
     position: relative;
     min-height: 100vh;
     width: 100%;
-    background-image: linear-gradient(#0d101b,#281a2d);
+    background-image: linear-gradient(#0d101b, #281a2d);
 }
 
-.sidebar{
+.sidebar {
     font-family: "Poppins", sans-serif;
     position: fixed;
     width: 50px;
@@ -27,12 +25,11 @@ body{
     z-index: 1;
 }
 
-.sidebar.active
-{
+.sidebar.active {
     width: 240px;
 }
 
-.sidebar .logo_content .logo{
+.sidebar .logo_content .logo {
     display: flex;
     color: #b8b7b7;
     align-items: center;
@@ -45,25 +42,23 @@ body{
     transition: all .5s ease;
 }
 
-.sidebar.active .logo_content .logo
-{   transition: all .5s ease;
+.sidebar.active .logo_content .logo {
+    transition: all .5s ease;
     opacity: 1;
 }
 
-
-.sidebar .logo_content .logo .logo_name{
+.sidebar .logo_content .logo .logo_name {
     font-size: 23px;
     font-weight: 600;
     margin-left: 0 10px;
 }
 
-.sidebar #btn 
-{
+.sidebar #btn {
     position: absolute;
     color: #af2747;
     left: 50%;
     top: 6px;
-    font-size:30px;
+    font-size: 30px;
     height: 50px;
     width: 50px;
     text-align: center;
@@ -71,21 +66,18 @@ body{
     transform: translate(-50%);
 }
 
-
-.sidebar.active #btn 
-{
+.sidebar.active #btn {
     left: 85%;
 }
 
-.sidebar .src{
+.sidebar .src {
     position: relative;
     height: 50px;
     width: 100%;
     margin-top: 20px;
-
 }
 
-.sidebar .src input{
+.sidebar .src input {
     position: absolute;
     height: 100%;
     width: calc(100% - 50px);
@@ -100,40 +92,38 @@ body{
     color: #343232;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
     transition: all .5s ease;
- }
+}
 
-.sidebar .src .bx-search{
+.sidebar .src .bx-search {
     position: absolute;
     z-index: 99;
     font-size: 22px;
     color: #000000;
     transition: all .5s ease;
-  
 }
 
-.sidebar .src .bx-search:hover{
+.sidebar .src .bx-search:hover {
     color: #00000000;
 }
 
-.sidebar .src .bx-search:hover ~ input{
-  
+.sidebar .src .bx-search:hover~input {
     background-color: #ffffff;
 }
 
-.sidebar i{
-    height: 50px ;
+.sidebar i {
+    height: 50px;
     min-width: 50px;
     border-radius: 12px;
     line-height: 50px;
     text-align: center;
     font-size: 25px;
-
 }
-.sidebar ul{
+
+.sidebar ul {
     margin-top: 20px;
 }
 
-.sidebar ul li{
+.sidebar ul li {
     position: relative;
     height: 50px;
     width: 100%;
@@ -141,7 +131,8 @@ body{
     line-height: 50px;
     list-style: none;
 }
-.sidebar ul li a{
+
+.sidebar ul li a {
     color: #b3b3b3;
     display: flex;
     text-decoration: none;
@@ -152,25 +143,24 @@ body{
     transition: all .4s ease;
 }
 
-.sidebar ul li a:hover{
+.sidebar ul li a:hover {
     background: #e7e9f5;
     color: #0b2997;
 }
 
-.sidebar .link_name{
-   
+.sidebar .link_name {
     opacity: 0;
     pointer-events: none;
 }
 
-.sidebar.active .link_name{
+.sidebar.active .link_name {
     opacity: 1;
     pointer-events: auto;
 }
 
-.sidebar ul li .tooltip{
+.sidebar ul li .tooltip {
     position: absolute;
-    left: 130px ;
+    left: 130px;
     top: 0;
     transform: translate(-45%, -50%);
     border-radius: 10px;
@@ -183,52 +173,52 @@ body{
     display: block;
     color: #242424;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-   pointer-events: none;
+    pointer-events: none;
     opacity: 0;
     transition: all .5s ease;
-    
 }
 
-.sidebar.active li .tooltip
-{
+.sidebar.active li .tooltip {
     display: none;
 }
 
-
-.sidebar ul li:hover .tooltip{
+.sidebar ul li:hover .tooltip {
     opacity: 1;
     top: 50%;
-
 }
 
-
 .container {
-    width: calc(100% - 360px); /* Reduz a largura para compensar a largura da barra lateral */
+    width: calc(100% - 360px);
+    /* Reduz a largura para compensar a largura da barra lateral */
     height: 20vh;
     position: relative;
     padding: 0 5%;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Alterado para espaçamento entre os elementos */
+    justify-content: space-between;
+    /* Alterado para espaçamento entre os elementos */
     z-index: 0;
     transition: all .5s ease;
     font-family: arilal;
 }
 
-.sidebar.active ~ .container {
-    width: calc(100% - 300px); /* Reduz ainda mais a largura quando a barra lateral está ativa */
+.sidebar.active~.container {
+    width: calc(100% - 300px);
+    /* Reduz ainda mais a largura quando a barra lateral está ativa */
 }
 
-.container nav{
+.container nav {
     width: 100%;
     position: absolute;
     top: 0;
     left: 0;
     padding: 20px 8%;
     display: flex;
-    justify-content: space-between; /* Alterado para espaçamento entre os elementos */
+    justify-content: space-between;
+    /* Alterado para espaçamento entre os elementos */
     align-items: center;
 }
+
 .container nav ul {
     margin: 0;
     padding: 0;
@@ -237,8 +227,8 @@ body{
 }
 
 .container nav ul li {
-   
-    margin-left: 40px; /* Espaçamento entre os itens do menu */
+    margin-left: 40px;
+    /* Espaçamento entre os itens do menu */
 }
 
 .container nav ul li a {
@@ -271,17 +261,132 @@ body{
     margin-right: 750px;
 }
 
-.sidebar.active ~ .container .welcome {
+.sidebar.active~.container .welcome {
     opacity: 0;
     transition: all .5s;
 }
 
-
-
 .sidebar input::placeholder {
-    color:black; /* Defina a cor do placeholder */
-
+    color: black;
+    /* Defina a cor do placeholder */
 }
+
 
 /*----content style----*/
 
+.perfil {
+    color: #fff;
+}
+
+.perfil-container {
+    margin-left: 120px;
+}
+
+.foto-perfil-container {
+    max-height: 230px;
+    min-height: 230px;
+    max-width: 230px;
+    min-width: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.foto-perfil {
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.nome-container {
+    max-height: 40px;
+    min-height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: xx-large;
+    margin-bottom: 20px;
+}
+
+.descricao-container {
+    max-height: 150px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.descricao-container-aux {
+    font-size: larger;
+    margin-bottom: 15px;
+}
+
+.descricao {
+    font-size: x-large;
+}
+
+.cache-container {
+    max-height: 50px;
+    min-height: 50px;
+    max-width: 150px;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: large;
+}
+
+.cache-instrumentos-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    ;
+}
+
+.instrumento-container {
+    max-height: 50px;
+    min-height: 50px;
+    max-width: 150px;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: large;
+}
+
+.objetivo-container {
+    max-height: 50px;
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: large;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.estilo-container {
+    max-height: 50px;
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: large;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.logout-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right: 50px;
+}
+
+.logout-button {
+    max-height: 50px;
+    min-height: 50px;
+    max-width: 100px;
+    min-width: 100px;
+}
