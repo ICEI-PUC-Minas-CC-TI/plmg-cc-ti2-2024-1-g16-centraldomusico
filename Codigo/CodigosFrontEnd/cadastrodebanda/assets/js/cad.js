@@ -2,7 +2,8 @@ function enviarDados() {
     var nome = document.getElementById('nomeBanda').value;
     var descricao = document.getElementById('descricao').value;
     var senha = document.getElementById('senha').value;
-    var cache = document.getElementById('cache').value;
+    //pegar valor de cache sem formatacao ( o valor está em reais)
+    var cache = document.getElementById('cache').value.replace('R$', '').replace('.', '').replace(',', '.');
     var dataCriacao = new Date();
     var objetivo = document.getElementById('objetivo').value;
     var estilo = document.getElementById('estilo').value;
@@ -28,7 +29,7 @@ function enviarDados() {
 
     };
 
-    fetch('http://localhost:6789/usuario/insert', {
+    fetch('http://localhost:6789/banda/insert', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
