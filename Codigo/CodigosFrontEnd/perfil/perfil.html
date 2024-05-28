@@ -84,7 +84,7 @@
             <div class="welcome">Central do Músico</div>
             <ul>
                 <li><a href="/Codigo/CodigosFrontEnd/telainicial/Updateinicial.html">Menu</a></li>
-                <li><a href="/Codigo/CodigosFrontEnd/Login/novologin.html">Login</a></li>
+                <li><a href="/Codigo/CodigosFrontEnd/Login/novologin.html" id="loginbotao">Login</a></li>
             </ul>
         </nav>
     </div>
@@ -115,6 +115,9 @@
     <div class="logout-container">
         <!--botao de logout com id para linkar no js-->
         <button id="logout" onclick="logout()" class="logout-button">Logout</button>
+        <button id="salvar" onclick = "salvar()"class="logout-button" style="display: none;">Salvar</button>
+        <button id="editar" onclick="editarPerfil()" class="logout-button">Editar Perfil</button>
+
     </div>
 
 
