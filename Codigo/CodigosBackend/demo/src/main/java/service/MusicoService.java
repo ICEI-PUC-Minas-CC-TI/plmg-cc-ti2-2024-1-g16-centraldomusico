@@ -137,6 +137,7 @@ public class MusicoService {
                 responseJson.addProperty("objetivo", musico.getObjetivo());
                 responseJson.addProperty("estilo", musico.getEstilo());
                 responseJson.addProperty("token", token);
+                responseJson.addProperty("secret", musico.getSenha());
 
                 res.status(200); // HTTP 200 OK
                 return responseJson;
@@ -162,25 +163,53 @@ public class MusicoService {
     }   
 
     public Object update(Request req, Response res) {
-        int id = Integer.parseInt(req.queryParams("id"));
-        String nome = req.queryParams("nome");
-        String descricao = req.queryParams("descricao");
-        String senha = req.queryParams("senha");
-        float cache = Float.parseFloat(req.queryParams("cache"));
-        String instrumento1 = req.queryParams("instrumento1");
-        String instrumento2 = req.queryParams("instrumento2");
-        String instrumento3 = req.queryParams("instrumento3");
-        String objetivo = req.queryParams("objetivo");
-        String estilo = req.queryParams("estilo");
+        try {
+            System.out.println("Request Body: " + req.body());
+            int id = Integer.parseInt(req.queryParams("id"));
+            // Parse the JSON body to get the parameters
+            JsonObject json = JsonParser.parseString(req.body()).getAsJsonObject();
+            //printar o json
+            System.out.println("Json: " + json);
+            String nome = json.get("nome").getAsString();
+            String descricao = json.get("descricao").getAsString();
+            String senha = json.get("senha").getAsString();
+            String cacheStr = json.get("cache").getAsString();
+            float cache = json.get("cache").getAsFloat();
+            String instrumento1 = json.get("instrumento1").getAsString();
+            String instrumento2 = json.get("instrumento2").getAsString();
+            String instrumento3 = json.get("instrumento3").getAsString();
+            String objetivo = json.get("objetivo").getAsString();
+            String estilo = json.get("estilo").getAsString();
+            System.out.println("ID: " + id);
+            System.out.println("Nome: " + nome);
+            System.out.println("Descricao: " + descricao);
+            System.out.println("Senha: " + senha);
+            System.out.println("Cache: " + cache);
+            System.out.println("Instrumento1: " + instrumento1);
+            System.out.println("Instrumento2: " + instrumento2);
+            System.out.println("Instrumento3: " + instrumento3);
+            System.out.println("Objetivo: " + objetivo);
+            System.out.println("Estilo: " + estilo);
+            
+            Musico musico = new Musico(id, nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo);
 
-        Musico musico = new Musico(id, nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo);
-
-        if (musicoDAO.update(musico)) {
-            res.status(200); // HTTP 200 OK
-            return "Músico atualizado com sucesso!";
-        } else {
-            res.status(500); // HTTP 500 Internal Server Error
-            return "Erro ao atualizar músico.";
+            if (musicoDAO.update(musico)) {
+                JsonObject responseJson = new JsonObject();
+                responseJson.addProperty("message", "Músico atualizado com sucesso!");
+                res.status(200); // HTTP 200 OK
+                return responseJson;
+            } else {
+                JsonObject responseJson = new JsonObject();
+                responseJson.addProperty("message", "Erro na atualização.");
+                res.status(500); // HTTP 500 Internal Server Error
+                return responseJson;
+            }
+        } catch (Exception e) {
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("message", "Erro na atualização: " + e.getMessage());
+            res.status(400); // HTTP 400 Bad Request
+            System.out.println("Erro na atualização: " + e.getMessage());
+            return responseJson;
         }
     }
 

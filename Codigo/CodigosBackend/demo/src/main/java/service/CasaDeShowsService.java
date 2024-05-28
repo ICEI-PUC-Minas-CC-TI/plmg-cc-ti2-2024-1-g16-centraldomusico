@@ -56,4 +56,10 @@ public class CasaDeShowsService {
 			return gson.toJson(casa);
 		}
 	}
+    public String getAll(Request request, Response response) {
+        Gson gson = new Gson();
+        System.out.println("GET ALL CASAS DE SHOWS");
+        response.type("application/json");
+        return gson.toJson(casaDAO.getAll());
+    }
 }
