@@ -49,11 +49,12 @@ public class Aplicacao {
         post("/usuario/insert", (request, response) -> musicoService.insert(request, response));
         get("/usuario/get/perfil", (request, response) -> musicoService.getById(request, response));
         get("/usuario/get", (request, response) -> musicoService.get(request, response));
-        post("/usuario/update", (request, response) -> musicoService.update(request, response));
+        put("/usuario/update", (request, response) -> musicoService.update(request, response));
         delete("/usuario/delete", (request, response) -> musicoService.delete(request, response));
 
         // Rotas para Banda (exemplo, você deve implementar os métodos no BandaService)
         post("/banda/insert", (request, response) -> bandaService.insert(request, response));
+        get("/banda/getAll", (request, response) -> bandaService.getAll(request, response));
         get("/banda/get", (request, response) -> bandaService.get(request, response));
         post("/banda/update", (request, response) -> bandaService.update(request, response));
         delete("/banda/delete", (request, response) -> bandaService.delete(request, response));
@@ -61,6 +62,7 @@ public class Aplicacao {
         // Rotas para CasaDeShows (exemplo, você deve implementar os métodos no CasaDeShowsService)
         post("/casa/insert", (request, response) -> casaService.insert(request, response));
         get("/casa/get", (request, response) -> casaService.get(request, response));
+        get("/casa/getAll", (request, response) -> casaService.getAll(request, response));
         post("/casa/update", (request, response) -> casaService.update(request, response));
         delete("/casa/delete", (request, response) -> casaService.delete(request, response));
     }
