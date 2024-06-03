@@ -69,6 +69,23 @@ public class MusicoService {
         }
     }
 
+    //funcao para checar se o musico tem uma banda interagindo com o DAO
+    public Object checkBanda(Request req, Response res) {
+        int id = Integer.parseInt(req.queryParams("id"));
+        String bandaNome = musicoDAO.checkBanda(id);
+        if (bandaNome != null) {
+            System.out.println("Musico tem banda: " + bandaNome);
+            res.status(200); // HTTP 200 OK
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("nomeBanda", bandaNome);
+            return responseJson.toString();
+        } else {
+            System.out.println("Musico não tem banda");
+            res.status(404); // HTTP 404 Not Found
+            return "Musico não tem banda";
+        }
+    }
+
     public Object getById(Request req, Response res) {
         String idParam = req.queryParams("id");
         System.out.println("ID: " + idParam);
@@ -82,6 +99,7 @@ public class MusicoService {
                     responseJson.addProperty("message", "Músico encontrado: " + musico.getNome());
                     res.status(200); // HTTP 200 OK
                     //adicionar o id do usuario no JSON
+                    String bandaNome = musicoDAO.getBandaNomeByMusicoId(id);
                     responseJson.addProperty("id", musico.getId());
                     //adicionar tudo do usuario ao JSON
                     responseJson.addProperty("nome", musico.getNome());
@@ -92,7 +110,7 @@ public class MusicoService {
                     responseJson.addProperty("instrumento3", musico.getInstrumento3());
                     responseJson.addProperty("objetivo", musico.getObjetivo());
                     responseJson.addProperty("estilo", musico.getEstilo());
-
+                    responseJson.addProperty("bandaNome", bandaNome);
                     return responseJson;
                 } else {
                     System.out.println("Músico não encontrado.");

@@ -22,7 +22,15 @@ public class CasaDeShows {
 		telefonedono = "";
 		horario = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 	}
-
+    public CasaDeShows(int id, String nome, String endereco, float valor, LocalDateTime horario, String nomeDono, String telefoneDono) {
+        this.id = id;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.valor = valor;
+        this.horario = horario;
+        this.nomeDono = nomeDono;
+        this.telefonedono = telefoneDono;
+    }
 	public CasaDeShows(int id, String nomeCasa, String nomeDono, float valor, String endereco, String telefone, LocalDateTime horarios) {
 		setId(id);
 		setNome(nomeCasa);

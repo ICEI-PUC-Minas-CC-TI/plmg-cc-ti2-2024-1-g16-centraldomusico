@@ -12,6 +12,19 @@ public class Musico {
     private String objetivo;
     private String estilo;
 
+    public Musico(){
+        this.id = 0;
+        this.nome = "";
+        this.descricao = "";
+        this.senha = "";
+        this.cache = 0;
+        this.instrumento1 = "";
+        this.instrumento2 = "";
+        this.instrumento3 = "";
+        this.objetivo = "";
+        this.estilo = "";
+    }
+
     public Musico(int id, String nome, String descricao, String senha, float cache, String instrumento1, String instrumento2, String instrumento3, String objetivo, String estilo) {
         this.id = id;
         this.nome = nome;

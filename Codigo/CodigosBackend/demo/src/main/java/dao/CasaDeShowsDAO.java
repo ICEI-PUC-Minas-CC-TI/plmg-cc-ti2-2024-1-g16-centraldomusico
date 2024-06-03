@@ -110,7 +110,30 @@ public class CasaDeShowsDAO extends DAO {
 		}
 		return casasdeshows;
 	}
-	
+    public CasaDeShows getCasaDeShows(int id) {
+        CasaDeShows casa = null;
+        try {
+            PreparedStatement ps = conexao.prepareStatement("SELECT * FROM casadeshows WHERE id = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                casa = new CasaDeShows(
+                    rs.getInt("id"),
+                    rs.getString("nomecasa"),
+                    rs.getString("endereco"),
+                    rs.getFloat("valor"),
+                    rs.getTimestamp("horario").toLocalDateTime(),
+                    rs.getString("nomedono"),
+                    rs.getString("telefone")
+                );
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return casa;
+    }
 	public boolean update(CasaDeShows casadeshow) {
 		boolean status = false;
 		try {  

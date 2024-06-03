@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
-                    <h2>${banda.nomeBanda}</h2>
+                    <h2 style>${banda.nomeBanda}</h2>
                     <p>${banda.descricao}</p>
                     <p>Cache: ${banda.cache}</p>
                     <p>Data de Criação: ${banda.dataCriacao}</p>
@@ -45,3 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 });
 
+//ao clicar em um card, redireciona para a página da banda
+document.getElementById('cards-container').addEventListener('click', function(event) {
+    const card = event.target.closest('.card');
+    if (card) {
+        const nomeBanda = card.querySelector('h2').textContent;
+        window.location.href = `/Codigo/CodigosFrontEnd/encontrebandas/banda.html?nomeBanda=${nomeBanda}`;
+    }
+});
