@@ -75,6 +75,12 @@ public class Banda {
 		return dataCriacao.toLocalDate().atStartOfDay();
 	}
 
+    public void setDataCriacaoTimestamp(LocalDateTime dataCriacaoTimestamp) {
+        LocalDateTime agoraTimestamp = LocalDateTime.now();
+        if (agoraTimestamp.compareTo(dataCriacaoTimestamp) >= 0)
+            this.dataCriacao = Date.valueOf(dataCriacaoTimestamp.toLocalDate());
+    }
+
 	public int getID() {
 		return id;
 	}

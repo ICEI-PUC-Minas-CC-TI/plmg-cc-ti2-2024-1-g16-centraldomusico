@@ -85,7 +85,7 @@ public class CasaDeShowsDAO extends DAO {
 			String sql = "SELECT * FROM casadeshows" + ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
 			ResultSet rs = st.executeQuery(sql);	           
 	        while(rs.next()) {	            	
-	        	CasaDeShows p = new CasaDeShows(rs.getInt("id"),rs.getString("nomecasa"),rs.getString("nomedono"),rs.getFloat("valor"),rs.getString("endereco"),rs.getString("telefone"), rs.getTimestamp("horarios").toLocalDateTime());
+	        	CasaDeShows p = new CasaDeShows(rs.getInt("id"),rs.getString("nomecasa"),rs.getString("nomedono"),rs.getFloat("valor"),rs.getString("endereco"),rs.getString("telefone"), rs.getTimestamp("horario").toLocalDateTime());
 	        	casasdeshows.add(p);
 	        }
 	        st.close();
@@ -94,7 +94,22 @@ public class CasaDeShowsDAO extends DAO {
 		}
 		return casasdeshows;
 	}
-	
+	public List<CasaDeShows> getAll() {
+		List<CasaDeShows> casasdeshows = new ArrayList<CasaDeShows>();
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			String sql = "SELECT * FROM casadeshows";
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()) {
+				CasaDeShows p = new CasaDeShows(rs.getInt("id"),rs.getString("nomecasa"),rs.getString("nomedono"),rs.getFloat("valor"),rs.getString("endereco"),rs.getString("telefone"), rs.getTimestamp("horario").toLocalDateTime());
+				casasdeshows.add(p);
+			}
+			st.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return casasdeshows;
+	}
 	
 	public boolean update(CasaDeShows casadeshow) {
 		boolean status = false;

@@ -14,11 +14,17 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 //importar data
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class BandaService {
     public BandaDAO bandaDAO = new BandaDAO();
+    private Gson gson;
     public BandaService(){
 
+    }
+    public BandaService(BandaDAO bandaDAO) {
+        this.bandaDAO = bandaDAO;
+        this.gson = new Gson();
     }
     public Object insert(Request req, Response res) {
         try {
@@ -104,4 +110,11 @@ public class BandaService {
 			return gson.toJson(banda);
 		}
 	}
+    public String getAll(Request request, Response response) {
+        Gson gson = new Gson();
+        System.out.println("GET ALL BANDAS");
+        response.type("application/json");
+        List<Banda> bandas = bandaDAO.getAllBandas();
+        return gson.toJson(bandas);
+    }
 }

@@ -43,7 +43,32 @@ public class BandaDAO extends DAO {
 		}
 		return status;
 	}
-
+    public List<Banda> getAllBandas() {
+        List<Banda> bandas = new ArrayList<>();
+		System.out.println("getAllBandas");
+        try {
+			System.out.println("try getAllBandas");
+            String sql = "SELECT * FROM banda";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Banda banda = new Banda();
+                banda.setNome(rs.getString("nome"));
+                banda.setDescricao(rs.getString("descricao"));
+                banda.setSenha(rs.getString("senha"));
+                banda.setCache(rs.getFloat("cache"));
+                banda.setDataCriacaoTimestamp(rs.getTimestamp("datacriacao").toLocalDateTime());
+                banda.setObjetivo(rs.getString("objetivo"));
+                banda.setEstilo(rs.getString("estilo"));
+                bandas.add(banda);
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return bandas;
+    }
 	
 	public Banda get(int id) {
 		Banda banda = null;

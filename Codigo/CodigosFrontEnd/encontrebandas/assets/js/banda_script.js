@@ -1,37 +1,47 @@
-$(document).ready(function () {
-    $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
-    });
-});
 
-function alerta () {
-    alert("Pedido enviado!!!");
-}
 
-document.addEventListener('DOMContentLoaded', function () {
-const resultadobanda = document.getElementById('resultadobanda');
-
-fetch('https://jsonservercentraldomusico.arthurcarvalh19.repl.co/banda')
+const token = localStorage.getItem('token');
+document.addEventListener('DOMContentLoaded', function() {
+    if(token){
+        document.getElementById('loginbotao').style.display = 'none';
+        console.log('token checado');
+    }else{
+        window.location.href = '/Codigo/CodigosFrontEnd/Login/novologin.html';
+    }
+    fetch('http://localhost:6789/banda/getAll', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Erro ao carregar o arquivo JSON: ${response.status}`);
+                throw new Error('Erro na requisição: ' + response.statusText);
             }
             return response.json();
         })
-        .then(banda => {
-            banda.forEach(uni => {
-                const bandaHTML = `<div class="card" style="width: 22rem;">                 
-                <div class="card-body">
-                    <h5 class="card-title">${uni.nomebanda}</h5>
-                    <h5 class="card-title">${uni.genero}</h5>
-                    <p class="card-text">${uni.descricao}</p>
-                    <button onclick="alerta()" class="btn btn-dark expandir-btn">Inscrever-se</button>
-                </div>
-            </div>`;
-            resultadobanda.innerHTML += bandaHTML;
-
+        .then(data => {
+            console.log('Resposta do servidor:', data);
+            const container = document.getElementById('cards-container');
+            data.forEach(banda => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <h2>${banda.nomeBanda}</h2>
+                    <p>${banda.descricao}</p>
+                    <p>Cache: ${banda.cache}</p>
+                    <p>Data de Criação: ${banda.dataCriacao}</p>
+                    <p>Objetivo: ${banda.objetivo}</p>
+                    <p>Estilo: ${banda.estilo}</p>
+                `;
+                container.appendChild(card);
             });
-
- })
-    
+        })
+        .catch(error => {
+            console.error('Erro ao buscar dados das bandas:', error);
+            const errorMsg = document.createElement('p');
+            errorMsg.textContent = 'Erro ao carregar as bandas. Tente novamente.';
+            document.getElementById('cards-container').appendChild(errorMsg);
+        });
 });
+
