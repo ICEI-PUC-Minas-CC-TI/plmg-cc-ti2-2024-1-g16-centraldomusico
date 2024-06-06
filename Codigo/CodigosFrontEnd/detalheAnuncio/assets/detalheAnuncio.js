@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
+    const id = params.get('id'); // ID da casa de shows
     const token = localStorage.getItem('token');
-
+    const inscreverButton = document.getElementById('inscrever-button');
+    const bandaId = localStorage.getItem('bandaId'); // Certifique-se de que o ID da banda está armazenado no localStorage
     if (!token) {
         window.location.href = '/Codigo/CodigosFrontEnd/Login/novologin.html';
         return;
@@ -23,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('anuncio-container');
         console.log('Resposta do servidor:', data);
         const anuncioDetails = `
-    
             <h1 style="color:white">${data.nome}</h1>
             <p style="color:white">Endereço: ${data.endereco}</p>
             <p style="color:white">Valor: R$${data.valor.toFixed(2).replace('.', ',')}</p>
@@ -39,8 +39,98 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('anuncio-container').appendChild(errorMsg);
     });
 
+    inscreverButton.addEventListener('click', function() {
+        fetch('http://localhost:6789/casa/inscreverBanda', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ casaId: id, bandaId: bandaId })
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição: ' + response.statusText);
+            }
+            return response.json();
+        }).then(data => {
+            alert('Banda inscrita com sucesso!');
+            //adicionar o id da casa no localstorage
+            localStorage.setItem('casaId', id);
+            //f5
+            window.location.reload();
+        }).catch(error => {
+            console.error('Erro ao inscrever a banda:', error);
+            alert('Erro ao inscrever a banda. Tente novamente.');
+        });
+    });
+    
+    fetch(`http://localhost:6789/casa/getInscritos?id=${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Erro na requisição: ' + response.statusText);
+        }
+        return response.json();
+    }).then(data => {
+        const inscritosContainer = document.getElementById('inscritos-container');
+        inscritosContainer.innerHTML = '';
+        data.forEach(inscrito => {
+            const inscritoElement = document.createElement('div');
+            inscritoElement.className = 'inscrito';
+            console.log('Inscrito:', inscrito);
+            inscritoElement.innerHTML = `
+                Nome: ${inscrito.nomeBanda}<br>
+                Estilo: ${inscrito.estilo}
+            `;
+            inscritosContainer.appendChild(inscritoElement);
+        });
+    }).catch(error => {
+        console.error('Erro ao buscar inscritos:', error);
+        const errorMsg = document.createElement('p');
+        errorMsg.textContent = 'Erro ao carregar os inscritos. Tente novamente.';
+        document.getElementById('inscritos-container').appendChild(errorMsg);
+    });
+    //se a banda ja estiver inscrita, mostra o botao de desinscrever
+    console.log('id:', id);
+    console.log('bandaId:', bandaId);
+    desinscreverButton = document.getElementById('desinscrever-button');
+    desinscreverButton.addEventListener('click', function() {
+        //mensagem de confirmação
+        if (!confirm('Deseja realmente desinscrever a banda?')) {
+            return;
+        }
+        fetch('http://localhost:6789/casa/desinscreverBanda', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ casaId: id, bandaId: bandaId })
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição: ' + response.statusText);
+            }
+            return response.json();
+        }).then(data => {
+            alert('Banda desinscrita com sucesso!');
+            //remover o id da casa do localstorage
+            localStorage.removeItem('casaId');
+            //f5
+            window.location.reload();
+        }).catch(error => {
+            console.error('Erro ao inscrever a banda:', error);
+            alert('Erro ao inscrever a banda. Tente novamente.');
+        });
+    });
+        
 });
+function inscrever(){
 
+}
 function voltar() {
     window.history.back();
 }

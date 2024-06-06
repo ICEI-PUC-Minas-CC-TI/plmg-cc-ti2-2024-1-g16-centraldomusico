@@ -6,6 +6,74 @@
     <title>Detalhes da Casa de Shows</title>
     <link rel="stylesheet" href="/Codigo/CodigosFrontEnd/informaçãoanuncio/assets/css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        .inscritos-container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        #list{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10vh;
+            color: white;
+        }
+        #anuncio-container{
+            display: flex;
+            flex-direction: column;
+            margin-top: 10vh;
+            margin-left: 2vh;
+            color: white;
+        }
+        .buttons{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        #inscrever-button{
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #desinscrever-button{
+            margin-top: 20px;
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .voltar{
+            margin-top: 20px;
+            background-color: grey;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .inscrito{
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid black;
+        }
+
+    </style>
 </head>
 <body>
     <div class="sidebar">
@@ -74,7 +142,7 @@
         </ul>
     </div>
     <div class="container">
-        <nav>
+        <nav class = "barranav">
             <div class="logo">
                 <img src="/Codigo/CodigosFrontEnd/telainicial/assets/css/Logo.png" alt="Sua Logo">
             </div>
@@ -86,8 +154,21 @@
                 <li><a href="/Codigo/CodigosFrontEnd/Login/novologin.html" id ="loginbotao">Login</a></li>
             </ul>
         </nav>
+        
         <div id="anuncio-container" class="anuncio-container"></div>
-        <button onclick="voltar()">Voltar</button>
+        <div id = "list"><h3 id = "listtitle">Bandas Inscritas</h3>        
+            <div id="inscritos-container" class="inscritos-container">
+        </div>
+        
+
+
+        </div>
+        <div class="buttons">
+            <button onclick="voltar()" class="voltar">Voltar</button>
+            <button id ="inscrever-button">Inscrever Banda</button>
+            <button id ="desinscrever-button">Desinscrever Banda</button>
+        </div>
+
         <script src ="assets/detalheAnuncio.js"></script>
         <!-- jQuery CDN -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

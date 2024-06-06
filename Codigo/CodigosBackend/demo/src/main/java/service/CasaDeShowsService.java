@@ -4,7 +4,12 @@ import dao.CasaDeShowsDAO;
 import model.CasaDeShows;
 import spark.Request;
 import spark.Response;
+import model.Banda;
+import java.util.List;
+
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class CasaDeShowsService {
     private CasaDeShowsDAO casaDAO;
@@ -55,6 +60,20 @@ public class CasaDeShowsService {
             return "Erro na atualização!";
         }
     }
+    //criar metodo getAnunciosBanda que retorna todos os eventos que a banda está inscrita
+    public String getAnunciosBanda(Request request, Response response) {
+        //printar parametro
+        System.out.println("PARAM: "+request.queryParams("id"));
+        //printar TODOS os parametros
+        System.out.println("PARAMS: "+request.queryParams());
+        String body = request.body();
+        System.out.println("BODY: "+body);
+        int bandaId = request.queryParams("id") != null ? Integer.parseInt(request.queryParams("id")) : -1;
+        List<CasaDeShows> casas = casaDAO.getAnunciosBanda(bandaId);
+        System.out.println("CASAS: "+casas);
+        response.type("application/json");
+        return gson.toJson(casas);
+    }
 
     public String get(Request request, Response response) {
         int id = Integer.parseInt(request.queryParams("id"));
@@ -68,7 +87,44 @@ public class CasaDeShowsService {
             return "Casa de Shows não encontrada";
         }
     }
-
+    //criar metodo desinscreverBanda
+    public String desinscreverBanda(Request request, Response response) {
+        String body = request.body();
+        System.out.println("BODY: "+body);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
+        int casaId = json.get("casaId").getAsInt();
+        int bandaId = json.get("bandaId").getAsInt();
+        if (casaDAO.desinscreverBanda(casaId, bandaId)) {
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("message", "Banda desinscrita com sucesso!");
+            response.status(200); // HTTP 200 OK
+            return responseJson.toString();
+        } else {
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("message", "Erro ao desinscrever a banda!");
+            response.status(500); // HTTP 500 Internal Server Error
+            return responseJson.toString();
+        }
+    }
+    //criar metodo isInscrito para checar se a banda está inscrita nesse evento, retornar true ou false
+    public String isInscrito(Request request, Response response) {
+        String body = request.body();
+        System.out.println("BODY: "+body);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
+        int casaId = json.get("casaId").getAsInt();
+        int bandaId = json.get("bandaId").getAsInt();
+        if (casaDAO.isInscrito(casaId, bandaId)) {
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("message", "Banda inscrita!");
+            response.status(200); // HTTP 200 OK
+            return responseJson.toString();
+        } else {
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("message", "Banda não inscrita!");
+            response.status(404); // HTTP 404 Not Found
+            return responseJson.toString();
+        }
+    }
     public Object getCasaById(Request req, Response res) {
         int id = Integer.parseInt(req.queryParams("id"));
         System.out.println("ID: " + id);
@@ -81,6 +137,37 @@ public class CasaDeShowsService {
         } else {
             res.status(404); // HTTP 404 Not Found
             return "Casa de Shows não encontrada";
+        }
+    }
+
+    //criar metodo getAllBandas para pegar todas as bandas inscritas nesse evento
+    public String getAllBandas(Request request, Response response) {
+        int id = Integer.parseInt(request.queryParams("id"));
+        List<Banda> bandas = casaDAO.getBandas(id);
+        response.type("application/json");
+        System.out.println("BANDAS: "+bandas);
+        return gson.toJson(bandas);     
+    }
+
+        public String inscreverBanda(Request request, Response response) {
+        String body = request.body();
+        System.out.println("BODY: "+body);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
+        int casaId = json.get("casaId").getAsInt();
+        int bandaId = json.get("bandaId").getAsInt();
+        System.out.println("Casa ID: " + casaId);
+        System.out.println("Banda ID: " + bandaId);
+        System.out.println("BODY: "+request.body());
+        if (casaDAO.inscreverBanda(casaId, bandaId)) {
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("message", "Banda inscrita com sucesso!");
+            response.status(200); // HTTP 200 OK
+            return responseJson.toString();
+        } else {
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("message", "Erro ao inscrever a banda!");
+            response.status(500); // HTTP 500 Internal Server Error
+            return responseJson.toString();
         }
     }
 

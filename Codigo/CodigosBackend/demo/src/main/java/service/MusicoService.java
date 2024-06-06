@@ -100,6 +100,7 @@ public class MusicoService {
                     res.status(200); // HTTP 200 OK
                     //adicionar o id do usuario no JSON
                     String bandaNome = musicoDAO.getBandaNomeByMusicoId(id);
+                    int bandaId = musicoDAO.getBandaIdByMusicoId(id);
                     responseJson.addProperty("id", musico.getId());
                     //adicionar tudo do usuario ao JSON
                     responseJson.addProperty("nome", musico.getNome());
@@ -111,6 +112,7 @@ public class MusicoService {
                     responseJson.addProperty("objetivo", musico.getObjetivo());
                     responseJson.addProperty("estilo", musico.getEstilo());
                     responseJson.addProperty("bandaNome", bandaNome);
+                    responseJson.addProperty("bandaId", bandaId);
                     return responseJson;
                 } else {
                     System.out.println("Músico não encontrado.");

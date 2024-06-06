@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById('objetivo').textContent = data.objetivo;
                     document.getElementById('estilo').textContent = data.estilo;
                     document.getElementById('banda').textContent = data.bandaNome;
+                    localStorage.setItem('bandaId', data.bandaId);
                     //se o usuario nao tiver banda, mostrar "sem banda"
                     if (data.bandaNome == null) {
                         document.getElementById('banda').textContent = 'Sem banda';

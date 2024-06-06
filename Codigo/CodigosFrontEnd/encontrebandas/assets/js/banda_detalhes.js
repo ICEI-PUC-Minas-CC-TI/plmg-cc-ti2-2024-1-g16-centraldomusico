@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return response.json();
     })
     .then(data => {
+        console.log('Resposta do servidor:', data);
+        const bandaId = data.id;
         const container = document.getElementById('banda-container');
         const bandaDetails = `
             <h1>${data.nomeBanda}</h1>
@@ -54,6 +56,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 feedbackMessage.textContent = data.message;
                 feedbackMessage.style.color = 'green';
                 fetchMembers(data.id); // Refresh members list
+                //adicione o id da banda no localstorage
+                console.log('DATA: ',data);
+                localStorage.setItem('bandaId', bandaId);
                 //f5
                 location.reload(true);
                 //colocar alert de bem vindo com nome da banda
@@ -91,6 +96,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 feedbackMessage.textContent = data.message;
                 feedbackMessage.style.color = 'green';
+                //limpar o localstorage
+                localStorage.removeItem('bandaId');
                 fetchMembers(data.id); // Refresh members list 
                 //f5
                 location.reload(true);

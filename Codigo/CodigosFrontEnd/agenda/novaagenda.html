@@ -8,13 +8,27 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <style>
+        .card{
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        #anuncios-container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
     
 </head>
 
 
 
-
-</head>
 
 <body>
     <div class="sidebar">
@@ -111,22 +125,8 @@
    <div id="calendar"></div>
 
    <!-- Modal para adicionar evento -->
-   <div id="addEventModal" class="modal">
-     <form id="addEventForm">
-       <label for="eventTitle">Título:</label>
-       <input type="text" id="eventTitle" name="eventTitle" required>
- 
-       <label for="eventDate">Data:</label>
-       <input type="text" id="eventDate" name="eventDate" readonly>
- 
-       <label for="eventDescription">Descrição:</label>
-       <input type="text" id="eventDescription" name="eventDescription" required>
- 
-       <label for="eventTime">Horário:</label>
-       <input type="time" id="eventTime" name="eventTime" required>
- 
-       <input type="submit" value="Adicionar Evento">
-     </form>
+   <div id ="anuncios-container">
+
    </div>
  
    <!-- Modal para mostrar e excluir eventos -->
@@ -139,136 +139,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 
-<script>
-$(document).ready(function() {
-// Array para armazenar os eventos
-var allEvents = [];
-
-// Função para carregar eventos do servidor
-function loadEvents() {
-$.ajax({
-    url: 'https://jsonservercentraldomusico.arthurcarvalh19.repl.co/events',
-    method: 'GET',
-    success: function (events) {
-        allEvents = events;
-
-        // Inicializa o FullCalendar com os eventos carregados
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            events: allEvents,
-            eventRender: function (event, element) {
-                // Adiciona a descrição como um atributo 'title' ao elemento do evento
-                element.attr('title', event.description);
-
-                // Adiciona a descrição diretamente ao elemento do evento
-                element.find('.fc-title').append('<br>' + event.description);
-            },
-            dayClick: function (date, jsEvent, view) {
-                // Abre o modal para adicionar um novo evento
-                $('#addEventModal').modal();
-
-                // Preenche a data no campo do formulário
-                $('#eventDate').val(date.format('YYYY-MM-DD'));
-            }
-        });
-    },
-    error: function (error) {
-        console.error('Erro ao carregar eventos:', error);
-    }
-});
-}
-
-// Carrega os eventos dinamicamente do servidor JSON
-loadEvents();
-
-// Configura o envio do formulário para adicionar um novo evento
-$('#addEventForm').submit(function(e) {
-e.preventDefault();
-
-// Obtém os valores do formulário
-var title = $('#eventTitle').val();
-var date = $('#eventDate').val();
-var description = $('#eventDescription').val();
-var time = $('#eventTime').val();
-
-// Cria um novo evento no formato desejado
-var newEvent = {
-  title: title,
-  description: description,
-  start: date + 'T' + time,
-  end: date + 'T' + time,
-  allDay: false
-};
-
-// Adiciona o novo evento ao calendário
-$('#calendar').fullCalendar('renderEvent', newEvent, true);
-
-// Fecha o modal
-$.modal.close();
-
-// Adiciona o novo evento à lista de eventos
-allEvents.push(newEvent);
-
-// Envia o novo evento para o servidor via POST
-$.ajax({
-  url: 'https://jsonservercentraldomusico.arthurcarvalh19.repl.co/events',
-  method: 'POST',
-  contentType: 'application/json',
-  data: JSON.stringify(newEvent),
-  success: function(response) {
-    console.log('Evento adicionado com sucesso:', response);
-  },
-  error: function(error) {
-    console.error('Erro ao adicionar evento:', error);
-  }
-});
-});
-
-// Adiciona um botão para abrir o modal de visualização de eventos
-$('#calendar').after('<button id="viewEventsBtn">Ver Eventos</button>');
-
-// Configura o botão para abrir o modal de visualização de eventos
-$('#viewEventsBtn').on('click', function() {
-// Limpa a lista de eventos antes de exibir
-$('#eventList').empty();
-
-// Adiciona cada evento à lista no modal
-allEvents.forEach(function(event) {
-  var listItem = '<li>' + event.title + ' - ' + moment(event.start).format('YYYY-MM-DD HH:mm') +
-    ' <button class="deleteEventBtn" data-id="' + event.id + '">Excluir</button></li>';
-  $('#eventList').append(listItem);
-});
-
-// Abre o modal de visualização de eventos
-$('#viewEventsModal').modal();
-});
-
-// Configura a exclusão de eventos no modal de visualização de eventos
-$('#eventList').on('click', '.deleteEventBtn', function() {
-// Obtém o ID do evento a ser excluído
-var eventId = $(this).data('id');
-
-// Remove o evento do array
-allEvents = allEvents.filter(function(event) {
-  return event.id !== eventId;
-});
-
-// Atualiza o FullCalendar sem o evento excluído
-$('#calendar').fullCalendar('removeEvents', eventId);
-
-// Atualiza a lista de eventos no modal
-$('#viewEventsModal').modal();
-
-// TODO: Envie uma solicitação DELETE para o servidor para excluir o evento com o ID eventId
-// Aqui você precisará implementar a lógica de exclusão no servidor
-// Exemplo: $.ajax({ url: 'https://teste-json-final.gabrielhorta148.repl.co/events/' + eventId, method: 'DELETE', success: function(response) { console.log('Evento excluído com sucesso:', response); }, error: function(error) { console.error('Erro ao excluir evento:', error); } });
-});
-});
-</script>
+<script src="assets/js/script.js"></script>
 
 
 

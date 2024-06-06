@@ -9,14 +9,51 @@
     <style>
         #banda-container{
             color:white;
+            margin-top: 20vh;
         }
         #members-container{
             color:white;
             display: flex;
             flex-direction: column;
+            
         }
         .membrosbanda{
             color:white;
+            margin-top: 20vh;
+        }
+        #join-band-button{
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #leave-band-button{
+            margin-top: 20px;
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .buttons{
+            margin-top: 20vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .member{
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid black;
         }
     </style>
 </head>
@@ -99,8 +136,11 @@
             </ul>
         </nav>
         <div id="banda-container" class="banda-container"></div>
-        <button id="join-band-button">Entrar na Banda</button>
-        <button id="leave-band-button">Sair da Banda</button>
+        <div class="buttons">
+            <button id="join-band-button">Entrar na Banda</button>
+            <button id="leave-band-button">Sair da Banda</button>
+        </div>
+
 
         <div id="feedback-message" class="feedback-message"></div>
         <div>

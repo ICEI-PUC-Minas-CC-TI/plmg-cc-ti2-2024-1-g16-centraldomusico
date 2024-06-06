@@ -204,6 +204,42 @@ public class MusicoDAO extends DAO {
         }
         return status;
     }
+    //implementar metodo getBandaIdByMusicoId
+    public int getBandaIdByMusicoId(int musicoId) {
+        int id = -1;
+        try {
+            String sql = "SELECT banda_id FROM bandamusico WHERE musico_id = ?";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            st.setInt(1, musicoId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("banda_id");
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar id da banda pelo musico id (DAO): " + e.getMessage());
+        }
+        return id;
+    }
+    //pegar id da banda pelo nome
+    public int getBandaIdByNome(String nome) {
+        int id = -1;
+        try {
+            String sql = "SELECT id FROM banda WHERE nome = ?";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            st.setString(1, nome);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar id da banda pelo nome (DAO): " + e.getMessage());
+        }
+        return id;
+    }
 
     public boolean delete(int id) {
         boolean status = false;
