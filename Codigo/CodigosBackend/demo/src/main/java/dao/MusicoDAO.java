@@ -44,6 +44,48 @@ public class MusicoDAO extends DAO {
         return status;
     }
 
+    //funcao para checar se o musico tem uma banda
+    public String checkBanda(int id) {
+        String bandaNome = null;
+        try {
+            String sql = "SELECT b.nome FROM banda b " +
+                         "JOIN bandamusico bm ON b.id = bm.banda_id " +
+                         "WHERE bm.musico_id = ?";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                bandaNome = rs.getString("nome");
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException e) {
+            System.err.println("Erro ao checar se o musico tem banda (DAO): " + e.getMessage());
+        }
+        return bandaNome;
+    }
+
+    public String getBandaNomeByMusicoId(int musicoId) {
+        String bandaNome = null;
+        try {
+            String sql = "SELECT b.nome FROM banda b " +
+                         "JOIN bandamusico bm ON b.id = bm.banda_id " +
+                         "WHERE bm.musico_id = ?";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            st.setInt(1, musicoId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                bandaNome = rs.getString("nome");
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar nome da banda (DAO): " + e.getMessage());
+        }
+        return bandaNome;
+    }
+    
+
     public Musico get(int id) {
         Musico musico = null;
         try {

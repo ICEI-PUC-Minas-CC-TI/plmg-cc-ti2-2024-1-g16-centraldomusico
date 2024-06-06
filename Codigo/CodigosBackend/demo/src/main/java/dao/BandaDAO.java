@@ -1,6 +1,7 @@
 package dao;
 
 import model.Banda;
+import model.Musico;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +22,135 @@ public class BandaDAO extends DAO {
 		close();
 	}
 	
+	public boolean joinBand(int bandaId, int musicoId) {
+		boolean status = false;
+		try {
+			if (getNumberOfMembers(bandaId) >= 5) {
+				throw new RuntimeException("A banda já tem o número máximo de membros.");
+			}
 	
+			String sql = "INSERT INTO bandamusico (banda_id, musico_id) VALUES (?, ?)";
+			PreparedStatement st = conexao.prepareStatement(sql);
+			st.setInt(1, bandaId);
+			st.setInt(2, musicoId);
+			st.executeUpdate();
+			st.close();
+			status = true;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return status;
+	}
+	
+	public List<Musico> getBandaMembers(int bandaId) {
+		List<Musico> membros = new ArrayList<>();
+		try {
+			String sql = "SELECT m.id, m.nome, m.instrumento1, m.instrumento2, m.instrumento3 " +
+						 "FROM musico m " +
+						 "JOIN bandamusico bm ON m.id = bm.musico_id " +
+						 "WHERE bm.banda_id = ?";
+			PreparedStatement st = conexao.prepareStatement(sql);
+			st.setInt(1, bandaId);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				Musico musico = new Musico();
+				musico.setId(rs.getInt("id"));
+				musico.setNome(rs.getString("nome"));
+				musico.setInstrumento1(rs.getString("instrumento1"));
+				musico.setInstrumento2(rs.getString("instrumento2"));
+				musico.setInstrumento3(rs.getString("instrumento3"));
+				membros.add(musico);
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return membros;
+	}
+	public boolean isUserInBand(int bandaId, int musicoId) {
+		boolean isInBand = false;
+		try {
+			String sql = "SELECT COUNT(*) FROM bandamusico WHERE banda_id = ? AND musico_id = ?";
+			PreparedStatement st = conexao.prepareStatement(sql);
+			st.setInt(1, bandaId);
+			st.setInt(2, musicoId);
+			ResultSet rs = st.executeQuery();
+			if (rs.next() && rs.getInt(1) > 0) {
+				isInBand = true;
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return isInBand;
+	}
+	public boolean leaveBand(int bandaId, int musicoId) {
+		boolean status = false;
+		try {
+			String sql = "DELETE FROM bandamusico WHERE banda_id = ? AND musico_id = ?";
+			PreparedStatement st = conexao.prepareStatement(sql);
+			st.setInt(1, bandaId);
+			st.setInt(2, musicoId);
+			int rowsAffected = st.executeUpdate();
+			st.close();
+			if (rowsAffected > 0) {
+				status = true;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return status;
+	}
+
+
+	public int getNumberOfMembers(int bandaId) {
+		int count = 0;
+		try {
+			String sql = "SELECT COUNT(*) FROM bandamusico WHERE banda_id = ?";
+			PreparedStatement st = conexao.prepareStatement(sql);
+			st.setInt(1, bandaId);
+			ResultSet rs = st.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return count;
+	}
+	
+	public Banda getByName(String nomeBanda) {
+		Banda banda = null;
+		try {
+			String sql = "SELECT * FROM banda WHERE nome = ?";
+			PreparedStatement st = conexao.prepareStatement(sql);
+			st.setString(1, nomeBanda);
+			ResultSet rs = st.executeQuery();
+			if (rs.next()) {
+				banda = new Banda(
+					rs.getInt("id"),
+					rs.getString("nome"),
+					rs.getString("descricao"),
+					rs.getString("senha"),
+					rs.getFloat("cache"),
+					rs.getString("estilo"),
+					rs.getString("objetivo")
+				);
+				banda.setDataCriacaoTimestamp(rs.getTimestamp("datacriacao").toLocalDateTime());
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		// se der certo, pegamos os membros da banda
+		return banda;
+	}
+
 	public boolean insert(Banda banda) {
 		boolean status = false;
 		try {

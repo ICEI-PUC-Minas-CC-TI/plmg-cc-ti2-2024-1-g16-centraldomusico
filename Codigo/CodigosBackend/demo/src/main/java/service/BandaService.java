@@ -20,12 +20,86 @@ public class BandaService {
     public BandaDAO bandaDAO = new BandaDAO();
     private Gson gson;
     public BandaService(){
-
+        this.gson = new Gson();
     }
     public BandaService(BandaDAO bandaDAO) {
         this.bandaDAO = bandaDAO;
         this.gson = new Gson();
     }
+
+    public String getBandaMembers(Request request, Response response) {
+        int bandaId = Integer.parseInt(request.queryParams("bandaId"));
+        List<Musico> membros = bandaDAO.getBandaMembers(bandaId);
+        response.type("application/json");
+        return gson.toJson(membros);
+    }
+
+    public String getByName(Request request, Response response) {
+        String nomeBanda = request.queryParams("nomeBanda");
+        Banda banda = bandaDAO.getByName(nomeBanda);
+        System.out.println("Banda: " + banda);
+        if (banda != null) {
+            System.out.println("Banda encontrada: " + banda.getNome());
+            response.type("application/json");
+            return gson.toJson(banda);
+        } else {
+            response.status(404); // HTTP 404 Not Found
+            return "Banda não encontrada";
+        }
+    }
+    public String joinBand(Request request, Response response) {
+        try {
+            String body = request.body();
+            JsonObject json = JsonParser.parseString(body).getAsJsonObject();
+            int bandaId = json.get("bandaId").getAsInt();
+            int musicoId = json.get("musicoId").getAsInt();
+    
+            if (bandaDAO.isUserInBand(bandaId, musicoId)) {
+                response.status(400); // HTTP 400 Bad Request
+                return "Você já está nesta banda.";
+            }
+    
+            if (bandaDAO.joinBand(bandaId, musicoId)) {
+                JsonObject responseJson = new JsonObject();
+                responseJson.addProperty("message", "Você entrou na banda com sucesso!");
+                response.status(200); // HTTP 200 OK
+                return responseJson.toString();
+            } else {
+                response.status(500); // HTTP 500 Internal Server Error
+                return "Erro ao entrar na banda.";
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao entrar na banda: " + e.getMessage());
+            e.printStackTrace();
+            response.status(500); // HTTP 500 Internal Server Error
+            return "Erro ao entrar na banda: " + e.getMessage();
+        }
+    }
+    
+    public String leaveBand(Request req, Response res) {
+        try {
+            String body = req.body();
+            JsonObject json = JsonParser.parseString(body).getAsJsonObject();
+            int bandaId = json.get("bandaId").getAsInt();
+            int musicoId = json.get("musicoId").getAsInt();
+    
+            if (bandaDAO.leaveBand(bandaId, musicoId)) {
+                JsonObject responseJson = new JsonObject();
+                responseJson.addProperty("message", "Você saiu da banda com sucesso!");
+                res.status(200); // HTTP 200 OK
+                return responseJson.toString();
+            } else {
+                res.status(500); // HTTP 500 Internal Server Error
+                return "Erro ao sair da banda.";
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao sair da banda: " + e.getMessage());
+            e.printStackTrace();
+            res.status(500); // HTTP 500 Internal Server Error
+            return "Erro ao sair da banda: " + e.getMessage();
+        }
+    }
+    
     public Object insert(Request req, Response res) {
         try {
             String body = req.body();

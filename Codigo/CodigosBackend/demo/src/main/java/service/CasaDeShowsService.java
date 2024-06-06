@@ -7,58 +7,84 @@ import spark.Response;
 import com.google.gson.Gson;
 
 public class CasaDeShowsService {
-    public CasaDeShowsDAO casaDAO = new CasaDeShowsDAO();
-    public CasaDeShowsService(){
+    private CasaDeShowsDAO casaDAO;
+    private Gson gson;
 
+    public CasaDeShowsService() {
+        this.casaDAO = new CasaDeShowsDAO();
+        this.gson = new Gson();
     }
-    public String insert(Request request,Response response){
+
+    public CasaDeShowsService(CasaDeShowsDAO casaDAO) {
+        this.casaDAO = casaDAO;
+        this.gson = new Gson();
+    }
+
+    public String insert(Request request, Response response) {
         String str = request.body();
-        Gson gson = new Gson();
         CasaDeShows casa = gson.fromJson(str, CasaDeShows.class);
-        if(casaDAO.insert(casa) == true){
+        if (casaDAO.insert(casa)) {
+            response.status(201); // HTTP 201 Created
             return "Casa de Shows registrada!";
-        }else{
+        } else {
+            response.status(500); // HTTP 500 Internal Server Error
             return "Erro no cadastro!";
         }
     }
 
-    public String delete(Request request, Response response){
+    public String delete(Request request, Response response) {
         String str = request.body();
-        Gson gson = new Gson();
         CasaDeShows casa = gson.fromJson(str, CasaDeShows.class);
-        if(casaDAO.delete(casa.getID()) == true){
+        if (casaDAO.delete(casa.getID())) {
+            response.status(200); // HTTP 200 OK
             return "Casa de Shows deletada!";
-        }else{
+        } else {
+            response.status(500); // HTTP 500 Internal Server Error
             return "Erro no delete!";
         }
     }
-    public String update(Request request, Response response){
+
+    public String update(Request request, Response response) {
         String str = request.body();
-        Gson gson = new Gson();
         CasaDeShows casa = gson.fromJson(str, CasaDeShows.class);
-        if(casaDAO.update(casa) == true){
+        if (casaDAO.update(casa)) {
+            response.status(200); // HTTP 200 OK
             return "Casa de Shows atualizada!";
-        }else{
+        } else {
+            response.status(500); // HTTP 500 Internal Server Error
             return "Erro na atualização!";
         }
     }
-	public String get(Request request, Response response){
-		String str = request.body();
-		System.out.println(str);
-		Gson gson = new Gson();
-		CasaDeShows casa = gson.fromJson(str, CasaDeShows.class);
 
-		if(casa.getID() == 0){
-			return "Erro ao buscar Casa de Shows!";
-		}
-		else{
-			casa = casaDAO.get(casa.getID());
-			return gson.toJson(casa);
-		}
-	}
+    public String get(Request request, Response response) {
+        int id = Integer.parseInt(request.queryParams("id"));
+        CasaDeShows casa = casaDAO.get(id);
+
+        if (casa != null) {
+            response.status(200); // HTTP 200 OK
+            return gson.toJson(casa);
+        } else {
+            response.status(404); // HTTP 404 Not Found
+            return "Casa de Shows não encontrada";
+        }
+    }
+
+    public Object getCasaById(Request req, Response res) {
+        int id = Integer.parseInt(req.queryParams("id"));
+        System.out.println("ID: " + id);
+        System.out.println("Request: " + req.body());
+        CasaDeShows casa = casaDAO.getCasaDeShows(id);
+
+        if (casa != null) {
+            res.type("application/json");
+            return gson.toJson(casa);
+        } else {
+            res.status(404); // HTTP 404 Not Found
+            return "Casa de Shows não encontrada";
+        }
+    }
+
     public String getAll(Request request, Response response) {
-        Gson gson = new Gson();
-        System.out.println("GET ALL CASAS DE SHOWS");
         response.type("application/json");
         return gson.toJson(casaDAO.getAll());
     }

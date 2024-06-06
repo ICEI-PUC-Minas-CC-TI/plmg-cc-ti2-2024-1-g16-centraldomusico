@@ -35,12 +35,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById('instrumento3').textContent = data.instrumento3;
                     document.getElementById('objetivo').textContent = data.objetivo;
                     document.getElementById('estilo').textContent = data.estilo;
+                    document.getElementById('banda').textContent = data.bandaNome;
+                    //se o usuario nao tiver banda, mostrar "sem banda"
+                    if (data.bandaNome == null) {
+                        document.getElementById('banda').textContent = 'Sem banda';
+                    }
                 }
             })
             .catch(error => {
                 console.error('Erro ao buscar dados do usuário:', error);
                 document.getElementById('msgError').textContent = 'Erro ao carregar os dados do usuário. Tente novamente.';
             });
+
     }else{
         window.location.href = '/Codigo/CodigosFrontEnd/Login/novologin.html';
     }
@@ -79,6 +85,7 @@ function editarPerfil() {
     document.getElementById('salvar').style.display = 'block';
     //esconder botao de editar
     document.getElementById('editar').style.display = 'none';
+    
 }
 function salvar() {
     const nome = document.getElementById('nome').textContent.trim();
