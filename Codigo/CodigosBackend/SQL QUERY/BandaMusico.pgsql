@@ -83,3 +83,6 @@ CREATE TRIGGER verificar_musico_cheio_trigger
 BEFORE INSERT ON BandaMusico
 FOR EACH ROW
 EXECUTE FUNCTION verificar_musico_cheio();
+
+
+SELECT * FROM centraldomusico.Banda;
