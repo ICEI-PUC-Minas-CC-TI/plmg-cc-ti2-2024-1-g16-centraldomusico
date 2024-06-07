@@ -6,13 +6,14 @@
 
 }
 
-body{
+body {
     position: relative;
     min-height: 100vh;
     width: 100%;
-    background-image: linear-gradient(#0d101b,#281a2d);
+    background-image: linear-gradient(#0d101b, #281a2d);
+    font-family: "Poppins", sans-serif; /* Adiciona a fonte Poppins */
+    overflow-x: hidden;
 }
-
 .sidebar{
     font-family: "Poppins", sans-serif;
     position: fixed;
@@ -212,7 +213,7 @@ body{
     justify-content: space-between; /* Alterado para espaçamento entre os elementos */
     z-index: 0;
     transition: all .5s ease;
-    font-family: arilal;
+    font-family: 'Roboto', sans-serif;
 }
 
 .sidebar.active ~ .container {

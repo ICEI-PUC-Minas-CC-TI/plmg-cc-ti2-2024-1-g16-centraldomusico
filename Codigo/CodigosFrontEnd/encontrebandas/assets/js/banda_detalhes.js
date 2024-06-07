@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!token) {
         window.location.href = '/Codigo/CodigosFrontEnd/Login/novologin.html';
         return;
+    }else{
+        document.getElementById('loginbotao').style.display = 'none';
     }
 
     fetch(`http://localhost:6789/banda/getByName?nomeBanda=${nomeBanda}`, {
@@ -30,11 +32,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('banda-container');
         const bandaDetails = `
             <h1>${data.nomeBanda}</h1>
-            <p>${data.descricao}</p>
-            <p>Cache: ${data.cache}</p>
-            <p>Data de Criação: ${data.dataCriacao}</p>
-            <p>Objetivo: ${data.objetivo}</p>
-            <p>Estilo: ${data.estilo}</p>
+            <p class="desc">${data.descricao}</p>
+            <p class= "cache">Cache: R$ ${data.cache}</p>
+            <p class= "datacriacao">Data de Criação: ${data.dataCriacao}</p>
+            <p class="obj">Objetivo: ${data.objetivo}</p>
+            <p class="estilo">Estilo: ${data.estilo}</p>
         `;
         container.innerHTML = bandaDetails;
 

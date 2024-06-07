@@ -8,6 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class MusicoDAO extends DAO {
     public MusicoDAO() {
@@ -19,15 +23,47 @@ public class MusicoDAO extends DAO {
         close();
     }
 
+    public Musico getByUsername(String username) {
+        Musico musico = null;
+        try {
+            String sql = "SELECT * FROM musico WHERE nome = ?";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                musico = new Musico(
+                    rs.getInt("id"),
+                    rs.getString("nome"),
+                    rs.getString("descricao"),
+                    rs.getString("senha"),
+                    rs.getFloat("cache"),
+                    rs.getString("instrumento1"),
+                    rs.getString("instrumento2"),
+                    rs.getString("instrumento3"),
+                    rs.getString("objetivo"),
+                    rs.getString("estilo")
+                );
+            }
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return musico;
+    }
+
     public boolean insert(Musico musico) {
         boolean status = false;
         try {
+            // Encrypt the password using MD5
+            String encryptedPassword = encryptPassword(musico.getSenha());
+    
             String sql = "INSERT INTO musico (nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo) "
                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement st = conexao.prepareStatement(sql);
             st.setString(1, musico.getNome());
             st.setString(2, musico.getDescricao());
-            st.setString(3, musico.getSenha());
+            st.setString(3, encryptedPassword);
             st.setFloat(4, musico.getCache());
             st.setString(5, musico.getInstrumento1());
             st.setString(6, musico.getInstrumento2());
@@ -42,6 +78,45 @@ public class MusicoDAO extends DAO {
             throw new RuntimeException(u);
         }
         return status;
+    }
+    public boolean login(String username, String password) {
+        boolean status = false;
+        try {
+            // Criptografar a senha fornecida pelo usuário usando MD5
+            String encryptedPassword = encryptPassword(password);
+    
+            // Recuperar a senha criptografada armazenada no banco de dados
+            Musico musico = getByUsername(username);
+            if (musico != null) {
+                String storedPassword = musico.getSenha();
+    
+                // Comparar as senhas criptografadas
+                if (storedPassword.equals(encryptedPassword)) {
+                    status = true;
+                    System.out.println("Login bem-sucedido");
+                } else {
+                    System.out.println("Nome de usuário ou senha inválidos");
+                }
+            } else {
+                System.out.println("Usuário não encontrado");
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return status;
+    }
+    private String encryptPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(password.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : messageDigest) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //funcao para checar se o musico tem uma banda
@@ -125,29 +200,13 @@ public class MusicoDAO extends DAO {
         return get("descricao");        
     }
 
-    public Musico getByUsuarioSenha(String usuario, String senha) {
-        // Substitua pela lógica real para buscar o usuário no banco de dados
-        String query = "SELECT * FROM musico WHERE nome = ? AND senha = ?";
-        try (PreparedStatement stmt = conexao.prepareStatement(query)) {
-            stmt.setString(1, usuario);
-            stmt.setString(2, senha);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return new Musico(
-                    rs.getInt("id"),
-                    rs.getString("nome"),
-                    rs.getString("descricao"),
-                    rs.getString("senha"),
-                    rs.getFloat("cache"),
-                    rs.getString("instrumento1"),
-                    rs.getString("instrumento2"),
-                    rs.getString("instrumento3"),
-                    rs.getString("objetivo"),
-                    rs.getString("estilo")
-                );
+    public Musico getByUsuarioSenha(String username, String senha) {
+        Musico musico = getByUsername(username);
+        if (musico != null) {
+            String encryptedPassword = encryptPassword(senha);
+            if (musico.getSenha().equals(encryptedPassword)) {
+                return musico;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }

@@ -1,0 +1,66 @@
+.container{
+    display: flex;
+    align-items: center;
+
+}
+#anuncio-container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+    padding: 20px;
+    border-radius: 10px;
+
+}
+.cardprincipal{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    /*centralizar div*/
+    margin-left: 20vh;
+    margin-top: 50vh;
+    margin-right: 20vh;
+    margin-bottom: 8vh;
+    padding: 0px;
+    border-radius: 10px;
+
+}
+/*colocar descrição em itálico e estilizada*/
+.desc{
+    font-style: italic;
+    font-size: 20px;
+    color: white;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-left: 2vh;
+    margin-bottom: 2vh;
+}
+/*ao passar o mouse, o botão muda de cor*/
+.listtitle{
+    text-align: center;
+    margin-bottom: 2vh;
+}
+#list{
+    background-color: #231829;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+    height: 100%;
+    width: 550px;
+    padding-bottom: 20px;
+
+}
+#inscritos-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -14,6 +14,7 @@ body {
     background-repeat: no-repeat; /* Prevent the background image from repeating */
     background-attachment: fixed; /* Fix the background image in place */
     margin: 0; /* Remove default margin */
+    overflow-x: hidden;
 }
 
 

@@ -136,6 +136,7 @@ public class MusicoService {
         String usuarioParam = req.queryParams("usuario");
         String senhaParam = req.queryParams("senha");
         System.out.println("Usuário: " + usuarioParam + ", Senha: " + senhaParam);
+
         if (usuarioParam != null && senhaParam != null) {
             Musico musico = musicoDAO.getByUsuarioSenha(usuarioParam, senhaParam);
             if (musico != null) {
@@ -145,9 +146,9 @@ public class MusicoService {
                 JsonObject responseJson = new JsonObject();
                 responseJson.addProperty("message", "Usuário encontrado: " + musico.getNome());
                 System.out.println("Usuário encontrado: " + musico.getNome());
-                //adicionar o id do usuario no JSON
+                // Adicionar o id do usuário no JSON
                 responseJson.addProperty("id", musico.getId());
-                //adicionar tudo do usuario ao JSON
+                // Adicionar todas as informações do usuário ao JSON
                 responseJson.addProperty("nome", musico.getNome());
                 responseJson.addProperty("descricao", musico.getDescricao());
                 responseJson.addProperty("cache", musico.getCache());

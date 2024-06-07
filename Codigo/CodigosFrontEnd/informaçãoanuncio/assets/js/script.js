@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = '/Codigo/CodigosFrontEnd/Login/novologin.html';
     }
 
-    // Requisição GET para pegar TODOS os eventos
     fetch('http://localhost:6789/casa/getAll', {
         method: 'GET',
         headers: {
@@ -20,24 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return response.json();
     }).then(data => {
         console.log('Resposta do servidor:', data);
-        const container = document.getElementById('cards-container');
-        data.forEach(evento => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.dataset.id = evento.id; // Adiciona o ID do evento ao dataset do card
-
-            const horario = evento.horario ? formatHorario(evento.horario) : 'Horário não disponível';
-
-            card.innerHTML = `
-                <h2>${evento.nome}</h2>
-                <p>${evento.endereco}</p>
-                <p>Valor: R$${evento.valor},00</p>
-                <p>Horário: ${horario}</p>
-                <p>Responsável: ${evento.nomeDono}</p>
-                <p>Contato: ${evento.telefonedono}</p>
-            `;
-            container.appendChild(card);
-        });
+        renderAnuncios(data); // Renderiza os anúncios no início
     }).catch(error => {
         console.error('Erro ao buscar dados dos eventos:', error);
         const errorMsg = document.createElement('p');
@@ -55,12 +37,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-$(document).ready(function () {
-    // Inicialize o botão de colapso de barra lateral
-    $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
+function renderAnuncios(anuncios) {
+    const container = document.getElementById('cards-container');
+    container.innerHTML = ''; // Limpa o container antes de renderizar
+
+    anuncios.forEach(anuncio => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.id = anuncio.id; // Adiciona o ID do anúncio ao dataset do card
+
+        const horario = anuncio.horario ? formatHorario(anuncio.horario) : 'Horário não disponível';
+
+        card.innerHTML = `
+            <h2>${anuncio.nome}</h2>
+            <p>${anuncio.endereco}</p>
+            <p>Valor: R$${anuncio.valor},00</p>
+            <p>Horário: ${horario}</p>
+            <p>Responsável: ${anuncio.nomeDono}</p>
+            <p>Contato: ${anuncio.telefonedono}</p>
+        `;
+        container.appendChild(card);
     });
-});
+}
 
 function formatHorario(horario) {
     console.log('Horário:', horario);
@@ -88,3 +86,16 @@ function formatHorario(horario) {
     // Retorna a hora formatada
     return date.toLocaleString('pt-BR', options);
 }
+
+document.getElementById('search-bar').addEventListener('input', function(event) {
+    const searchTerm = event.target.value.toLowerCase();
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        const textContent = card.textContent.toLowerCase();
+        if (textContent.includes(searchTerm)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});

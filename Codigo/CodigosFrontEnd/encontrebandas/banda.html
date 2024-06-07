@@ -6,10 +6,11 @@
     <title>Detalhes da Banda</title>
     <link rel="stylesheet" href="/Codigo/CodigosFrontEnd/encontrebandas/assets/css/style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bandastyle.css">
     <style>
         #banda-container{
             color:white;
-            margin-top: 20vh;
         }
         #members-container{
             color:white;
@@ -19,41 +20,48 @@
         }
         .membrosbanda{
             color:white;
-            margin-top: 20vh;
         }
         #join-band-button{
             margin-top: 20px;
-            background-color: #4CAF50;
+            background-color: #af2747;
             color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+        }
+        #join-band-button:hover{
+            background-color: #ff8800;
+            transition: 0.5s;
         }
         #leave-band-button{
             margin-top: 20px;
-            background-color: #f44336;
+            background-color: #ff1100;
             color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
+        #leave-band-button:hover{
+            background-color: #8f0404;
+            transition: 0.5s;
+        }
         .buttons{
-            margin-top: 20vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
         }
         .member{
             background-color: white;
             color: black;
             padding: 10px 20px;
-            width: 100%;
+            width: 80%;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
+            margin-bottom: 5px;
             cursor: pointer;
-            border: 1px solid black;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
         }
     </style>
 </head>
@@ -135,20 +143,36 @@
                 <li><a href="/Codigo/CodigosFrontEnd/Login/novologin.html" id="loginbotao">Login</a></li>
             </ul>
         </nav>
-        <div id="banda-container" class="banda-container"></div>
-        <div class="buttons">
-            <button id="join-band-button">Entrar na Banda</button>
-            <button id="leave-band-button">Sair da Banda</button>
+        <div class="cardprincipal">
+        <div class="bandabutton">
+            <div id="banda-container" class="banda-container"></div>
+            <div class="buttons">
+                <button id="join-band-button">Entrar na Banda</button>
+                <button id="leave-band-button">Sair da Banda</button>
+            </div>
         </div>
+
 
 
         <div id="feedback-message" class="feedback-message"></div>
-        <div>
+        <div class="memberscard">
             <h2 class="membrosbanda">Membros da Banda</h2>
             <div id="members-container" class="members-container"></div>
         </div>
-
+    </div>
     </div>
     <script src="assets/js/banda_detalhes.js"></script>
+    <script>
+        let btn = document.querySelector('#btn');
+        let sidebar = document.querySelector('.sidebar');
+        let srcBtn = document.querySelector('.bx-search');
+
+        btn.onclick = function(){
+            sidebar.classList.toggle('active');
+        }
+        srcBtn.onclick = function(){
+            sidebar.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>

@@ -19,7 +19,7 @@ function entrar() {
         localStorage.setItem('token', data.token);
         localStorage.setItem('id', data.id);
         localStorage.setItem('secret', data.secret);
-        alert('Seja bem vindo(a) a Central do Músico!');
+        alert('Seja bem vindo(a) a Central do Músico!');        
         window.location.href = `/Codigo/CodigosFrontEnd/perfil/perfil.html?id=${data.id}`;
     })
     .catch(error => {

@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!token) {
         window.location.href = '/Codigo/CodigosFrontEnd/Login/novologin.html';
         return;
+    }else{
+        document.getElementById('loginbotao').style.display = 'none';
     }
 
     fetch(`http://localhost:6789/casa/getCasa?id=${id}`, {
@@ -80,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
         inscritosContainer.innerHTML = '';
         data.forEach(inscrito => {
             const inscritoElement = document.createElement('div');
+            
             inscritoElement.className = 'inscrito';
             console.log('Inscrito:', inscrito);
             inscritoElement.innerHTML = `
@@ -156,4 +159,8 @@ function formatHorario(horario) {
     // Retorna a hora formatada
     console.log('HORA', date.toLocaleString('pt-BR', options));
     return date.toLocaleString('pt-BR', options);
+}
+//ao clicar na banda, redirecionar para a pagina de detalhes da banda
+function detalhesBanda(id) {
+    window.location.href = `/Codigo/CodigosFrontEnd/encontrebandas/banda.html?id=${id}`;
 }
