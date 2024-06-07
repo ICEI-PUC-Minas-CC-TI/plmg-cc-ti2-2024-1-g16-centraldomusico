@@ -26,11 +26,13 @@ document.addEventListener('DOMContentLoaded', function() {
             card.className = 'card';
             card.dataset.id = evento.id; // Adiciona o ID do evento ao dataset do card
 
+            const horario = evento.horario ? formatHorario(evento.horario) : 'Horário não disponível';
+
             card.innerHTML = `
                 <h2>${evento.nome}</h2>
                 <p>${evento.endereco}</p>
                 <p>Valor: R$${evento.valor},00</p>
-                <p>Horário: ${formatHorario(evento.horario)}</p>
+                <p>Horário: ${horario}</p>
                 <p>Responsável: ${evento.nomeDono}</p>
                 <p>Contato: ${evento.telefonedono}</p>
             `;
@@ -61,7 +63,12 @@ $(document).ready(function () {
 });
 
 function formatHorario(horario) {
-    console.log(horario);
+    console.log('Horário:', horario);
+    if (!horario || typeof horario !== 'object' || !('hour' in horario) || !('minute' in horario) || !('second' in horario)) {
+        console.error('Horário inválido:', horario);
+        return 'Horário não disponível';
+    }
+    
     const { hour, minute, second } = horario;
 
     // Cria um objeto Date usando os valores fornecidos
@@ -79,6 +86,5 @@ function formatHorario(horario) {
     };
 
     // Retorna a hora formatada
-    console.log('HORA', date.toLocaleString('pt-BR', options));
     return date.toLocaleString('pt-BR', options);
 }
