@@ -100,13 +100,15 @@
                 <div id="cadastro" class="caixa-cadastro">
                     <h4>Criação de anúncio</h4>
                     <input type="text" id="caixaTexto" name="caixaTexto" placeholder="Nome da casa de evento:"style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
-                    <h5>Descrição:</h5>
-                    <textarea type="text" id="descricao" name="descricao" placeholder="Lembre-se de colocar seu contato!" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"></textarea>
-                    <p>Data:</p>
-                    <div class="fundo-data">
-                       <input id="data" type="date" name="data" class="data"/>
-                    </div>
-                
+                    <label for="endereco" class="titleendereco">Endereço:</label>
+                    <input type="text" id="endereco" name="endereco" placeholder="Endereço:" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                    <label for="valor" class="titlevalor">Valor:</label>
+                    <input type="text" id="valor" name="valor" placeholder="R$ 0,00" class="testee" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                    <label for="telefone" class="titletelefone">Telefone:</label>
+                    <input type="text" id="telefone" name="telefone" placeholder="Telefone:" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                    <!-- criar input para horario  -->
+                    <label for = "horario" class="titlehorario">Horário:</label>
+                    <input type ="time" id="horario" name="horario" placeholder="Horário:" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
                     <button class="botaoenviar" onclick="enviarDados()">Enviar</button>
                 </div>
                 

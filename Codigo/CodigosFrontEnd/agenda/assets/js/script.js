@@ -28,7 +28,7 @@ fetch(`http://localhost:6789/casa/getAnunciosBanda?id=${idBanda}`, {
                 <div class="card-body">
                     <h5 class="card-title text-center">${anuncio.nome}</h5>
                     <p class="card-text">${anuncio.endereco}</p>
-                    <p class="card-text">Data: ${formatHorario(anuncio.horario)}</p>
+                    <p class="card-text">Horário: ${formatHorario(anuncio.horario)}</p>
                     <p class="card-text">Local: ${anuncio.endereco}</p>
                 </div>
             </div>
@@ -47,21 +47,24 @@ fetch(`http://localhost:6789/casa/getAnunciosBanda?id=${idBanda}`, {
 });
 
 function formatHorario(horario) {
-    const { year, month, day } = horario.date;
-    const { hour, minute, second } = horario.time;
+    console.log(horario);
+    const { hour, minute, second } = horario;
 
     // Cria um objeto Date usando os valores fornecidos
-    const date = new Date(year, month - 1, day, hour, minute, second);
+    // Aqui assumimos uma data padrão, pois só precisamos do horário
+    const date = new Date();
+    date.setHours(hour);
+    date.setMinutes(minute);
+    date.setSeconds(second);
 
-    // Formata a data e a hora como string
+    // Formata a hora como string
     const options = {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit'
     };
 
+    // Retorna a hora formatada
+    console.log('HORA', date.toLocaleString('pt-BR', options));
     return date.toLocaleString('pt-BR', options);
 }

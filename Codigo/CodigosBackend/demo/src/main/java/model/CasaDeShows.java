@@ -1,13 +1,14 @@
 package model;
 
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.time.LocalTime;
+
 
 public class CasaDeShows {
 	private int id;
 	private String nome;
-	private LocalDateTime horario;
+	private LocalTime horario;
 	private float valor;
 	private String endereco;
 	private String nomeDono;
@@ -20,9 +21,9 @@ public class CasaDeShows {
 		endereco = "";
 		nomeDono = "";
 		telefonedono = "";
-		horario = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+		horario = LocalTime.now();
 	}
-    public CasaDeShows(int id, String nome, String endereco, float valor, LocalDateTime horario, String nomeDono, String telefoneDono) {
+    public CasaDeShows(int id, String nome, String endereco, float valor, LocalTime horario, String nomeDono, String telefoneDono) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
@@ -31,7 +32,8 @@ public class CasaDeShows {
         this.nomeDono = nomeDono;
         this.telefonedono = telefoneDono;
     }
-	public CasaDeShows(int id, String nomeCasa, String nomeDono, float valor, String endereco, String telefone, LocalDateTime horarios) {
+	
+	public CasaDeShows(int id, String nomeCasa, String nomeDono, float valor, String endereco, String telefone, LocalTime horarios) {
 		setId(id);
 		setNome(nomeCasa);
 		setNomeDono(nomeDono);
@@ -52,13 +54,13 @@ public class CasaDeShows {
 	public void setNomeDono(String nomedono) {
 		this.nomeDono = nomedono;
 	}
-	public void setHorario (LocalDateTime horario) {
-		LocalDateTime agora = LocalDateTime.now();
+	public void setHorario (LocalTime horario) {
+		LocalTime agora = LocalTime.now();
 		if (agora.compareTo(horario) >= 0)
 			this.horario = horario;
 	}	
 	
-	public LocalDateTime getHorarios() {
+	public LocalTime getHorarios() {
 		return horario;
 	}
 
@@ -96,7 +98,6 @@ public class CasaDeShows {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-
 
 
 

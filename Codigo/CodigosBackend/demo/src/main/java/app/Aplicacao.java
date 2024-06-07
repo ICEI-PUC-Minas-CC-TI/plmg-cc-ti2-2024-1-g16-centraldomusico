@@ -65,6 +65,7 @@ public class Aplicacao {
         post("/banda/leave", (req, res) -> bandaService.leaveBand(req, res));
 
         // Rotas para CasaDeShows (exemplo, você deve implementar os métodos no CasaDeShowsService)
+        post("/casa/postarAnuncio", (request, response) -> casaService.postarAnuncio(request, response));
         get("/casa/getAnunciosBanda", (request, response) -> casaService.getAnunciosBanda  (request, response));
         post("/casa/inscreverBanda", (request, response) -> casaService.inscreverBanda(request, response)); // Nova rota para inscrever a banda
         post("/casa/insert", (request, response) -> casaService.insert(request, response));
@@ -72,7 +73,6 @@ public class Aplicacao {
         get("/casa/getInscritos", (request, response) -> casaService.getAllBandas(request, response));
         get("/casa/getAll", (request, response) -> casaService.getAll(request, response));
         get("/casa/getCasa", (request, response) -> casaService.getCasaById(request, response)); // Aqui é onde adicionamos a rota
-        post("/casa/update", (request, response) -> casaService.update(request, response));
         delete("/casa/delete", (request, response) -> casaService.delete(request, response));
     }
 }

@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Resposta do servidor:', data);
                 if (data) {
                     document.getElementById('nome').textContent = data.nome;
+                    localStorage.setItem('nome', data.nome);
                     document.getElementById('descricao').textContent = data.descricao;
                     document.getElementById('cache').textContent = data.cache;
                     document.getElementById('instrumento1').textContent = data.instrumento1;

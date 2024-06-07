@@ -5,6 +5,10 @@ import model.CasaDeShows;
 import spark.Request;
 import spark.Response;
 import model.Banda;
+import java.time.LocalTime;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -49,17 +53,7 @@ public class CasaDeShowsService {
         }
     }
 
-    public String update(Request request, Response response) {
-        String str = request.body();
-        CasaDeShows casa = gson.fromJson(str, CasaDeShows.class);
-        if (casaDAO.update(casa)) {
-            response.status(200); // HTTP 200 OK
-            return "Casa de Shows atualizada!";
-        } else {
-            response.status(500); // HTTP 500 Internal Server Error
-            return "Erro na atualização!";
-        }
-    }
+
     //criar metodo getAnunciosBanda que retorna todos os eventos que a banda está inscrita
     public String getAnunciosBanda(Request request, Response response) {
         //printar parametro
@@ -73,6 +67,35 @@ public class CasaDeShowsService {
         System.out.println("CASAS: "+casas);
         response.type("application/json");
         return gson.toJson(casas);
+    }
+
+    //criar metodo postarAnuncio que insere um evento na casa de shows
+    public String postarAnuncio(Request request, Response response) {
+        String body = request.body();
+        System.out.println("BODY: "+body);
+        CasaDeShows casa = new CasaDeShows();
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
+        casa.setNome(json.get("nomeCasa").getAsString());
+        casa.setEndereco(json.get("endereco").getAsString());
+        casa.setValor(json.get("valor").getAsFloat());
+        //pegar horario
+        LocalTime horario = LocalTime.parse(json.get("horario").getAsString());
+        System.out.println("HORARIO: "+horario);
+        casa.setHorario(horario);
+        casa.setNomeDono(json.get("donoCasa").getAsString());
+        casa.setTelefone(json.get("telefone").getAsString());
+        System.out.println("CASA: "+casa);
+        if (casaDAO.postarAnuncio(casa)) {
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("message", "Evento postado com sucesso!");
+            response.status(201); // HTTP 201 Created
+            return responseJson.toString();
+        } else {
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("message", "Erro ao postar evento!");
+            response.status(500); // HTTP 500 Internal Server Error
+            return responseJson.toString();
+        }
     }
 
     public String get(Request request, Response response) {

@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+
   const token = localStorage.getItem('token');
   if (token) {
       document.getElementById('loginbotao').style.display = 'none';
@@ -9,45 +10,42 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function enviarDados() {
-  var casaEvento = document.getElementById('caixaTexto').value;
-  var descricao = document.getElementById('descricao').value;
-  var data = document.getElementById('data').value;
+  var nomeCasa = document.getElementById('caixaTexto');
+  var endereco = document.getElementById('endereco');
+  var telefone = document.getElementById('telefone');
+  var valor = document.getElementById('valor');
+  var donoCasa = localStorage.getItem('nome');
+  var horario = document.getElementById('horario');
 
   // Criar um objeto com os dados
   var anuncio = {
-    casaEvento: casaEvento,
-    descricao: descricao,
-    data: data
+      nomeCasa: nomeCasa.value,
+      endereco: endereco.value,
+      telefone: telefone.value,
+      valor: valor.value,
+      donoCasa: donoCasa,
+      horario: horario.value
   };
 
-  // Configurar as opções para a requisição fetch
-  var options = {
-    method: 'POST', // ou 'PUT', 'GET', etc., dependendo do que você precisa
+  fetch('http://localhost:6789/casa/postarAnuncio', {
+    method: 'POST',
     headers: {
-      'Content-Type': 'application/json' // Indica que estamos enviando JSON
-      // Adicione outros cabeçalhos conforme necessário
+        'Content-Type': 'application/json'
     },
-    body: JSON.stringify(anuncio) // Converte o objeto para uma string JSON
-  };
-
-  // Substitua 'http://exemplo.com/api' pelo URL real do seu servidor
-  var url = 'https://jsonservercentraldomusico.arthurcarvalh19.repl.co/anuncio';
-
-  // Realizar a requisição fetch
-  fetch(url, options)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Erro ao enviar os dados');
-      }
-      return response.json();
-    })
-    .then(data => {
-      // Manipular a resposta do servidor, se necessário
-      console.log('Resposta do servidor:', data);
-      alert("Cadastro realizado com sucesso!!!");
-    })
-    .catch(error => {
-      console.error('Erro durante a requisição fetch:', error);
-      alert("Erro ao enviar os dados. Tente novamente.");
-    });
+    body: JSON.stringify(anuncio)
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Erro na requisição: ' + response.statusText);
+    }
+    return response.json();
+})
+.then(data => {
+    alert('Anúncio criado com sucesso!');
+    window.location.href = '/Codigo/CodigosFrontEnd/informaçãoanuncio/anuncio.html';
+    console.log('Resposta do servidor:', data);
+})
+.catch(error => {
+    console.error('Erro durante a requisição fetch:', error);
+});
 }

@@ -13,6 +13,46 @@ body{
     background-image: linear-gradient(#0d101b,#281a2d);
 }
 
+.testee{
+    justify-content: start;
+    align-items: start;
+}
+.titlevalor{
+    font-size: 20px;
+    color: #af2747;
+    margin-left: 2vw;
+    margin-top: 10px;
+    font-weight: 500;
+
+}
+.titleendereco{
+    font-size: 20px;
+    color: #af2747;
+    margin-left: 2vw;
+    margin-top: 10px;
+    font-weight: 500;
+
+}
+.titletelefone{
+    font-size: 20px;
+    color: #af2747;
+    margin-left: 2vw;
+    margin-top: 10px;
+    font-weight: 500;
+
+}
+.titlehorario{
+    font-size: 20px;
+    color: #af2747;
+    margin-left: 2vw;
+    margin-top: 10px;
+    font-weight: 500; 
+}
+#endereco{
+    width: 85%;
+    height: 20px;
+    padding-left: 10px;
+}
 .sidebar{
     font-family: "Poppins", sans-serif;
     position: fixed;
