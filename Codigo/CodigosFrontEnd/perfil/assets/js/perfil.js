@@ -2,15 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
-    //armazenar id no local storage
-    console.log('TOKEN:', token);
-    // Esconder ID da URL
-    window.history.replaceState({}, document.title, "/Codigo/CodigosFrontEnd/perfil/perfil.html");
 
     if (token) {
         document.getElementById('loginbotao').style.display = 'none';
-        console.log('token checado');
-        console.log('ID:', id);
         fetch(`http://localhost:6789/usuario/get/perfil?id=${id}`, {
                 method: 'GET',
                 headers: {
@@ -30,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById('nome').textContent = data.nome;
                     localStorage.setItem('nome', data.nome);
                     document.getElementById('descricao').textContent = data.descricao;
-                    document.getElementById('cache').textContent = data.cache;
+                    document.getElementById('cache').textContent = formatCurrency(data.cache);
                     document.getElementById('instrumento1').textContent = data.instrumento1;
                     document.getElementById('instrumento2').textContent = data.instrumento2;
                     document.getElementById('instrumento3').textContent = data.instrumento3;
@@ -38,8 +32,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById('estilo').textContent = data.estilo;
                     document.getElementById('banda').textContent = data.bandaNome;
                     localStorage.setItem('bandaId', data.bandaId);
-                    //se o usuario nao tiver banda, mostrar "sem banda"
-                    if (data.bandaNome == null) {
+
+                    // Verificar e exibir a imagem de perfil
+                    if (data.profileImage) {
+                        const profileImageElem = document.getElementById('fotoPerfil');
+                        profileImageElem.src = `data:image/png;base64,${data.profileImage}`;
+                        profileImageElem.style.display = 'block';
+                    }
+
+                    // Se o usuário não tiver banda, mostrar "Sem banda"
+                    if (!data.bandaNome) {
                         document.getElementById('banda').textContent = 'Sem banda';
                     }
                 }
@@ -48,8 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Erro ao buscar dados do usuário:', error);
                 document.getElementById('msgError').textContent = 'Erro ao carregar os dados do usuário. Tente novamente.';
             });
-
-    }else{
+    } else {
         window.location.href = '/Codigo/CodigosFrontEnd/Login/novologin.html';
     }
 });
@@ -63,11 +64,8 @@ function logout() {
 }
 
 function formatCurrency(value) {
-    value = value.replace(/\D/g, ''); // Remove tudo que não é dígito
-    value = (value / 100).toFixed(2); // Divide por 100 para ter duas casas decimais
-    value = value.replace('.', ','); // Substitui ponto por vírgula
-    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Insere pontos a cada 3 dígitos
-    return 'R$' + value;
+    value = value.toFixed(2).replace('.', ',');
+    return `R$ ${value}`;
 }
 
 const cacheDisplay = document.getElementById('cache');
@@ -87,9 +85,10 @@ function editarPerfil() {
     document.getElementById('salvar').style.display = 'block';
     //esconder botao de editar
     document.getElementById('editar').style.display = 'none';
-    
+    document.getElementById('fotoPerfil').style.display = 'block';
 }
 function salvar() {
+    
     const nome = document.getElementById('nome').textContent.trim();
     const descricao = document.getElementById('descricao').textContent.trim();
     const cache = parseFloat(document.getElementById('cache').textContent.trim().replace(',', '.'));
@@ -101,6 +100,8 @@ function salvar() {
     const id = localStorage.getItem('id');
     const senha = localStorage.getItem('secret');
     const token = localStorage.getItem('token');
+    var fotoPerfil = document.getElementById('inputFotoPerfil').files[0]; // Obter o arquivo de imagem
+
     console.log('senha:', senha);
     const perfil = {
         nome: nome,
@@ -111,7 +112,8 @@ function salvar() {
         instrumento2: instrumento2,
         instrumento3: instrumento3,
         objetivo: objetivo,
-        estilo: estilo
+        estilo: estilo,
+        fotoPerfil: fotoPerfil
     };
     
     fetch(`http://localhost:6789/usuario/update?id=${id}`, {
@@ -152,4 +154,5 @@ function salvar() {
     document.getElementById('editar').style.display = 'block';
     // Esconder botão de salvar
     document.getElementById('salvar').style.display = 'none';
+    document.getElementById('fotoPerfil').style.display = 'none';
 }

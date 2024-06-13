@@ -56,10 +56,24 @@ public class MusicoDAO extends DAO {
         boolean status = false;
         try {
             // Encrypt the password using MD5
+            //printar musico
+            System.out.println("MUSICO: "+musico);
+            //printar todos os atributos do musico
+            System.out.println("NOME: "+musico.getNome());
+            System.out.println("DESCRICAO: "+musico.getDescricao());
+            System.out.println("SENHA: "+musico.getSenha());
+            System.out.println("CACHE: "+musico.getCache());
+            System.out.println("INSTRUMENTO1: "+musico.getInstrumento1());
+            System.out.println("INSTRUMENTO2: "+musico.getInstrumento2());
+            System.out.println("INSTRUMENTO3: "+musico.getInstrumento3());
+            System.out.println("OBJETIVO: "+musico.getObjetivo());
+            System.out.println("ESTILO: "+musico.getEstilo());
+            System.out.println("PROFILE_IMAGE: "+musico.getProfileImage());
+
             String encryptedPassword = encryptPassword(musico.getSenha());
     
-            String sql = "INSERT INTO musico (nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo) "
-                       + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO musico (nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo, profile_image) "
+                       + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement st = conexao.prepareStatement(sql);
             st.setString(1, musico.getNome());
             st.setString(2, musico.getDescricao());
@@ -70,11 +84,12 @@ public class MusicoDAO extends DAO {
             st.setString(7, musico.getInstrumento3());
             st.setString(8, musico.getObjetivo());
             st.setString(9, musico.getEstilo());
+            st.setBytes(10, musico.getProfileImage()); // Set the image as a byte array
             st.executeUpdate();
             st.close();
             status = true;
             System.out.println("DEU BOM");
-        } catch (SQLException u) {  
+        } catch (SQLException u) {
             throw new RuntimeException(u);
         }
         return status;
@@ -178,7 +193,9 @@ public class MusicoDAO extends DAO {
                     rs.getString("instrumento2"),
                     rs.getString("instrumento3"),
                     rs.getString("objetivo"),
-                    rs.getString("estilo")
+                    rs.getString("estilo"),
+                    //pegar a imagem
+                    rs.getBytes("profile_image")
                 );
             }
             st.close();
@@ -239,7 +256,6 @@ public class MusicoDAO extends DAO {
         }
         return musicos;
     }
-
     public boolean update(Musico musico) {
         boolean status = false;
         try {

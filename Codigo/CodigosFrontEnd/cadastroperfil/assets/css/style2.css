@@ -442,4 +442,16 @@ h4 {
     color: #af2747; /* Troca a cor do texto */
 }
 
-
+.foto-perfil{
+    margin-left: 2vw;
+    font-weight: 500;
+    margin-top: 5px;
+    padding: 10px;
+    text-align: start;
+    width: 50%;
+    color: #af2747
+}
+.titlefoto input {
+    margin-left: 5px;
+    border-radius: 5px;
+}

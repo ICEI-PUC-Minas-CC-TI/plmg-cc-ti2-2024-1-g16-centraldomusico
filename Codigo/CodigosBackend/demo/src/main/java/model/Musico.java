@@ -11,6 +11,7 @@ public class Musico {
     private String instrumento3;
     private String objetivo;
     private String estilo;
+    private byte[] profileImage;
 
     public Musico(){
         this.id = 0;
@@ -38,6 +39,23 @@ public class Musico {
         this.estilo = estilo;
     }
 
+        public Musico(int id, String nome, String descricao, String senha, float cache, String instrumento1, 
+                  String instrumento2, String instrumento3, String objetivo, String estilo, byte[] imagem) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.senha = senha;
+        this.cache = cache;
+        this.instrumento1 = instrumento1;
+        this.instrumento2 = instrumento2;
+        this.instrumento3 = instrumento3;
+        this.objetivo = objetivo;
+        this.estilo = estilo;
+        this.profileImage = imagem;
+    }
+    public byte[] getProfileImage() {
+        return profileImage;
+    }
     // Getters and Setters
     public int getId() {
         return id;
@@ -61,6 +79,9 @@ public class Musico {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+    public void setProfileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
     }
 
     public String getSenha() {

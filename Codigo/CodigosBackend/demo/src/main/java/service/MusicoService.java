@@ -6,8 +6,14 @@ import spark.Request;
 import spark.Response;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 import app.Aplicacao;
+import java.util.Base64;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,35 +27,82 @@ public class MusicoService {
         musicoDAO = new MusicoDAO();
     }
 
+
     public Object insert(Request req, Response res) {
         try {
-            String body = req.body();
-            System.out.println("Request Body: " + body); // Log the request body for debugging
-
-            // Parse the JSON body to get the parameters
-            JsonObject json = JsonParser.parseString(body).getAsJsonObject();
-            String nome = json.get("nome").getAsString();
-            String descricao = json.get("descricao").getAsString();
-            String senha = json.get("senha").getAsString();
-            float cache = json.get("cache").getAsFloat();
-            String instrumento1 = json.get("instrumento1").getAsString();
-            String instrumento2 = json.get("instrumento2").getAsString();
-            String instrumento3 = json.get("instrumento3").getAsString();
-            String objetivo = json.get("objetivo").getAsString();
-            String estilo = json.get("estilo").getAsString();
-
-            System.out.println("Nome: " + nome);
-            System.out.println("Descricao: " + descricao);
-            System.out.println("Senha: " + senha);
-            System.out.println("Cache: " + cache);
-            System.out.println("Instrumento1: " + instrumento1);
-            System.out.println("Instrumento2: " + instrumento2);
-            System.out.println("Instrumento3: " + instrumento3);
-            System.out.println("Objetivo: " + objetivo);
-            System.out.println("Estilo: " + estilo);
-
-            Musico musico = new Musico(0, nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo);
-            System.out.println("Musico Object: " + musico); // Log the Musico object for debugging
+            DiskFileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            List<FileItem> items = upload.parseRequest(req.raw());
+            //printar cada item
+            for (FileItem item : items) {
+                System.out.println("Item: " + item);
+            }
+            String nome = null;
+            String descricao = null;
+            String senha = null;
+            float cache = 0;
+            String instrumento1 = null;
+            String instrumento2 = null;
+            String instrumento3 = null;
+            String objetivo = null;
+            String estilo = null;
+            byte[] profileImage = null;
+    
+            for (FileItem item : items) {
+                if (item.isFormField()) {
+                    String fieldName = item.getFieldName();
+                    String fieldValue = item.getString("UTF-8");
+                    switch (fieldName) {
+                        case "nome":
+                            nome = fieldValue;
+                            break;
+                        case "descricao":
+                            descricao = fieldValue;
+                            break;
+                        case "senha":
+                            senha = fieldValue;
+                            break;
+                        case "cache":
+                            cache = Float.parseFloat(fieldValue);
+                            break;
+                        case "instrumento1":
+                            instrumento1 = fieldValue;
+                            break;
+                        case "instrumento2":
+                            instrumento2 = fieldValue;
+                            break;
+                        case "instrumento3":
+                            instrumento3 = fieldValue;
+                            break;
+                        case "objetivo":
+                            objetivo = fieldValue;
+                            break;
+                        case "estilo":
+                            estilo = fieldValue;
+                            break;
+                    }
+                } else if ("fotoPerfil".equals(item.getFieldName())) { // Ajustado para "fotoPerfil"
+                    //printar o item
+                    System.out.println("Item--: " + item);
+                    //printar a foto
+                    System.out.println("Foto: " + item.getName());
+                    //printar bytes
+                    System.out.println("Bytes: " + item.get());
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    InputStream inputStream = item.getInputStream();
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        System.out.println("BytesRead: " + bytesRead);
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    profileImage = outputStream.toByteArray();
+                    System.out.println("Profile Image Length: " + profileImage.length);
+                }
+            }
+    
+            Musico musico = new Musico(0, nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo, profileImage);
+            System.out.println("Profile Image Length: " + (profileImage != null ? profileImage.length : "null"));
 
             if (musicoDAO.insert(musico)) {
                 res.status(201); // HTTP 201 Created
@@ -113,6 +166,11 @@ public class MusicoService {
                     responseJson.addProperty("estilo", musico.getEstilo());
                     responseJson.addProperty("bandaNome", bandaNome);
                     responseJson.addProperty("bandaId", bandaId);
+                    //adicionar a imagem do usuario ao JSON
+                    if (musico.getProfileImage() != null) {
+                        String base64Image = Base64.getEncoder().encodeToString(musico.getProfileImage());
+                        responseJson.addProperty("profileImage", base64Image);
+                    }
                     return responseJson;
                 } else {
                     System.out.println("Músico não encontrado.");
@@ -201,6 +259,12 @@ public class MusicoService {
             String instrumento3 = json.get("instrumento3").getAsString();
             String objetivo = json.get("objetivo").getAsString();
             String estilo = json.get("estilo").getAsString();
+            //pegar a imagem
+            byte[] fotoPerfil = null;
+            if (json.has("fotoPerfil")) {
+                String base64Image = json.get("fotoPerfil").getAsString();
+                fotoPerfil = Base64.getDecoder().decode(base64Image);
+            }
             System.out.println("ID: " + id);
             System.out.println("Nome: " + nome);
             System.out.println("Descricao: " + descricao);
@@ -211,6 +275,7 @@ public class MusicoService {
             System.out.println("Instrumento3: " + instrumento3);
             System.out.println("Objetivo: " + objetivo);
             System.out.println("Estilo: " + estilo);
+            System.out.println("FotoPerfil: " + (fotoPerfil != null ? fotoPerfil.length : "null"));
             
             Musico musico = new Musico(id, nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo);
 

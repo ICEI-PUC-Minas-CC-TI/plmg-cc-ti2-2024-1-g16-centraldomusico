@@ -1,4 +1,3 @@
-
 function enviarDados() {
     var nome = document.getElementById('caixaTextoge').value;
     var descricao = document.getElementById('descricao').value;
@@ -8,10 +7,10 @@ function enviarDados() {
     var instrumento1 = document.getElementById('instrumento1').value;
     var instrumento2 = document.getElementById('instrumento2').value;
     var instrumento3 = document.getElementById('instrumento3').value;
-        //pegar valor de cache sem formatacao ( o valor está em reais)
     var cache = document.getElementById('cache').value.replace('R$', '').replace('.', '').replace(',', '.');
     var objetivo = document.getElementById('objetivo').value;
     var estilo = document.getElementById('estilo').value;
+    var fotoPerfil = document.getElementById('fotoPerfil').files[0]; // Obter o arquivo de imagem
 
     if (usuario === "" || senha === "" || confirmSenha === "" || descricao === "" || instrumento1 === "" || estilo === "" || instrumento2 === "" || instrumento3 === "" || cache === "" || objetivo === "") {
         alert("Por favor, preencha todos os campos.");
@@ -27,24 +26,21 @@ function enviarDados() {
         return;
     }
 
-    var perfil = {
-        nome: nome,
-        descricao: descricao,
-        senha: senha,
-        cache: parseFloat(cache), // Ensure cache is a float
-        instrumento1: instrumento1,
-        instrumento2: instrumento2,
-        instrumento3: instrumento3,
-        objetivo: objetivo,
-        estilo: estilo
-    };
+    var formData = new FormData();
+    formData.append('nome', nome);
+    formData.append('descricao', descricao);
+    formData.append('senha', senha);
+    formData.append('cache', parseFloat(cache)); // Ensure cache is a float
+    formData.append('instrumento1', instrumento1);
+    formData.append('instrumento2', instrumento2);
+    formData.append('instrumento3', instrumento3);
+    formData.append('objetivo', objetivo);
+    formData.append('estilo', estilo);
+    formData.append('fotoPerfil', fotoPerfil); // Adicionar a imagem ao FormData
 
     fetch('http://localhost:6789/usuario/insert', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(perfil)
+            body: formData
         })
         .then(response => {
             if (!response.ok) {
@@ -69,3 +65,15 @@ document.getElementById('cache').addEventListener('input', function(e) {
     value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Insere pontos a cada 3 dígitos
     e.target.value = 'R$' + value;
 });
+
+function previewImage(event) {
+    const preview = document.getElementById('preview');
+    const reader = new FileReader();
+    reader.onload = function() {
+        if (reader.readyState == 2) {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        }
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
