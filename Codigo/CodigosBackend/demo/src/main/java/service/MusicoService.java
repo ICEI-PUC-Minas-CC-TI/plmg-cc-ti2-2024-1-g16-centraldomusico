@@ -150,12 +150,13 @@ public class MusicoService {
                     System.out.println("Músico encontrado: " + musico.getNome());
                     JsonObject responseJson = new JsonObject();
                     responseJson.addProperty("message", "Músico encontrado: " + musico.getNome());
-                    res.status(200); // HTTP 200 OK
-                    //adicionar o id do usuario no JSON
+                    res.status(200);
+    
+                    // Carregar os detalhes da banda uma única vez
                     String bandaNome = musicoDAO.getBandaNomeByMusicoId(id);
                     int bandaId = musicoDAO.getBandaIdByMusicoId(id);
+                    
                     responseJson.addProperty("id", musico.getId());
-                    //adicionar tudo do usuario ao JSON
                     responseJson.addProperty("nome", musico.getNome());
                     responseJson.addProperty("descricao", musico.getDescricao());
                     responseJson.addProperty("cache", musico.getCache());
@@ -166,7 +167,7 @@ public class MusicoService {
                     responseJson.addProperty("estilo", musico.getEstilo());
                     responseJson.addProperty("bandaNome", bandaNome);
                     responseJson.addProperty("bandaId", bandaId);
-                    //adicionar a imagem do usuario ao JSON
+    
                     if (musico.getProfileImage() != null) {
                         String base64Image = Base64.getEncoder().encodeToString(musico.getProfileImage());
                         responseJson.addProperty("profileImage", base64Image);
@@ -174,17 +175,17 @@ public class MusicoService {
                     return responseJson;
                 } else {
                     System.out.println("Músico não encontrado.");
-                    res.status(404); // HTTP 404 Not Found
+                    res.status(404);
                     return "Músico não encontrado.";
                 }
             } catch (NumberFormatException e) {
                 System.out.println("ID inválido.");
-                res.status(400); // HTTP 400 Bad Request
+                res.status(400);
                 return "ID inválido.";
             }
         } else {
             System.out.println("Parâmetro de ID ausente.");
-            res.status(400); // HTTP 400 Bad Request
+            res.status(400);
             return "Parâmetro de ID ausente.";
         }
     }
@@ -217,6 +218,7 @@ public class MusicoService {
                 responseJson.addProperty("estilo", musico.getEstilo());
                 responseJson.addProperty("token", token);
                 responseJson.addProperty("secret", musico.getSenha());
+                System.out.println(responseJson.toString());
 
                 res.status(200); // HTTP 200 OK
                 return responseJson;
@@ -243,59 +245,102 @@ public class MusicoService {
 
     public Object update(Request req, Response res) {
         try {
-            System.out.println("Request Body: " + req.body());
-            int id = Integer.parseInt(req.queryParams("id"));
-            // Parse the JSON body to get the parameters
-            JsonObject json = JsonParser.parseString(req.body()).getAsJsonObject();
-            //printar o json
-            System.out.println("Json: " + json);
-            String nome = json.get("nome").getAsString();
-            String descricao = json.get("descricao").getAsString();
-            String senha = json.get("senha").getAsString();
-            String cacheStr = json.get("cache").getAsString();
-            float cache = json.get("cache").getAsFloat();
-            String instrumento1 = json.get("instrumento1").getAsString();
-            String instrumento2 = json.get("instrumento2").getAsString();
-            String instrumento3 = json.get("instrumento3").getAsString();
-            String objetivo = json.get("objetivo").getAsString();
-            String estilo = json.get("estilo").getAsString();
-            //pegar a imagem
-            byte[] fotoPerfil = null;
-            if (json.has("fotoPerfil")) {
-                String base64Image = json.get("fotoPerfil").getAsString();
-                fotoPerfil = Base64.getDecoder().decode(base64Image);
-            }
-            System.out.println("ID: " + id);
-            System.out.println("Nome: " + nome);
-            System.out.println("Descricao: " + descricao);
-            System.out.println("Senha: " + senha);
-            System.out.println("Cache: " + cache);
-            System.out.println("Instrumento1: " + instrumento1);
-            System.out.println("Instrumento2: " + instrumento2);
-            System.out.println("Instrumento3: " + instrumento3);
-            System.out.println("Objetivo: " + objetivo);
-            System.out.println("Estilo: " + estilo);
-            System.out.println("FotoPerfil: " + (fotoPerfil != null ? fotoPerfil.length : "null"));
-            
-            Musico musico = new Musico(id, nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo);
+            System.out.println("Update");
+            // Verificar se a requisição é multipart (contém upload de arquivo)
+            if (ServletFileUpload.isMultipartContent(req.raw())) {
+                System.out.println("Multipart");
+                DiskFileItemFactory factory = new DiskFileItemFactory();
+                ServletFileUpload upload = new ServletFileUpload(factory);
+                List<FileItem> items = upload.parseRequest(req.raw());
 
-            if (musicoDAO.update(musico)) {
-                JsonObject responseJson = new JsonObject();
-                responseJson.addProperty("message", "Músico atualizado com sucesso!");
-                res.status(200); // HTTP 200 OK
-                return responseJson;
+                String nome = null;
+                String descricao = null;
+                String senha = null;
+                float cache = 0;
+                String instrumento1 = null;
+                String instrumento2 = null;
+                String instrumento3 = null;
+                String objetivo = null;
+                String estilo = null;
+                byte[] fotoPerfil = null;
+                int id = 0;
+
+                for (FileItem item : items) {
+                    if (item.isFormField()) {
+                        switch (item.getFieldName()) {
+                            case "id":
+                                id = Integer.parseInt(item.getString());
+                                break;
+                            case "nome":
+                                nome = item.getString("UTF-8");
+                                break;
+                            case "descricao":
+                                descricao = item.getString("UTF-8");
+                                break;
+                            case "senha":
+                                senha = item.getString("UTF-8");
+                                break;
+                            case "cache":
+                                cache = Float.parseFloat(item.getString("UTF-8"));
+                                break;
+                            case "instrumento1":
+                                instrumento1 = item.getString("UTF-8");
+                                break;
+                            case "instrumento2":
+                                instrumento2 = item.getString("UTF-8");
+                                break;
+                            case "instrumento3":
+                                instrumento3 = item.getString("UTF-8");
+                                break;
+                            case "objetivo":
+                                objetivo = item.getString("UTF-8");
+                                break;
+                            case "estilo":
+                                estilo = item.getString("UTF-8");
+                                break;
+                        }
+                    } else if ("fotoPerfil".equals(item.getFieldName())) {
+                        fotoPerfil = IOUtils.toByteArray(item.getInputStream());
+                    }
+                    System.out.println("Item: " + item.getFieldName() + " = " + item.getString());
+                }
+                System.out.println("ID: " + id);
+                //pegar length da foto
+                System.out.println("FotoPerfil Length: " + (fotoPerfil != null ? fotoPerfil.length : "null"));
+                Musico musico = new Musico(id, nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo, fotoPerfil);
+
+                if (fotoPerfil != null) {
+                    musico.setProfileImage(fotoPerfil);
+                }
+
+                if (musicoDAO.update(musico)) {
+                    res.status(200); // HTTP 200 OK
+                    return "{\"message\":\"Músico atualizado com sucesso!\"}";
+                } else {
+                    res.status(500); // HTTP 500 Internal Server Error
+                    return "{\"message\":\"Erro na atualização.\"}";
+                }
             } else {
-                JsonObject responseJson = new JsonObject();
-                responseJson.addProperty("message", "Erro na atualização.");
-                res.status(500); // HTTP 500 Internal Server Error
-                return responseJson;
+                System.out.println("Requisição não contém dados multipart.");
+                //printar a requisição
+                System.out.println("Requisição: " + req);
+                //printar o corpo da requisição
+                //printar o corpo da requisição em JSON
+                //printar parametros da requisição
+                System.out.println("Parametros: " + req.params());
+                //printar o corpo da requisição
+                //printar cada parametro da requisição
+                System.out.println("Parametros: " + req.queryParams());
+
+
+                res.status(400); // HTTP 400 Bad Request
+                return "{\"message\":\"Requisição não contém dados multipart.\"}";
             }
         } catch (Exception e) {
-            JsonObject responseJson = new JsonObject();
-            responseJson.addProperty("message", "Erro na atualização: " + e.getMessage());
-            res.status(400); // HTTP 400 Bad Request
+            e.printStackTrace();
             System.out.println("Erro na atualização: " + e.getMessage());
-            return responseJson;
+            res.status(400); // HTTP 400 Bad Request
+            return "{\"message\":\"Erro na atualização: " + e.getMessage() + "\"}";
         }
     }
 

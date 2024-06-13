@@ -179,9 +179,10 @@ public class MusicoDAO extends DAO {
     public Musico get(int id) {
         Musico musico = null;
         try {
-            Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String sql = "SELECT * FROM musico WHERE id=" + id;
-            ResultSet rs = st.executeQuery(sql);
+            String sql = "SELECT * FROM musico WHERE id = ?";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 musico = new Musico(
                     rs.getInt("id"),
@@ -194,12 +195,12 @@ public class MusicoDAO extends DAO {
                     rs.getString("instrumento3"),
                     rs.getString("objetivo"),
                     rs.getString("estilo"),
-                    //pegar a imagem
                     rs.getBytes("profile_image")
                 );
             }
+            rs.close();
             st.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
         return musico;
@@ -259,20 +260,39 @@ public class MusicoDAO extends DAO {
     public boolean update(Musico musico) {
         boolean status = false;
         try {
-            String sql = "UPDATE musico SET nome = ?, descricao = ?, senha = ?, cache = ?, instrumento1 = ?, instrumento2 = ?, instrumento3 = ?, objetivo = ?, estilo = ? WHERE id = ?";
+            String sql = "UPDATE musico SET nome = ?, descricao = ?, senha = ?, cache = ?, instrumento1 = ?, instrumento2 = ?, instrumento3 = ?, objetivo = ?, estilo = ?";
+            
+            // Adicionar profile_image apenas se não for null
+            if (musico.getProfileImage() != null) {
+                sql += ", profile_image = ?";
+            }
+            
+            sql += " WHERE id = ?";
+            
             PreparedStatement st = conexao.prepareStatement(sql);
-            st.setString(1, musico.getNome());
-            st.setString(2, musico.getDescricao());
-            st.setString(3, musico.getSenha());
-            st.setFloat(4, musico.getCache());
-            st.setString(5, musico.getInstrumento1());
-            st.setString(6, musico.getInstrumento2());
-            st.setString(7, musico.getInstrumento3());
-            st.setString(8, musico.getObjetivo());
-            st.setString(9, musico.getEstilo());
-            st.setInt(10, musico.getId());
+            int parameterIndex = 1;
+            
+            st.setString(parameterIndex++, musico.getNome());
+            st.setString(parameterIndex++, musico.getDescricao());
+            st.setString(parameterIndex++, musico.getSenha());
+            st.setFloat(parameterIndex++, musico.getCache());
+            st.setString(parameterIndex++, musico.getInstrumento1());
+            st.setString(parameterIndex++, musico.getInstrumento2());
+            st.setString(parameterIndex++, musico.getInstrumento3());
+            st.setString(parameterIndex++, musico.getObjetivo());
+            st.setString(parameterIndex++, musico.getEstilo());
+            
+            // Adicionar profile_image apenas se não for null
+            if (musico.getProfileImage() != null) {
+                st.setBytes(parameterIndex++, musico.getProfileImage());
+                System.out.println("Profile image not null");
+            }
+            
+            st.setInt(parameterIndex++, musico.getId());
+            
             st.executeUpdate();
             st.close();
+            
             status = true;
         } catch (SQLException u) {  
             throw new RuntimeException(u);

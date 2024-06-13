@@ -91,41 +91,31 @@
 
             </ul>
         </nav>
-                    <div class="area-login">
+        <div class="area-login">
             <div class="login">
                 <div>
                     <a href="/Codigo/CodigosFrontEnd/telainicial/Updateinicial.html"><img href="steero.html" src="assets/images/Logo.png" style="border-radius: 10px; height: 110px;"></a>
                 </div>
-    
                 <div id="msgError"></div>    
-                <div class="css">
-                    <div class="label-float">
-                    <input type="text" id="login" placeholder='Usuário' required>
-                    <label id="userLabel" for="usuario">Usuario</label>
-    
-                </div>
-    
-    
-                <div class="label-float">
-                    <input type="password" id="senha" placeholder='Senha'   required>
-                    <label id="senhaLabel" for="senha">Senha</label>
-                </div>
-    
-    
-    
-                <div class="justify-center"> 
-                    <input type="submit" value="Entrar" onclick="entrar()">
-                </div>
-    
+                <form id="loginForm" onsubmit="return entrar(event)">
+                    <div class="css">
+                        <div class="label-float">
+                            <input type="text" id="login" placeholder="Usuário" required>
+                            <label id="userLabel" for="login">Usuário</label>
+                        </div>
+                        <div class="label-float">
+                            <input type="password" id="senha" placeholder="Senha" required autocomplete="current-password">
+                            <label id="senhaLabel" for="senha">Senha</label>
+                        </div>
+                        <div class="justify-center">
+                            <input type="submit" value="Entrar">
+                        </div>
+                    </div>
+                </form>
                 <div class="justify-center">
                     <hr>
                 </div>
-    
-                </div>
-    
                 <p>Ainda não tem uma conta?<a href="/Codigo/CodigosFrontEnd/cadastroperfil/cddePerfil.html">Criar Conta</a></p>
-    
-    
             </div>
         </div>
 

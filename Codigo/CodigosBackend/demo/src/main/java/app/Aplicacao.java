@@ -50,6 +50,7 @@ public class Aplicacao {
         get("/usuario/get/perfil", (request, response) -> musicoService.getById(request, response));
         get("/usuario/get", (request, response) -> musicoService.get(request, response));
         put("/usuario/update", (request, response) -> musicoService.update(request, response));
+        post("/usuario/update", (request, response) -> musicoService.update(request, response));
         delete("/usuario/delete", (request, response) -> musicoService.delete(request, response));
         get("/usuario/checkBanda", (request, response) -> musicoService.checkBanda(request, response));
 

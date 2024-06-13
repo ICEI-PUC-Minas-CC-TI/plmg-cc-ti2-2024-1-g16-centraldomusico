@@ -96,89 +96,93 @@
                 <div id="content">
                     <div id="cadastro" class="caixa-cadastro">
                         <h4>Crie seu perfil</h4>
-
-
-
-                        <input type="text" id="caixaTextoge" name="caixaTexto" placeholder="Nome de usúario:" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
-                        <h5>Descrição para o seu perfil:</h5>
-                        <textarea type="text" id="descricao" name="descricao" placeholder="Lembre-se de que essa descrição estara visivel para todos" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"></textarea>
-            
-                        <div class="label-float">
-                            <input type="password" id="senha" placeholder='' style="color: #af2747" required>
-                            <label id="labelSenha" for="senha">Senha</label>
-                        </div>
-                
-                        <div class="label-float">
-                            <input type="password" id="confirmSenha" placeholder='' required>
-                            <label id="labelconfirmSenha" for="confirmSenha">Confirmar Senha</label>
-                        </div>
-                        
-                        <div class="telefonee">
-                            <label for="cache">Cache:</label>
-                            <input type="text" id="cache" name="cache" placeholder="Digite o valor">
-                        </div>
-            
-                        <div class="selecaoinstrumento">
-                            <label for="instrumento">Selecione os seus instrumentos:</label>
-                            <select name="intrumento" id="instrumento1" form="intrumentoform">
-                                <option value="Violão">Violão</option>
-                                <option value="Bateria">Bateria</option>
-                                <option value="Guitarra">Guitarra</option>
-                                <option value="Ukulele">Ukulele</option>
-                                <option value="Piano">Piano</option>
-                                <option value="Saxofone">Saxofone</option>
-                                <option value="Flauta">Flauta</option>
-                                <option value="Teclado">Teclado</option>
-                                <option value="Violino">Violino</option>
-                                <option value="Pandeiro">Pandeiro</option>
-                            </select>
-                            <select name="intrumento" id="instrumento2" form="intrumentoform">
-                                <option value="Violão">Violão</option>
-                                <option value="Bateria">Bateria</option>
-                                <option value="Guitarra">Guitarra</option>
-                                <option value="Ukulele">Ukulele</option>
-                                <option value="Piano">Piano</option>
-                                <option value="Saxofone">Saxofone</option>
-                                <option value="Flauta">Flauta</option>
-                                <option value="Teclado">Teclado</option>
-                                <option value="Violino">Violino</option>
-                                <option value="Pandeiro">Pandeiro</option>
-                            </select>
-                            <select name="intrumento" id="instrumento3" form="intrumentoform">
-                                <option value="Violão">Violão</option>
-                                <option value="Bateria">Bateria</option>
-                                <option value="Guitarra">Guitarra</option>
-                                <option value="Ukulele">Ukulele</option>
-                                <option value="Piano">Piano</option>
-                                <option value="Saxofone">Saxofone</option>
-                                <option value="Flauta">Flauta</option>
-                                <option value="Teclado">Teclado</option>
-                                <option value="Violino">Violino</option>
-                                <option value="Pandeiro">Pandeiro</option>
-                            </select>
-                        </div>
-                        
-                        <div class="telefonee">
-                            <label for="objetivo">Objetivo:</label>
-                            <input type="tel" id="objetivo" name="objetivo" pattern="[0-9]{10}" placeholder="Digite o seu objetivo" required>
-                        </div>
-                        
-                        <div class="telefonee">
-                            <label for="estilo">Estilo:</label>
-                            <input type="text" id="estilo" name="estilo" placeholder="Seu estilo musical">
-                        </div>
-                        <!-- Campo para foto de perfil -->
-                        <div class="foto-perfil">
-                            <label for="fotoPerfil" class="titlefoto">Foto de Perfil:</label>
-                            <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" onchange="previewImage(event)">
-                            <img id="preview" src="" alt="Pré-visualização da imagem" style="display:none; width: 100px; height: 100px;"/>
-                        </div>
-                        <button class="botaoenviar" onclick="enviarDados()">Enviar</button>
+        
+                        <!-- Início do formulário -->
+                        <form id="cadastroForm" onsubmit="return false;">
+                            <input type="text" id="caixaTextoge" name="caixaTexto" placeholder="Nome de usuário:" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;" autocomplete="username">
+                            <h5>Descrição para o seu perfil:</h5>
+                            <textarea type="text" id="descricao" name="descricao" placeholder="Lembre-se de que essa descrição estará visível para todos" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"></textarea>
+        
+                            <div class="label-float">
+                                <input type="password" id="senha" placeholder='' style="color: #af2747" required autocomplete="new-password">
+                                <label id="labelSenha" for="senha">Senha</label>
+                            </div>
+        
+                            <div class="label-float">
+                                <input type="password" id="confirmSenha" placeholder='' required autocomplete="new-password">
+                                <label id="labelconfirmSenha" for="confirmSenha">Confirmar Senha</label>
+                            </div>
+        
+                            <div class="telefonee">
+                                <label for="cache">Cache:</label>
+                                <input type="text" id="cache" name="cache" placeholder="Digite o valor">
+                            </div>
+        
+                            <div class="selecaoinstrumento">
+                                <label for="instrumento">Selecione os seus instrumentos:</label>
+                                <select name="instrumento1" id="instrumento1">
+                                    <option value="Violão">Violão</option>
+                                    <option value="Bateria">Bateria</option>
+                                    <option value="Guitarra">Guitarra</option>
+                                    <option value="Ukulele">Ukulele</option>
+                                    <option value="Piano">Piano</option>
+                                    <option value="Saxofone">Saxofone</option>
+                                    <option value="Flauta">Flauta</option>
+                                    <option value="Teclado">Teclado</option>
+                                    <option value="Violino">Violino</option>
+                                    <option value="Pandeiro">Pandeiro</option>
+                                </select>
+                                <select name="instrumento2" id="instrumento2">
+                                    <option value="Violão">Violão</option>
+                                    <option value="Bateria">Bateria</option>
+                                    <option value="Guitarra">Guitarra</option>
+                                    <option value="Ukulele">Ukulele</option>
+                                    <option value="Piano">Piano</option>
+                                    <option value="Saxofone">Saxofone</option>
+                                    <option value="Flauta">Flauta</option>
+                                    <option value="Teclado">Teclado</option>
+                                    <option value="Violino">Violino</option>
+                                    <option value="Pandeiro">Pandeiro</option>
+                                </select>
+                                <select name="instrumento3" id="instrumento3">
+                                    <option value="Violão">Violão</option>
+                                    <option value="Bateria">Bateria</option>
+                                    <option value="Guitarra">Guitarra</option>
+                                    <option value="Ukulele">Ukulele</option>
+                                    <option value="Piano">Piano</option>
+                                    <option value="Saxofone">Saxofone</option>
+                                    <option value="Flauta">Flauta</option>
+                                    <option value="Teclado">Teclado</option>
+                                    <option value="Violino">Violino</option>
+                                    <option value="Pandeiro">Pandeiro</option>
+                                </select>
+                            </div>
+        
+                            <div class="telefonee">
+                                <label for="objetivo">Objetivo:</label>
+                                <input type="tel" id="objetivo" name="objetivo" pattern="[0-9]{10}" placeholder="Digite o seu objetivo" required>
+                            </div>
+        
+                            <div class="telefonee">
+                                <label for="estilo">Estilo:</label>
+                                <input type="text" id="estilo" name="estilo" placeholder="Seu estilo musical">
+                            </div>
+        
+                            <!-- Campo para foto de perfil -->
+                            <div class="foto-perfil">
+                                <label for="fotoPerfil" class="titlefoto">Foto de Perfil:</label>
+                                <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" onchange="previewImage(event)">
+                                <img id="preview" src="" alt="Pré-visualização da imagem" style="display:none; width: 100px; height: 100px;"/>
+                            </div>
+        
+                            <button type="submit" class="botaoenviar" onclick="enviarDados()">Enviar</button>
+                        </form>
+                        <!-- Fim do formulário -->
+        
                     </div>
                 </div>
             </div>
         </div>
-        
         <script src = "assets/js/script.js"></script>
         <!-- jQuery CDN -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

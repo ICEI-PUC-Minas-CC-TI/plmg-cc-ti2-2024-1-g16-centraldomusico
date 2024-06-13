@@ -60,11 +60,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 fetchMembers(data.id); // Refresh members list
                 //adicione o id da banda no localstorage
                 console.log('DATA: ',data);
+                const usuario = JSON.parse(localStorage.getItem('usuario'));
+                //setar o atributo bandaNome
+                usuario.bandaNome = nomeBanda;
+                console.log('BANDA DO USUARIO: ',usuario.bandaNome);
+
+                //salvar objeto no local storage
+                localStorage.setItem('usuario', JSON.stringify(usuario));
                 localStorage.setItem('bandaId', bandaId);
                 //f5
                 location.reload(true);
                 //colocar alert de bem vindo com nome da banda
                 alert('Bem vindo(a) a banda: ' + nomeBanda);
+                //atualizar o localstorage
+
             })
             .catch(error => {
                 console.error('Erro ao entrar na banda:', error);
@@ -100,6 +109,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 feedbackMessage.style.color = 'green';
                 //limpar o localstorage
                 localStorage.removeItem('bandaId');
+                //atualizar o localstorage
+                const usuario = JSON.parse(localStorage.getItem('usuario'));
+                console.log('BANDA DO USUARIO: ',usuario.bandaNome);
+                //setar o atributo bandaNome
+                usuario.bandaNome = 'Sem banda';
+                //salvar objeto no local storage
+                localStorage.setItem('usuario', JSON.stringify(usuario));
                 fetchMembers(data.id); // Refresh members list 
                 //f5
                 location.reload(true);
@@ -135,18 +151,36 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             const membersContainer = document.getElementById('members-container');
-            membersContainer.innerHTML = '';
+            membersContainer.innerHTML = ''; // Limpa o conteúdo atual do container de membros
+    
             data.forEach(member => {
                 const memberElement = document.createElement('div');
                 memberElement.className = 'member';
+    
+                let profileImageUrl = '/Codigo/CodigosFrontEnd/perfil/assets/css/TemplateFotoPerfil.png'; // Caminho para a imagem padrão
+    
+                if (member.profileImage && member.profileImage.length > 0) {
+                    const byteArray = new Uint8Array(member.profileImage);
+                    const blob = new Blob([byteArray], { type: 'image/jpeg' }); // Ajuste o tipo conforme necessário
+                    profileImageUrl = URL.createObjectURL(blob);
+                }
+    
+                // Constrói o HTML do membro, incluindo a imagem de perfil
                 memberElement.innerHTML = `
-                    Nome: ${member.nome}<br>
-                    Instrumentos: 
-                    ${member.instrumento1 || ''} 
-                    ${member.instrumento2 ? ', ' + member.instrumento2 : ''} 
-                    ${member.instrumento3 ? ', ' + member.instrumento3 : ''}
+                    <div class="member-info">
+                        <img src="${profileImageUrl}" alt="Foto de Perfil">
+                        <div>
+                            <p>Nome: ${member.nome}</p>
+                            <p>Instrumentos: 
+                                ${member.instrumento1 || ''} 
+                                ${member.instrumento2 ? ', ' + member.instrumento2 : ''} 
+                                ${member.instrumento3 ? ', ' + member.instrumento3 : ''}
+                            </p>
+                        </div>
+                    </div>
                 `;
-                membersContainer.appendChild(memberElement);
+                
+                membersContainer.appendChild(memberElement); // Adiciona o elemento de membro ao container
             });
         })
         .catch(error => {

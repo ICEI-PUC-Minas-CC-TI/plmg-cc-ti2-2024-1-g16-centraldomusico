@@ -45,7 +45,7 @@ public class BandaDAO extends DAO {
 	public List<Musico> getBandaMembers(int bandaId) {
 		List<Musico> membros = new ArrayList<>();
 		try {
-			String sql = "SELECT m.id, m.nome, m.instrumento1, m.instrumento2, m.instrumento3 " +
+			String sql = "SELECT m.id, m.nome, m.instrumento1, m.instrumento2, m.instrumento3, m.profile_image " +
 						 "FROM musico m " +
 						 "JOIN bandamusico bm ON m.id = bm.musico_id " +
 						 "WHERE bm.banda_id = ?";
@@ -59,6 +59,12 @@ public class BandaDAO extends DAO {
 				musico.setInstrumento1(rs.getString("instrumento1"));
 				musico.setInstrumento2(rs.getString("instrumento2"));
 				musico.setInstrumento3(rs.getString("instrumento3"));
+				
+				// Verifica se profile_image não é null antes de atribuir
+				if (rs.getObject("profile_image") != null) {
+					musico.setProfileImage(rs.getBytes("profile_image"));
+				}
+	
 				membros.add(musico);
 			}
 			rs.close();
@@ -68,6 +74,7 @@ public class BandaDAO extends DAO {
 		}
 		return membros;
 	}
+	
 	public boolean isUserInBand(int bandaId, int musicoId) {
 		boolean isInBand = false;
 		try {
