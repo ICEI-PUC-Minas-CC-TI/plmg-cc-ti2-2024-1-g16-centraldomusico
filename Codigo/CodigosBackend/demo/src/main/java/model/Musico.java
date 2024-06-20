@@ -11,6 +11,7 @@ public class Musico {
     private String instrumento3;
     private String objetivo;
     private String estilo;
+    private String telefone;
     private byte[] profileImage;
 
     public Musico(){
@@ -53,6 +54,30 @@ public class Musico {
         this.estilo = estilo;
         this.profileImage = imagem;
     }
+    public Musico(int id, String nome, String descricao, String senha, float cache, String instrumento1, 
+    String instrumento2, String instrumento3, String objetivo, String estilo, byte[] imagem,String telefone) {
+        System.out.println("--------------------");
+        System.out.println("PARAMETROS DO CONSTRUTORl: "+id+" "+nome+" "+descricao+" "+senha+" "+cache+" "+instrumento1+" "+instrumento2+" "+instrumento3+" "+objetivo+" "+estilo+" "+imagem+" "+telefone);
+        System.out.println("--------------------");
+this.id = id;
+this.nome = nome;
+this.descricao = descricao;
+this.senha = senha;
+this.cache = cache;
+this.instrumento1 = instrumento1;
+this.instrumento2 = instrumento2;
+this.instrumento3 = instrumento3;
+this.objetivo = objetivo;
+this.estilo = estilo;
+this.profileImage = imagem;
+this.telefone = telefone;
+}
+    public String getTelefone() {
+        return telefone;
+    }
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+}
     public byte[] getProfileImage() {
         return profileImage;
     }

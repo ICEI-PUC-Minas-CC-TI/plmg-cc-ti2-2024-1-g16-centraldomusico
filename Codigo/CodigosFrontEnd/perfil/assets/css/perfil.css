@@ -13,7 +13,9 @@ body {
     background-image: linear-gradient(#0d101b, #281a2d);
     overflow-x: hidden;
 }
-
+#verificado {
+    margin-bottom: 4vh;
+}
 .sidebar {
     font-family: 'Roboto', sans-serif;
     position: fixed;
@@ -79,7 +81,14 @@ body {
     width: 100%;
     margin-top: 20px;
 }
+.fotodeperfil{
+    margin-top: 20px;
+    width: 250px;
+    height: 250px;
+    border-radius: 5%;
+    margin-right: 10px;
 
+}
 .sidebar .src input {
     position: absolute;
     height: 100%;
@@ -167,8 +176,8 @@ body {
     top: 0;
     transform: translate(-45%, -50%);
     border-radius: 10px;
-    height: 35px;
-    width: 130px;
+    min-height: 35px;
+    min-width: 130px;
     background: #ffffff;
     line-height: 35px;
     text-align: center;
@@ -180,7 +189,6 @@ body {
     opacity: 0;
     transition: all .5s ease;
 }
-
 .sidebar.active li .tooltip {
     display: none;
 }
@@ -297,29 +305,111 @@ body {
 }
 
 .foto-perfil {
-    max-height: 200px;
-    max-width: 200px;
+    height: 250px;
+    width: 250px;
+    object-fit: cover; /* Isso garante que a imagem preencha o espaço sem distorcer */
+    border-radius: 10%; /* Isso dá uma borda arredondada, opcional */
 }
-
+.paginatitleh2{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+.containernome{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    gap: 200px;
+    width: 20%;
+}
+#nome{
+    margin-left: 16px;
+}
 .nome-container {
-    max-height: 40px;
-    min-height: 40px;
+    max-height: 10px;
+    min-height: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-size: xx-large;
     margin-bottom: 20px;
 }
+.divtelefone{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0;
 
+}
+.edit-button{
+    margin-top: 20px;
+    background-color: #af2747;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.save-button{
+    margin-top: 20px;
+    background-color: #af2747;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.logout-button{
+    margin-top: 20px;
+    background-color: #ff6600;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.logout-button:hover{
+    background-color: #d00404;
+    transition: 0.5s;
+}
+.delete-button{
+    margin-top: 20px;
+    background-color: #ff1100;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.delete-button:hover{
+    background-color: #8f0404;
+    transition: 0.5s;
+}
+.edit-button:hover{
+    background-color: #ff8800;
+    transition: 0.5s;
+}
+.save-button:hover{
+    background-color: #ff8800;
+    transition: 0.5s;
+}
+.telefoneFoto{
+    width: 30px;
+
+    margin-right: 10px;
+}
 .descricao-container {
-    max-height: 150px;
-    min-height: 150px;
+    max-height: 100px;
+    min-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     margin-bottom: 20px;
 }
-
+#imgver{
+    width: 250px;
+}
 .descricao-container-aux {
     font-size: larger;
     margin-bottom: 15px;
@@ -385,6 +475,8 @@ body {
     flex-direction: row;
     justify-content: flex-end;
     margin-right: 50px;
+    gap: 16px;
+    margin-bottom: 20px;
 }
 
 .logout-button {

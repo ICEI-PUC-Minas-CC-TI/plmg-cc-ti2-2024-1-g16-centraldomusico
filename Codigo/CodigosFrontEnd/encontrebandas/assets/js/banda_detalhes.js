@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nomeBanda = params.get('nomeBanda');
     const joinButton = document.getElementById('join-band-button');
     const leaveButton = document.getElementById('leave-band-button');
+    const deleteButton = document.getElementById('delete-band-button');
     const feedbackMessage = document.getElementById('feedback-message');
     const userId = localStorage.getItem('id'); // Pegando o ID do usuário armazenado no localStorage
     const token = localStorage.getItem('token');
@@ -68,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 //salvar objeto no local storage
                 localStorage.setItem('usuario', JSON.stringify(usuario));
                 localStorage.setItem('bandaId', bandaId);
+                localStorage.setItem('bandaNomeUser', nomeBanda);
                 //f5
                 location.reload(true);
                 //colocar alert de bem vindo com nome da banda
@@ -87,7 +89,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         leaveButton.addEventListener('click', function() {
-            //popup pedindo para o usuario confirmar a saida da banda
+
+            var idBanda = parseInt(localStorage.getItem('bandaId'));
+            console.log(typeof idBanda);
+            console.log(typeof bandaId);
+            if (idBanda !== bandaId) {
+                alert('Você não está nesta banda.');
+                return;
+            }
+
             if (!confirm('Tem certeza que deseja sair da banda?')) {
                 return;
             }
@@ -126,7 +136,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 feedbackMessage.style.color = 'red';
             });
         });
-
+        deleteButton.addEventListener('click', function() {
+            var idBanda = parseInt(localStorage.getItem('bandaId'));
+            if (idBanda !== bandaId) {
+                alert('Você não está nesta banda.');
+                return;
+            }
+            deleteBand();
+        });
         fetchMembers(data.id);
     })
     .catch(error => {
@@ -164,10 +181,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     const blob = new Blob([byteArray], { type: 'image/jpeg' }); // Ajuste o tipo conforme necessário
                     profileImageUrl = URL.createObjectURL(blob);
                 }
-    
-                // Constrói o HTML do membro, incluindo a imagem de perfil
+                //printar membro
+                console.log('MEMBRO: ',member);
+                // Constrói o HTML do membro, incluindo a imagem de perfil e envolvendo em uma ancora que leva ao perfil do músico
                 memberElement.innerHTML = `
                     <div class="member-info">
+                        <a href="/Codigo/CodigosFrontEnd/perfil/perfilExterno.html?id=${member.id}&instrumento1=${member.instrumento1}&instrumento2=${member.instrumento2}&instrumento3=${member.instrumento3}" style="text-decoration: none; color: inherit;">
                         <img src="${profileImageUrl}" alt="Foto de Perfil">
                         <div>
                             <p>Nome: ${member.nome}</p>
@@ -177,6 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 ${member.instrumento3 ? ', ' + member.instrumento3 : ''}
                             </p>
                         </div>
+                        </a>
                     </div>
                 `;
                 
@@ -191,3 +211,49 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+//funcao para deletar banda, vai pedir a senha da banda, se a senha estiver correta, perguntará ao usuario se ele tem certeza que deseja deletar a banda
+//a funcao mandará na requisicao o id da banda e a senha da banda
+function deleteBand() {
+    if (!confirm('Tem certeza que deseja deletar a banda?')) {
+        return;
+    }    
+    const senha = prompt('Digite a senha da banda para confirmar a exclusão:');
+
+    if (!senha) {
+        return;
+    }
+
+    const bandaId = localStorage.getItem('bandaId');
+    const userId = localStorage.getItem('id');
+
+    fetch('http://localhost:6789/banda/delete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ bandaId, musicoId: userId, senha })
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.text().then(text => { throw new Error(text); });
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert(data.message);
+        localStorage.removeItem('bandaId');
+        //atualizar o localstorage
+        const usuario = JSON.parse(localStorage.getItem('usuario'));
+        console.log('BANDA DO USUARIO: ',usuario.bandaNome);
+        //setar o atributo bandaNome
+        usuario.bandaNome = 'Sem banda';
+        //salvar objeto no local storage
+        localStorage.setItem('usuario', JSON.stringify(usuario));
+        window.location.href = '/Codigo/CodigosFrontEnd/bandas/bandas.html';
+    })
+    .catch(error => {
+        console.error('Erro ao deletar banda:', error);
+        alert('Erro ao deletar banda. Tente novamente.');
+    });
+}

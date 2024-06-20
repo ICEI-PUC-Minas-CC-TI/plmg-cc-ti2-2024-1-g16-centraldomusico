@@ -12,7 +12,19 @@ body{
     width: 100%;
     background-image: linear-gradient(#0d101b,#281a2d);
 }
-
+.logout-button{
+    margin-top: 20px;
+    background-color: #ff1100;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.logout-button:hover{
+    background-color: #8f0404;
+    transition: 0.5s;
+}
 .sidebar{
     font-family: "Poppins", sans-serif;
     position: fixed;

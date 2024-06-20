@@ -2,6 +2,7 @@ package dao;
 
 import model.Musico;
 
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,12 +52,29 @@ public class MusicoDAO extends DAO {
         }
         return musico;
     }
+    //metodo que recebe um nome e verifica se ja existe um musico com esse nome
+    public boolean checkNomeMusico(String username) {
+        boolean status = false;
+        try {
+            String sql = "SELECT * FROM musico WHERE nome = ?";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                System.out.println("Nome de usuario ja existe");
+                status = true;
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException e) {
+            System.err.println("Erro ao checar nome de usuario (DAO): " + e.getMessage());
+        }
+        return status;
+    }
 
     public boolean insert(Musico musico) {
         boolean status = false;
         try {
-            // Encrypt the password using MD5
-            //printar musico
             System.out.println("MUSICO: "+musico);
             //printar todos os atributos do musico
             System.out.println("NOME: "+musico.getNome());
@@ -69,11 +87,12 @@ public class MusicoDAO extends DAO {
             System.out.println("OBJETIVO: "+musico.getObjetivo());
             System.out.println("ESTILO: "+musico.getEstilo());
             System.out.println("PROFILE_IMAGE: "+musico.getProfileImage());
+            System.out.println("TELEFONE: "+musico.getTelefone());
 
             String encryptedPassword = encryptPassword(musico.getSenha());
     
-            String sql = "INSERT INTO musico (nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo, profile_image) "
-                       + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO musico (nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo, profile_image,telefone) "
+                       + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement st = conexao.prepareStatement(sql);
             st.setString(1, musico.getNome());
             st.setString(2, musico.getDescricao());
@@ -85,6 +104,7 @@ public class MusicoDAO extends DAO {
             st.setString(8, musico.getObjetivo());
             st.setString(9, musico.getEstilo());
             st.setBytes(10, musico.getProfileImage()); // Set the image as a byte array
+            st.setString(11, musico.getTelefone());
             st.executeUpdate();
             st.close();
             status = true;
@@ -133,6 +153,61 @@ public class MusicoDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+    //funcao para cadastrar instrumento na tabela 'verifica', ela tem colunas nomeinstrumento foto e musico_id
+    public boolean cadastrarInstrumento(String nomeInstrumento, byte[] foto, int musico_id) {
+        boolean status = false;
+        try {
+            String sql = "INSERT INTO verifica (nomeinstrumento, imagem, musico_id) VALUES (?, ?, ?)";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            st.setString(1, nomeInstrumento);
+            st.setBytes(2, foto);
+            st.setInt(3, musico_id);
+            st.executeUpdate();
+            st.close();
+            status = true;
+        } catch (SQLException e) {
+            System.err.println("Erro ao cadastrar instrumento (DAO): " + e.getMessage());
+        }
+        return status;
+    }
+
+    //funcao para buscar instrumentos do musico, vai receber o id do musico e retornar uma lista de instrumentos e suas respectivas imagens
+    public List<String> buscarInstrumentos(int musico_id) {
+        List<String> instrumentos = new ArrayList<String>();
+        try {
+            String sql = "SELECT nomeinstrumento FROM verifica WHERE musico_id = ?";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            st.setInt(1, musico_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                instrumentos.add(rs.getString("nomeinstrumento"));
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar instrumentos (DAO): " + e.getMessage());
+        }
+        return instrumentos;
+    }
+    //funcao para buscar imagens dos instrumentos do musico, vai receber o id do musico e retornar uma lista de imagens
+    public List<byte[]> buscarImagensInstrumentos(int musico_id) {
+        List<byte[]> imagens = new ArrayList<byte[]>();
+        try {
+            String sql = "SELECT imagem FROM verifica WHERE musico_id = ?";
+            PreparedStatement st = conexao.prepareStatement(sql);
+            st.setInt(1, musico_id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                imagens.add(rs.getBytes("imagem"));
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar imagens dos instrumentos (DAO): " + e.getMessage());
+        }
+        return imagens;
+    }
+
 
     //funcao para checar se o musico tem uma banda
     public String checkBanda(int id) {
@@ -195,7 +270,8 @@ public class MusicoDAO extends DAO {
                     rs.getString("instrumento3"),
                     rs.getString("objetivo"),
                     rs.getString("estilo"),
-                    rs.getBytes("profile_image")
+                    rs.getBytes("profile_image"),
+                    rs.getString("telefone")
                 );
             }
             rs.close();
@@ -336,15 +412,47 @@ public class MusicoDAO extends DAO {
         return id;
     }
 
-    public boolean delete(int id) {
+    //metodo para deletar musico, vai receber o id do musico e a senha, caso a senha esteja correta o musico sera deletado
+    public boolean delete(int id, String senha) {
         boolean status = false;
+        //criptografar a senha fornecida pelo usuario
+        System.out.println("SENHA ANTES DE CRIPTOGRAFAR: "+senha);
+        String encryptedPassword = encryptPassword(senha);
         try {
-            Statement st = conexao.createStatement();
-            st.executeUpdate("DELETE FROM musico WHERE id = " + id);
-            st.close();
-            status = true;
-        } catch (SQLException u) {  
-            throw new RuntimeException(u);
+            //checar senha no banco de dados
+            Musico musico = get(id);
+            if (musico != null) {
+                if (musico.getSenha().equals(encryptedPassword)) {
+                    //remover musico das tabelas das quais ele faz parte
+                    int bandaId = getBandaIdByMusicoId(id);
+                    if (bandaId != -1) {
+                        String sql = "DELETE FROM bandamusico WHERE musico_id = ?";
+                        PreparedStatement st = conexao.prepareStatement(sql);
+                        st.setInt(1, id);
+                        st.executeUpdate();
+                        st.close();
+                    }
+                    //deletar musico da tabela verifica
+                    String sql2 = "DELETE FROM verifica WHERE musico_id = ?";
+                    PreparedStatement st2 = conexao.prepareStatement(sql2);
+                    st2.setInt(1, id);
+                    st2.executeUpdate();
+                    st2.close();
+                    //deletar musico da tabela musico
+                    String sql = "DELETE FROM musico WHERE id = ?";
+                    PreparedStatement st = conexao.prepareStatement(sql);
+                    st.setInt(1, id);
+                    st.executeUpdate();
+                    st.close();
+                    status = true;
+                } else {
+                    System.out.println("Senha incorreta");
+                }
+            } else {
+                System.out.println("Musico nao encontrado");
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao deletar musico (DAO): " + e.getMessage());
         }
         return status;
     }

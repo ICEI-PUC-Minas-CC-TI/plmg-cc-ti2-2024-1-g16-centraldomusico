@@ -4,6 +4,8 @@ import dao.MusicoDAO;
 import model.Musico;
 import spark.Request;
 import spark.Response;
+
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.commons.fileupload.FileItem;
@@ -11,6 +13,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import app.Aplicacao;
+
+import java.util.ArrayList;
 import java.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -30,6 +34,7 @@ public class MusicoService {
 
     public Object insert(Request req, Response res) {
         try {
+
             DiskFileItemFactory factory = new DiskFileItemFactory();
             ServletFileUpload upload = new ServletFileUpload(factory);
             List<FileItem> items = upload.parseRequest(req.raw());
@@ -46,6 +51,7 @@ public class MusicoService {
             String instrumento3 = null;
             String objetivo = null;
             String estilo = null;
+            String telefone = null;
             byte[] profileImage = null;
     
             for (FileItem item : items) {
@@ -55,6 +61,10 @@ public class MusicoService {
                     switch (fieldName) {
                         case "nome":
                             nome = fieldValue;
+                            if (musicoDAO.checkNomeMusico(nome)) {
+                                res.status(400); // HTTP 400 Bad Request
+                                return "{\"message\":\"Já existe um músico com o nome " + nome + ".\"}";
+                            }
                             break;
                         case "descricao":
                             descricao = fieldValue;
@@ -80,6 +90,9 @@ public class MusicoService {
                         case "estilo":
                             estilo = fieldValue;
                             break;
+                        case "telefone":
+                            telefone = fieldValue;
+                            break;
                     }
                 } else if ("fotoPerfil".equals(item.getFieldName())) { // Ajustado para "fotoPerfil"
                     //printar o item
@@ -101,7 +114,7 @@ public class MusicoService {
                 }
             }
     
-            Musico musico = new Musico(0, nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo, profileImage);
+            Musico musico = new Musico(0, nome, descricao, senha, cache, instrumento1, instrumento2, instrumento3, objetivo, estilo, profileImage, telefone);
             System.out.println("Profile Image Length: " + (profileImage != null ? profileImage.length : "null"));
 
             if (musicoDAO.insert(musico)) {
@@ -139,6 +152,102 @@ public class MusicoService {
         }
     }
 
+    //cadastrar instrumento e jogar na tabela 'verifica', a funcao vai receber via requisicao o id do musico, o nome do instrumento e a foto do instrumento
+    public Object cadastrarInstrumento(Request req, Response res) {
+        try {
+            DiskFileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            List<FileItem> items = upload.parseRequest(req.raw());
+            //printar cada item
+            for (FileItem item : items) {
+                System.out.println("Item: " + item);
+            }
+            int id = 0;
+            String instrumento = null;
+            byte[] fotoInstrumento = null;
+    
+            for (FileItem item : items) {
+                if (item.isFormField()) {
+                    String fieldName = item.getFieldName();
+                    String fieldValue = item.getString("UTF-8");
+                    switch (fieldName) {
+                        case "id":
+                            id = Integer.parseInt(fieldValue);
+                            break;
+                        case "instrumento":
+                            instrumento = fieldValue;
+                            break;
+                    }
+                } else if ("foto".equals(item.getFieldName())) { // Ajustado para "fotoInstrumento"
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    InputStream inputStream = item.getInputStream();
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    fotoInstrumento = outputStream.toByteArray();
+                    System.out.println("Foto Instrumento Length: " + fotoInstrumento.length);
+                }
+            }
+    
+            if (musicoDAO.cadastrarInstrumento(instrumento, fotoInstrumento,id )) {
+                res.status(201); // HTTP 201 Created
+                JsonObject responseJson = new JsonObject();
+                responseJson.addProperty("message", "Instrumento inserido com sucesso!");
+                return responseJson;
+            } else {
+                res.status(500); // HTTP 500 Internal Server Error
+                JsonObject responseJson = new JsonObject();
+                responseJson.addProperty("message", "Erro ao inserir instrumento.");
+                return responseJson;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.status(500); // HTTP 500 Internal Server Error
+            return "Erro ao inserir instrumento: " + e.getMessage();
+        }
+    }
+    //funcao para pegar os instrumentos do musico, vai mandar o id do musico e retornar uma lista de strings com os instrumentos
+    public Object getInstrumentos(Request req, Response res) {
+        int id = Integer.parseInt(req.queryParams("id"));
+        List<String> instrumentos = musicoDAO.buscarInstrumentos(id);
+        if (instrumentos != null) {
+            System.out.println("Instrumentos encontrados: " + instrumentos);
+            res.status(200); // HTTP 200 OK
+            
+            Gson gson = new Gson();
+            String instrumentosJson = gson.toJson(instrumentos);
+            
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("instrumentos", instrumentosJson);
+            
+            return responseJson.toString();
+        } else {
+            System.out.println("Instrumentos não encontrados");
+            res.status(404); // HTTP 404 Not Found
+            return "Instrumentos não encontrados";
+        }
+    }
+    //funcao para pegar as imagens dos instrumentos do musico, vai mandar o id do musico e retornar uma lista de imagens
+    public Object getImagensInstrumentos(Request req, Response res) {
+        int id = Integer.parseInt(req.queryParams("id"));
+        List<byte[]> imagens = musicoDAO.buscarImagensInstrumentos(id);
+        if (imagens != null) {
+            System.out.println("Imagens encontradas: " + imagens);
+            res.status(200); // HTTP 200 OK
+            JsonObject responseJson = new JsonObject();
+            responseJson.addProperty("imagens", imagens.toString());
+            return responseJson.toString();
+        } else {
+            System.out.println("Imagens não encontradas");
+            res.status(404); // HTTP 404 Not Found
+            return "Imagens não encontradas";
+        }
+    }
+
+
+
     public Object getById(Request req, Response res) {
         String idParam = req.queryParams("id");
         System.out.println("ID: " + idParam);
@@ -167,7 +276,7 @@ public class MusicoService {
                     responseJson.addProperty("estilo", musico.getEstilo());
                     responseJson.addProperty("bandaNome", bandaNome);
                     responseJson.addProperty("bandaId", bandaId);
-    
+                    responseJson.addProperty("telefone", musico.getTelefone());
                     if (musico.getProfileImage() != null) {
                         String base64Image = Base64.getEncoder().encodeToString(musico.getProfileImage());
                         responseJson.addProperty("profileImage", base64Image);
@@ -344,15 +453,31 @@ public class MusicoService {
         }
     }
 
+    //funcao para deletar o musico, vai receber o id do musico, a senha e deletar o musico caso a senha esteja correta
     public Object delete(Request req, Response res) {
-        int id = Integer.parseInt(req.queryParams("id"));
+        String idParam = req.queryParams("id");
+        String senhaParam = req.queryParams("senha");
+        System.out.println("ID: " + idParam + ", Senha: " + senhaParam);
 
-        if (musicoDAO.delete(id)) {
-            res.status(200); // HTTP 200 OK
-            return "Músico deletado com sucesso!";
+        if (idParam != null && senhaParam != null) {
+            try {
+                int id = Integer.parseInt(idParam);
+                if (musicoDAO.delete(id, senhaParam)) {
+                    res.status(200); // HTTP 200 OK
+                    return "{\"message\":\"Músico deletado com sucesso!\"}";
+                } else {
+                    res.status(401); // HTTP 401 Unauthorized
+                    return "{\"message\":\"Senha incorreta.\"}";
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("ID inválido.");
+                res.status(400); // HTTP 400 Bad Request
+                return "{\"message\":\"ID inválido.\"}";
+            }
         } else {
-            res.status(500); // HTTP 500 Internal Server Error
-            return "Erro ao deletar músico.";
+            System.out.println("Parâmetros de ID e senha ausentes.");
+            res.status(400); // HTTP 400 Bad Request
+            return "{\"message\":\"Parâmetros de ID e senha ausentes.\"}";
         }
     }
 }

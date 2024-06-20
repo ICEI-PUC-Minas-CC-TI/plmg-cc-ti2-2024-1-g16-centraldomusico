@@ -37,7 +37,7 @@
         }
         #leave-band-button{
             margin-top: 20px;
-            background-color: #ff1100;
+            background-color: #ff5100;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -45,6 +45,19 @@
             cursor: pointer;
         }
         #leave-band-button:hover{
+            background-color: #703d02;
+            transition: 0.5s;
+        }
+        #delete-band-button{
+            margin-top: 20px;
+            background-color: #ff1100;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #delete-band-button:hover{
             background-color: #8f0404;
             transition: 0.5s;
         }
@@ -117,7 +130,7 @@
             </li>
             <li>
                 <a href="/Codigo/CodigosFrontEnd/chat/confirmacao.html">
-                    <i class='bx bxs-conversation'></i>
+                    <i class='bx bxs-check-shield'></i>
                     <span class="link_name">Confirme seus Instrumentos</span>
                 </a>
                 <span class="tooltip"> Confirme seus Instrumentos</span>
@@ -150,6 +163,7 @@
             <div class="buttons">
                 <button id="join-band-button">Entrar na Banda</button>
                 <button id="leave-band-button">Sair da Banda</button>
+                <button id="delete-band-button">Deletar Banda</button>
             </div>
         </div>
 
