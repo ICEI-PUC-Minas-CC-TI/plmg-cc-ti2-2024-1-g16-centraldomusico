@@ -8,11 +8,16 @@
 
 body {
     position: relative;
+    /*altura que se adequa conforme vai aumentando os elementos*/
     min-height: 100vh;
     width: 100%;
     background-image: linear-gradient(#0d101b, #281a2d);
+    /*mudar tamanho do background-image*/
+    background-size: cover;
+    background-attachment: fixed;
     font-family: "Poppins", sans-serif; /* Adiciona a fonte Poppins */
     overflow-x: hidden;
+    
 }
 .sidebar{
     font-family: "Poppins", sans-serif;
