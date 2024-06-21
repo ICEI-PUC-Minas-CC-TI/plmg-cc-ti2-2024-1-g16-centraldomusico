@@ -2,26 +2,24 @@ cff-version: 1.0.1
 message: Please cite this software using these metadata.
 title: Central Do Musico
 authors:
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names:
+  - family-names: Octavio Xavier Messias
+    given-names: Arthur
+  - family-names: Gonzaga Ferreira Silva
+    given-names: Júlio César
+  - family-names: Souza Lopes
+    given-names: Luis Felipe
+  - family-names: Lanna Tinocco
+    given-names: Pedro
+  - family-names: Pires
+    given-names: Breno
   - name-suffix: Professor
     affiliation: PUC Minas
-    family-names: 
-    given-names: 
+    family-names: de Oliveira Capanema
+    given-names: Daniel
   - name-suffix: Professor
     affiliation: PUC Minas
-    family-names: 
-    given-names: 
+    family-names: Vieira Carneiro
+    given-names: Rommel
 keywords:
   - Musica
   - Encontro de musicos
