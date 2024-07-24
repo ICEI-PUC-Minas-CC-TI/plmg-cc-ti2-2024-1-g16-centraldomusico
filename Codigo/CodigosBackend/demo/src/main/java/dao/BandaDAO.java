@@ -3,6 +3,8 @@ package dao;
 import model.Banda;
 import model.Musico;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,7 +47,7 @@ public class BandaDAO extends DAO {
 	public List<Musico> getBandaMembers(int bandaId) {
 		List<Musico> membros = new ArrayList<>();
 		try {
-			String sql = "SELECT m.id, m.nome, m.instrumento1, m.instrumento2, m.instrumento3 " +
+			String sql = "SELECT m.id, m.nome, m.instrumento1, m.instrumento2, m.instrumento3, m.profile_image " +
 						 "FROM musico m " +
 						 "JOIN bandamusico bm ON m.id = bm.musico_id " +
 						 "WHERE bm.banda_id = ?";
@@ -59,6 +61,12 @@ public class BandaDAO extends DAO {
 				musico.setInstrumento1(rs.getString("instrumento1"));
 				musico.setInstrumento2(rs.getString("instrumento2"));
 				musico.setInstrumento3(rs.getString("instrumento3"));
+				
+				// Verifica se profile_image não é null antes de atribuir
+				if (rs.getObject("profile_image") != null) {
+					musico.setProfileImage(rs.getBytes("profile_image"));
+				}
+	
 				membros.add(musico);
 			}
 			rs.close();
@@ -68,6 +76,7 @@ public class BandaDAO extends DAO {
 		}
 		return membros;
 	}
+	
 	public boolean isUserInBand(int bandaId, int musicoId) {
 		boolean isInBand = false;
 		try {
@@ -150,16 +159,31 @@ public class BandaDAO extends DAO {
 		// se der certo, pegamos os membros da banda
 		return banda;
 	}
-
+    private String encryptPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(password.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : messageDigest) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 	public boolean insert(Banda banda) {
 		boolean status = false;
+		String encryptedPassword = encryptPassword(banda.getSenha());
+
 		try {
             String sql = "INSERT INTO banda (nome, descricao, senha, cache, datacriacao , objetivo, estilo) "
                        + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement st = conexao.prepareStatement(sql);
+			
 			st.setString(1, banda.getNome());
 			st.setString(2, banda.getDescricao());
-			st.setString(3, banda.getSenha());
+			st.setString(3, encryptedPassword);
 			st.setFloat(4, banda.getCache());
 			st.setTimestamp(5, Timestamp.valueOf(banda.getDataCriacaoTimestamp()));
 			st.setString(6, banda.getObjetivo());
@@ -275,11 +299,17 @@ public class BandaDAO extends DAO {
 		return status;
 	}
 	
-	public boolean delete(int id) {
+	//funcao para deletar banda, vai receber o id da banda e a senha dela, caso a senha esteja correta a banda sera deletada
+	public boolean delete(int id, String senha) {
 		boolean status = false;
+		//criptografa a senha para comparar com a senha do banco
+		String encryptedPassword = encryptPassword(senha);
 		try {  
-			Statement st = conexao.createStatement();
-			st.executeUpdate("DELETE FROM banda WHERE id = " + id);
+			String sql = "DELETE FROM banda WHERE id = ? AND senha = ?";
+			PreparedStatement st = conexao.prepareStatement(sql);
+			st.setInt(1, id);
+			st.setString(2, encryptedPassword);
+			st.executeUpdate();
 			st.close();
 			status = true;
 		} catch (SQLException u) {  

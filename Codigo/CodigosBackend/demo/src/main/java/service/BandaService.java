@@ -150,14 +150,16 @@ public class BandaService {
         }
     }
 
+    //metodo para deletar banda, vai receber o id da banda e a senha dela, caso a senha esteja correta a banda sera deletada
     public String delete(Request request, Response response){
         String str = request.body();
-        Gson gson = new Gson();
-        Banda banda = gson.fromJson(str, Banda.class);
-        if(bandaDAO.delete(banda.getID()) == true){
+        JsonObject json = JsonParser.parseString(str).getAsJsonObject();
+        int id = json.get("id").getAsInt();
+        String senha = json.get("senha").getAsString();
+        if(bandaDAO.delete(id, senha) == true){
             return "Banda deletada!";
         }else{
-            return "Erro no delete!";
+            return "Erro ao deletar banda!";
         }
     }
     public String update(Request request, Response response){

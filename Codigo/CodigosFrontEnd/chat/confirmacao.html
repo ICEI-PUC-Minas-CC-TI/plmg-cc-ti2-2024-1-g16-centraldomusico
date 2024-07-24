@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/Codigo/CodigosFrontEnd/chat/assets/css/confirmacao.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo_content">
+            <div class="logo">
+                <img src="/Codigo/CodigosFrontEnd/telainicial/assets/css/Logo.png" alt="Sua Logo">
+                <div class="logo_name"> Central</div>
+            </div>
+            <i class='bx bx-menu' id='btn'></i>
+        </div>
+        <div class="src">
+            <i class='bx bx-search'></i>
+            <input type="text" placeholder="Search...">
+        </div>
+        <ul class="nav">
+            <li>
+                <a href="/Codigo/CodigosFrontEnd/encontrebandas/encontrebandas.html">
+                    <i class='bx bxs-music'></i>
+                    <span class="link_name">Encontre Bandas</span>
+                </a>
+                <span class="tooltip"> Encontre Bandas</span>
+            </li>
+            <li>
+                <a href="/Codigo/CodigosFrontEnd/cadastrodebanda/redirecionar.html">
+                    <i class='bx bxs-guitar-amp' ></i>
+                    <span class="link_name">Cadastre sua Banda</span>
+                </a>
+                <span class="tooltip"> Sua Banda</span>
+            </li>
+            <li>
+                <a href="/Codigo/CodigosFrontEnd/cadastroanuncio/cadAnunicioupdate.html">
+                    <i class='bx bx-slideshow'></i>
+                    <span class="link_name">Cadastre seu Anúncio</span>
+                </a>
+                <span class="tooltip"> Seu Anúncio</span>
+            </li>
+
+            <li>
+                <a href="/Codigo/CodigosFrontEnd/informaçãoanuncio/anuncio.html">
+                    <i class='bx bxs-party'></i>
+                    <span class="link_name"> Anúncios</span>
+                </a>
+                <span class="tooltip"> Anúncios</span>
+            </li>
+            <li>
+                <a href="/Codigo/CodigosFrontEnd/agenda/novaagenda.html">
+                    <i class='bx bx-calendar'></i>
+                    <span class="link_name"> Agenda</span>
+                </a>
+                <span class="tooltip"> Agenda</span>
+            </li>
+            <li>
+                <a href="/Codigo/CodigosFrontEnd/chat/confirmacao.html">
+                    <i class='bx bxs-check-shield'></i>
+                    <span class="link_name">Confirme seus Instrumentos</span>
+                </a>
+                <span class="tooltip"> Confirme seus Instrumentos</span>
+            </li>
+            <li>
+                <a href="/Codigo/CodigosFrontEnd/perfil/perfil.html">
+                    <i class='bx bxs-user'></i>
+                    <span class="link_name">Perfil</span>
+                </a>
+                <span class="tooltip"> Perfil</span>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <img src="/Codigo/CodigosFrontEnd/telainicial/assets/css/Logo.png" alt="Sua Logo">
+            </div>
+            <div class="welcome">
+                Central do Músico
+            </div>
+            <ul>
+                <li><a href="/Codigo/CodigosFrontEnd/telainicial/Updateinicial.html">Menu</a></li>
+                <li><a href="/Codigo/CodigosFrontEnd/Login/novologin.html" id ="loginbotao">Login</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="busca-instrumentos-container">
+        <div class="texto-title-container">
+            <div class="texto-title">
+                Envie sua Foto de Confirmação de Instrumento
+            </div>
+        </div>
+        <form id="imginstrumento">
+            <div class="img-preview-container">
+                <div class="img-preview">
+                    <img src="/Codigo/CodigosFrontEnd/chat/assets/img/guitar.png" alt="" class="img" id="preview">
+                </div>
+            </div>
+            <div class="img-input-container">
+                <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" onchange="previewImage(event)">
+                <button type="submit" class="img-input-button">Enviar Foto</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- JS do Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="assets/js/script.js"></script>
+    <script>
+        
+        function previewImage(event) {
+            const preview = document.getElementById('preview');
+            const reader = new FileReader();
+            reader.onload = function() {
+                if (reader.readyState === 2) {
+                    preview.src = reader.result;
+                    preview.style.display = 'block';
+                }
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+        const predictionKey = '7a74e928ed2a4dcb87a8676ca0f2a0db';
+        const endpoint = 'https://ti2reconhecimentofacial.cognitiveservices.azure.com';
+        const projectId = '7faff063-f449-4349-8ffc-f99442a067cb';
+        const publishIterationName = "Iteration6";
+        document.getElementById('imginstrumento').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const fileInput = document.getElementById('fotoPerfil');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                console.error("Nenhum arquivo selecionado.");
+                return;
+            }
+            try {
+                const imageData = await readFileAsArrayBuffer(file);
+                await classifyImage(imageData);
+            } catch (error) {
+                console.error("Erro ao processar a imagem:", error);
+            }
+        });
+        async function readFileAsArrayBuffer(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+                reader.readAsArrayBuffer(file);
+            });
+        }
+        async function classifyImage(imageData) {
+    const url = `${endpoint}/customvision/v3.0/Prediction/${projectId}/detect/iterations/${publishIterationName}/image`;
+    const headers = {
+        'Prediction-Key': predictionKey,
+        'Content-Type': 'application/octet-stream'
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: imageData
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log("Resultados:");
+
+        let maxProbability = 0;
+        let maxTag = '';
+
+        data.predictions.forEach(prediction => {
+            console.log(`${prediction.tagName}: ${(prediction.probability * 100).toFixed(2)}%`);
+
+            if (prediction.probability > maxProbability) {
+                maxProbability = prediction.probability;
+                maxTag = prediction.tagName;
+            }
+        });
+
+        console.log(`Tag com maior probabilidade: ${maxTag}`);
+        alert(`Instrumento reconhecido, o seu instrumento: ${maxTag} será registrado a sua conta!`)
+        console.log(`Probabilidade: ${(maxProbability * 100).toFixed(2)}%`);
+        //mandar para o backend via fetch, requisicao POST, enviar o nome do instrumento, afoto e o id do usuario
+        var id = localStorage.getItem('id');
+        const formData = new FormData();
+        var fotoP = document.getElementById('fotoPerfil').files[0]
+        formData.append('instrumento', maxTag);
+        formData.append('id', id); // Verifique como você está obtendo o valor de id
+        formData.append('foto', fotoP);
+        fetch('http://localhost:6789/usuario/instrumento', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            console.log('Resposta do servidor:', data);
+        })
+        .catch(error => {
+            console.error('Erro durante a requisição fetch:', error);
+        });
+
+    } catch (error) {
+        console.error("Erro ao classificar imagem:", error);
+    }
+}
+    </script>
+</body>
+</html>

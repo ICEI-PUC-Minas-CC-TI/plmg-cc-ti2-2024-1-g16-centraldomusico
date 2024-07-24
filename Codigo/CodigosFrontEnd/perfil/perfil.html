@@ -63,11 +63,11 @@
                 <span class="tooltip"> Agenda</span>
             </li>
             <li>
-                <a href="/Codigo/CodigosFrontEnd/chat/chat2.html">
-                    <i class='bx bxs-conversation'></i>
-                    <span class="link_name">Chat</span>
+                <a href="/Codigo/CodigosFrontEnd/chat/confirmacao.html">
+                    <i class='bx bxs-check-shield'></i>                    
+                    <span class="link_name">Confirme seus Instrumentos</span>
                 </a>
-                <span class="tooltip"> Chat</span>
+                <span class="tooltip"> Confirme seus Instrumentos</span>
             </li>
             <li>
                 <a href="/Codigo/CodigosFrontEnd/perfil/perfil.html">
@@ -96,19 +96,75 @@
     <div class="perfil-container">
         <div class="perfil" id="perfilCard">
             <div id="msgError" style="color: red;"></div>
-            <div class="foto-perfil-container">
-                <h2>Perfil do Músico</h2>
-                <img src="/Codigo/CodigosFrontEnd/perfil/assets/css/TemplateFotoPerfil.png" alt="" class="foto-perfil">
+                <h2 class="paginatitleh2">Perfil do Músico</h2>
+
+
+            <div class="containernome">
+                <div class="nomebox">
+                    <img id="fotoPerfil" src="/Codigo/CodigosFrontEnd/perfil/assets/css/TemplateFotoPerfil.png" alt="" class="foto-perfil">
+
+                    <input type="file" id="inputFotoPerfil" accept="image/*" style="display: none">
+                </div>
+                <div class="outrosbox">
+                    <p class="nome-container"><strong><span id="nome"></span></p></strong>
+
+                    <div class="divtelefone">     
+                        <img src="/Codigo/CodigosFrontEnd/perfil/assets/img/telefone.png" alt="telefone" class="telefoneFoto">           
+                        <span id="telefone" class="descricao"></span>              
+                    </div>
+                    <div id="verificado"></div>
+
+                </div>
+
             </div>
-            <p class="nome-container"><strong><span id="nome"></span></p></strong>
                 <p class="descricao-container"><strong class="descricao-container-aux">Descrição:</strong> <span id="descricao" class="descricao"></span></p>
+
                 <div class="cache-instrumentos-container">
                     <p class="cache-container"><strong>Cache:</strong> <span id="cache" class="cache"></span></p>
                     <p class="instrumento-container"><strong>Instrumento 1:</strong> <span id="instrumento1"></span></p>
-                    <p class="instrumento-container"><strong>Instrumento 2:</strong> <span id="instrumento2"></span></p>
+                    <select name="instrumento1SELECT" id="instrumento1SELECT" style="display: none;">
+                        <option value="Violao">Violao</option>
+                        <option value="Baixo">Baixo</option>
+                        <option value="Bateria">Bateria</option>
+                        <option value="Guitarra">Guitarra</option>
+                        <option value="Ukulele">Ukulele</option>
+                        <option value="Piano">Piano</option>
+                        <option value="Saxofone">Saxofone</option>
+                        <option value="Flauta">Flauta</option>
+                        <option value="Teclado">Teclado</option>
+                        <option value="Violino">Violino</option>
+                        <option value="Pandeiro">Pandeiro</option>
+                    </select>
+                    <p class="instrumento-container"><strong>Instrumento 2:</strong> <span id="instrumento2" ></span></p>
+                    <select name="instrumento2SELECT" id="instrumento2SELECT" style="display: none;">
+                        <option value="Violao">Violao</option>
+                        <option value="Baixo">Baixo</option>
+                        <option value="Bateria">Bateria</option>
+                        <option value="Guitarra">Guitarra</option>
+                        <option value="Ukulele">Ukulele</option>
+                        <option value="Piano">Piano</option>
+                        <option value="Saxofone">Saxofone</option>
+                        <option value="Flauta">Flauta</option>
+                        <option value="Teclado">Teclado</option>
+                        <option value="Violino">Violino</option>
+                        <option value="Pandeiro">Pandeiro</option>
+                    </select>
                     <p class="instrumento-container"><strong>Instrumento 3:</strong> <span id="instrumento3"></span></p>
-                </div>
+                    <select name="instrumento3SELECT" id="instrumento3SELECT" style="display: none;">
+                        <option value="Violao">Violao</option>
+                        <option value="Baixo">Baixo</option>
+                        <option value="Bateria">Bateria</option>
+                        <option value="Guitarra">Guitarra</option>
+                        <option value="Ukulele">Ukulele</option>
+                        <option value="Piano">Piano</option>
+                        <option value="Saxofone">Saxofone</option>
+                        <option value="Flauta">Flauta</option>
+                        <option value="Teclado">Teclado</option>
+                        <option value="Violino">Violino</option>
+                        <option value="Pandeiro">Pandeiro</option>
+                    </select>
 
+                </div>
                 <p class="objetivo-container"><strong>Objetivo:</strong> <span id="objetivo"></span></p>
                 <p class="estilo-container"><strong>Estilo:</strong> <span id="estilo"></span></p>
                 <p class="banda-container"><strong>Banda:</strong> <span id="banda"></span></p>
@@ -119,9 +175,9 @@
     <div class="logout-container">
         <!--botao de logout com id para linkar no js-->
         <button id="logout" onclick="logout()" class="logout-button">Logout</button>
-        <button id="salvar" onclick = "salvar()"class="logout-button" style="display: none;">Salvar</button>
-        <button id="editar" onclick="editarPerfil()" class="logout-button">Editar Perfil</button>
-
+        <button id="salvar" onclick = "salvar()"class="save-button" style="display: none;">Salvar</button>
+        <button id="editar" onclick="editarPerfil()" class="edit-button">Editar Perfil</button>
+        <button id="excluir" onclick="excluirPerfil()" class="delete-button">Excluir Perfil</button>
     </div>
 
 

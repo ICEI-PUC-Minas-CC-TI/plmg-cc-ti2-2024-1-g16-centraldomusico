@@ -78,11 +78,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return response.json();
     }).then(data => {
+        //armazenar todos os inscritos no local storage
+        localStorage.setItem('inscritos', JSON.stringify(data));
         const inscritosContainer = document.getElementById('inscritos-container');
         inscritosContainer.innerHTML = '';
         data.forEach(inscrito => {
             const inscritoElement = document.createElement('div');
-            
+            //adicionar todas as bandas inscritas no local storage
             inscritoElement.className = 'inscrito';
             console.log('Inscrito:', inscrito);
             inscritoElement.innerHTML = `
@@ -102,10 +104,23 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('bandaId:', bandaId);
     desinscreverButton = document.getElementById('desinscrever-button');
     desinscreverButton.addEventListener('click', function() {
+        //checar se a banda está inscrita
         //mensagem de confirmação
+
+        var bandaNome = localStorage.getItem('bandaNomeUser');
+        var bandasInscritas = JSON.parse(localStorage.getItem('inscritos'));
+        var bandaInscrita = bandasInscritas.find(banda => banda.nomeBanda === bandaNome);
+        console.log('bandaNome:', bandaNome);
+        console.log('bandaInscrita:', bandaInscrita);
+        console.log('bandasInscritas:', bandasInscritas);
+        if (!bandaInscrita) {
+            alert('Banda não inscrita.');
+            return;
+        }
         if (!confirm('Deseja realmente desinscrever a banda?')) {
             return;
         }
+        
         fetch('http://localhost:6789/casa/desinscreverBanda', {
             method: 'POST',
             headers: {

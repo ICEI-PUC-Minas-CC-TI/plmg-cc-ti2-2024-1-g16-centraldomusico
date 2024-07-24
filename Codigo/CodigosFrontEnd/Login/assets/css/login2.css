@@ -169,14 +169,14 @@ body{
     pointer-events: auto;
 }
 
-.sidebar ul li .tooltip{
+.sidebar ul li .tooltip {
     position: absolute;
-    left: 130px ;
+    left: 130px;
     top: 0;
     transform: translate(-45%, -50%);
     border-radius: 10px;
-    height: 35px;
-    width: 130px;
+    min-height: 35px;
+    min-width: 130px;
     background: #ffffff;
     line-height: 35px;
     text-align: center;
@@ -184,10 +184,9 @@ body{
     display: block;
     color: #242424;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-   pointer-events: none;
+    pointer-events: none;
     opacity: 0;
     transition: all .5s ease;
-    
 }
 
 .sidebar.active li .tooltip

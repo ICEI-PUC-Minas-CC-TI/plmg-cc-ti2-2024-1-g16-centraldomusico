@@ -1,6 +1,11 @@
-function entrar() {
+function entrar(event) {
+    event.preventDefault(); // Impede o envio padrão do formulário
+    
     var usuario = document.getElementById('login').value;
     var senha = document.getElementById('senha').value;
+    
+    console.log('Usuário:', usuario);
+    console.log('Senha:', senha);
 
     fetch(`http://localhost:6789/usuario/get?usuario=${usuario}&senha=${senha}`, {
         method: 'GET',
@@ -24,6 +29,7 @@ function entrar() {
     })
     .catch(error => {
         console.error('Erro ao fazer login:', error);
+        console.log('Resposta do servidor:', error);
         document.getElementById('msgError').textContent = 'Usuário ou senha incorretos. Tente novamente.';
         alert('Usuário ou senha incorretos. Tente novamente.');
     });

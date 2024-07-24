@@ -46,10 +46,14 @@ public class Aplicacao {
 
         
         // Rotas para Musico
+        get("/usuario/getNomeInstrumentos", (request, response) -> musicoService.getInstrumentos(request, response));
+        get("/instrumento/get", (request, response) -> musicoService.getImagensInstrumentos(request, response));
+        post("/usuario/instrumento",(request,response) -> musicoService.cadastrarInstrumento(request,response));
         post("/usuario/insert", (request, response) -> musicoService.insert(request, response));
         get("/usuario/get/perfil", (request, response) -> musicoService.getById(request, response));
         get("/usuario/get", (request, response) -> musicoService.get(request, response));
         put("/usuario/update", (request, response) -> musicoService.update(request, response));
+        post("/usuario/update", (request, response) -> musicoService.update(request, response));
         delete("/usuario/delete", (request, response) -> musicoService.delete(request, response));
         get("/usuario/checkBanda", (request, response) -> musicoService.checkBanda(request, response));
 
